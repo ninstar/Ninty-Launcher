@@ -17,14 +17,14 @@ Programmed in GML, Ninty is a launcher based on the Nintendo Switch interface to
 
 ### Credits
 
-**Program & Designa**
+**Program & Design:**
 *Mario Silva (Nin★Gamer)*
 
-**Logo**
+**Logo:**
 *Biel98765*
 
-**Thumbnails**
+**Thumbnails:**
 *AlphaFenix, Arklem, Braguetta, Bruno Gomes, Igorsales73, KakoSan, Luis Felipe*
 
-**Extensions**
+**Extensions:**
 *Samuel Venable (FMNS), Aouab (DiscordRPC)*
