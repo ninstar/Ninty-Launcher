@@ -825,13 +825,13 @@ for(gp_count = 0; gp_count &lt; 5; gp_count += 1){
     if(gamepad_is_connected(gp_count))
     &amp;&amp;(dialog == 0){
          
-        //Up
+        //Up - Fim da lista
         if(gamepad_button_check(gp_count,gp_padu))
             keyboard_key_press(vk_up);
         else if(gamepad_button_check_released(gp_count,gp_padu))
             keyboard_key_release(vk_up);
             
-        //Down
+        //Down - Começo da lista
         if(gamepad_button_check(gp_count,gp_padd))
             keyboard_key_press(vk_down);
         else if(gamepad_button_check_released(gp_count,gp_padd))
@@ -859,7 +859,7 @@ for(gp_count = 0; gp_count &lt; 5; gp_count += 1){
         else if(gamepad_button_check_released(gp_count,gp_shoulderr))
            keyboard_key_release(vk_right);
 
-        //X, Y e Select - Move
+        //X, Y e Select - Mover
         if(gamepad_button_check_pressed(gp_count,gp_face1))
             keyboard_key_press(vk_shift);
         else if(gamepad_button_check_released(gp_count,gp_face1))
@@ -875,7 +875,7 @@ for(gp_count = 0; gp_count &lt; 5; gp_count += 1){
         else if(gamepad_button_check_released(gp_count,gp_select))
             keyboard_key_release(vk_shift);
                             
-        //A, B e Start - Enter
+        //A, B e Start - Iniciar
         if(gamepad_button_check_pressed(gp_count,gp_face2))
             keyboard_key_press(vk_enter);
         else if(gamepad_button_check_released(gp_count,gp_face2))

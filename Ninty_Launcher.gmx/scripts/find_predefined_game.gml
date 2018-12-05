@@ -174,24 +174,12 @@ case("SuperMario64New.exe"): case("Super Mario 64 Remake.exe"): case("SM64 Remak
 //New Super Mario Forever
 case("SMForever-2016-08-12.exe"): case("New Super Mario Forever.exe"): games_title[argument1] = "New Super Mario Forever"; return assets_dir+"assets\fangame_nsmf.png"; break;
 
-//New Super Mario Forever
-case("SMForever-2016-08-12.exe"): case("New Super Mario Forever.exe"): games_title[argument1] = "New Super Mario Forever"; return assets_dir+"assets\fangame_nsmf.png"; break;
-
 //Super Mario 64 (Unity)
-case("SM64HD 1.4.exe.exe"): case("Super Mario 64 Unity.exe"): case("Super Mario 64 Fan Remake.exe"): case("SM64 Unity.exe"): case("Super Mario 64 Unreal.exe"): case("SM64 Unreal.exe"): games_title[argument1] = "Super Mario 64 (Unity)"; return assets_dir+"assets\fangame_sm64unity.png"; break;
+case("SM64HD 1.4.exe.exe"): case("Super Mario 64 Unity.exe"): case("Super Mario 64 Fan Remake.exe"): case("SM64 Unity.exe"):  games_title[argument1] = "Super Mario 64 (Unity)"; return assets_dir+"assets\fangame_sm64unity.png"; break;
 
 //Normal Super Mario Bros. 3
 case("NSMB3v2.exe"): case("NSMB3.exe"): case("Normal Super Mario Bros. 3.exe"): case("Normal SMB3.exe"): games_title[argument1] = "Normal Super Mario Bros. 3"; return assets_dir+"assets\fangame_normalsmb3.png"; break;
 
-
-//Template
-//case(""): case(""): games_title[argument1] = ""; return assets_dir+"assets\fangame_.png"; break;
-
-//Template
-//case(""): case(""): games_title[argument1] = ""; return assets_dir+"assets\fangame_.png"; break;
-
-//Template
-//case(""): case(""): games_title[argument1] = ""; return assets_dir+"assets\fangame_.png"; break;
 
 //FERRAMENTAS ----------------------------------
 
@@ -236,9 +224,6 @@ case("GameMakerStudio.exe"): case("GMS2.exe"): case(""): games_title[argument1] 
 
 //Net64+
 case("Net64+.exe"): case("Net64.exe"): case("Super Mario 64 Multiplayer.exe"): case("Super Mario 64 Online.exe"): case("SM64 Online.exe"): games_title[argument1] = "Net64+"; return assets_dir+"assets\fangame_net64.png"; break;
-
-//Template
-//case(""): case(""): games_title[argument1] = ""; return assets_dir+"assets\fangame_.png"; break;
 
 //EMULADORES ----------------------------------
 
