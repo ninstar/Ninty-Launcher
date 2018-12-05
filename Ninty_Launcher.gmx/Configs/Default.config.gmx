@@ -494,7 +494,7 @@
     <option_version_copyright></option_version_copyright>
     <option_version_description></option_version_description>
     <option_version_major>1</option_version_major>
-    <option_version_minor>2</option_version_minor>
+    <option_version_minor>3</option_version_minor>
     <option_version_product></option_version_product>
     <option_version_release>0</option_version_release>
     <option_win8_advertising_appid></option_win8_advertising_appid>
@@ -577,7 +577,7 @@
     <option_windows_enable_steam>0</option_windows_enable_steam>
     <option_windows_game_icon>Configs\Default\windows\runner_icon.ico</option_windows_game_icon>
     <option_windows_license>Configs\Default\windows\License.txt</option_windows_license>
-    <option_windows_mainor_version>2</option_windows_mainor_version>
+    <option_windows_mainor_version>3</option_windows_mainor_version>
     <option_windows_major_version>1</option_windows_major_version>
     <option_windows_nsis_file>Configs\Default\windows\RunnerInstaller.nsi</option_windows_nsis_file>
     <option_windows_product_info></option_windows_product_info>

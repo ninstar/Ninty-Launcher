@@ -130,7 +130,6 @@
     <sprite>sprites\spr_launcher_selector</sprite>
     <sprite>sprites\spr_launcher_about</sprite>
     <sprite>sprites\spr_launcher_information</sprite>
-    <sprite>sprites\sprite15</sprite>
   </sprites>
   <backgrounds name="background">
     <background>background\bgr_dark</background>

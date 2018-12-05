@@ -310,8 +310,9 @@ if(wpp != ""){
     if(sprite_exists(wallpaper))
         sprite_delete(wallpaper);
  
-    //Deletar arquivo antigo  
+    //Deletar arquivo antigo
     file_delete_fmns(game_save_id+"wallpaper.png");
+    file_delete_fmns(game_save_id+"wallpaper.ini");
     
     //Copiar
     file_copy_fmns(string_copy(wpp,1,string_length(wpp)-4)+".ini",game_save_id+"wallpaper.ini");
@@ -320,6 +321,7 @@ if(wpp != ""){
     ini_open(game_save_id+"wallpaper.ini");
     wallpaper_tiled = real(ini_read_string("NINTY_WALLPAPER","tiled","1"));
     wallpaper_stretched = real(ini_read_string("NINTY_WALLPAPER","stretched","0"));
+    wallpaper_smooth = real(ini_read_string("NINTY_WALLPAPER","smooth","1"));
     wallpaper_h_offset = real(ini_read_string("NINTY_WALLPAPER","horizontal_offset","0"));
     wallpaper_v_offset = real(ini_read_string("NINTY_WALLPAPER","vertical_offset","0"));
     wallpaper_h_scrolling = real(ini_read_string("NINTY_WALLPAPER","horizontal_scrolling","0"));
@@ -329,7 +331,7 @@ if(wpp != ""){
     ini_close();
       
     //Trocar
-    wallpaper = sprite_add(wpp,wallpaper_animframes,0,0,0,0);
+    wallpaper = sprite_add(wpp,wallpaper_animframes,0,wallpaper_smooth,0,0);
     file_copy_fmns(wpp,game_save_id+"wallpaper.png");
     
     //SFX
@@ -1359,6 +1361,7 @@ if(file_exists_fmns(game_save_id+"wallpaper.png"))
     ini_open(game_save_id+"wallpaper.ini")
     ini_write_string("NINTY_WALLPAPER","tiled",string(wallpaper_tiled));
     ini_write_string("NINTY_WALLPAPER","stretched",string(wallpaper_stretched));
+    ini_write_string("NINTY_WALLPAPER","smooth",string(wallpaper_smooth));
     ini_write_string("NINTY_WALLPAPER","horizontal_offset",string(wallpaper_h_offset));
     ini_write_string("NINTY_WALLPAPER","vertical_offset",string(wallpaper_v_offset));
     ini_write_string("NINTY_WALLPAPER","horizontal_scrolling",string(wallpaper_h_scrolling));
@@ -1399,7 +1402,7 @@ discord_free_dll();
           <argument>
             <kind>1</kind>
             <string>///Carregar definições
-assets_dir = game_save_id;//working_directory;
+assets_dir = working_directory;
 
 //Menor que 1080p
 if(display_get_width() &lt; 1920-8){
@@ -1429,6 +1432,7 @@ alarm[3] = 2;
 ini_open(game_save_id+"wallpaper.ini")
 wallpaper_tiled = real(ini_read_string("NINTY_WALLPAPER","tiled","1"));
 wallpaper_stretched = real(ini_read_string("NINTY_WALLPAPER","stretched","0"));
+wallpaper_smooth = real(ini_read_string("NINTY_WALLPAPER","smooth","1"));
 wallpaper_h_offset = real(ini_read_string("NINTY_WALLPAPER","horizontal_offset","0"));
 wallpaper_v_offset = real(ini_read_string("NINTY_WALLPAPER","vertical_offset","0"));
 wallpaper_h_scrolling = real(ini_read_string("NINTY_WALLPAPER","horizontal_scrolling","0"));
