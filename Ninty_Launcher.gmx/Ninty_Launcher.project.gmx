@@ -5,23 +5,6 @@
   </Configs>
   <datafiles number="119" name="datafiles">
     <datafile>
-      <name>default.tbn</name>
-      <exists>-1</exists>
-      <size>2686</size>
-      <exportAction>2</exportAction>
-      <exportDir></exportDir>
-      <overwrite>0</overwrite>
-      <freeData>-1</freeData>
-      <removeEnd>0</removeEnd>
-      <store>0</store>
-      <ConfigOptions>
-        <Config name="Default">
-          <CopyToMask>9223372036854775807</CopyToMask>
-        </Config>
-      </ConfigOptions>
-      <filename>default.tbn</filename>
-    </datafile>
-    <datafile>
       <name>filemng.dll</name>
       <exists>-1</exists>
       <size>1959424</size>
@@ -147,6 +130,7 @@
     <sprite>sprites\spr_launcher_selector</sprite>
     <sprite>sprites\spr_launcher_about</sprite>
     <sprite>sprites\spr_launcher_information</sprite>
+    <sprite>sprites\sprite15</sprite>
   </sprites>
   <backgrounds name="background">
     <background>background\bgr_dark</background>
@@ -184,6 +168,9 @@
     <script>scripts\ExecuteShell.gml</script>
     <script>scripts\audio_play_sfx.gml</script>
     <script>scripts\find_predefined_game.gml</script>
+    <script>scripts\script24.gml</script>
+    <script>scripts\get_anim_frames.gml</script>
+    <script>scripts\get_anim_speed.gml</script>
   </scripts>
   <fonts name="fonts">
     <font>fonts\fnt_clock</font>
