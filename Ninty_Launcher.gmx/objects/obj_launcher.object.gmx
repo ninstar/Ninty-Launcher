@@ -312,27 +312,22 @@ if(wpp != ""){
  
     //Deletar arquivo antigo  
     file_delete_fmns(game_save_id+"wallpaper.png");
-   
-    //Customização
-    var wpp_ini = string_copy(filename_name(wpp),1,string_length(filename_name(wpp))-4)+".ini";
-    if(file_exists_fmns(wpp_ini)){
     
-        //Carregar configuração do Wallpaper
-        ini_open(wpp_ini);
-        wallpaper_tiled = real(ini_read_string("NINTY_WALLPAPER","tiled","1"));
-        wallpaper_stretched = real(ini_read_string("NINTY_WALLPAPER","stretched","0"));
-        wallpaper_h_offset = real(ini_read_string("NINTY_WALLPAPER","horizontal_offset","0"));
-        wallpaper_v_offset = real(ini_read_string("NINTY_WALLPAPER","vertical_offset","0"));
-        wallpaper_h_scrolling = real(ini_read_string("NINTY_WALLPAPER","horizontal_scrolling","0"));
-        wallpaper_v_scrolling = real(ini_read_string("NINTY_WALLPAPER","vertical_scrolling","0"));
-        wallpaper_animframes = real(ini_read_string("NINTY_WALLPAPER","animframes","1"));
-        wallpaper_animspeed = real(ini_read_string("NINTY_WALLPAPER","animspeed","0"));
-        ini_close();
-    
-        //Copiar
-        file_copy_fmns(wpp_ini,game_save_id+"wallpaper.ini");
-    };
-  
+    //Copiar
+    file_copy_fmns(string_copy(wpp,1,string_length(wpp)-4)+".ini",game_save_id+"wallpaper.ini");
+
+    //Carregar configuração do Wallpaper
+    ini_open(game_save_id+"wallpaper.ini");
+    wallpaper_tiled = real(ini_read_string("NINTY_WALLPAPER","tiled","1"));
+    wallpaper_stretched = real(ini_read_string("NINTY_WALLPAPER","stretched","0"));
+    wallpaper_h_offset = real(ini_read_string("NINTY_WALLPAPER","horizontal_offset","0"));
+    wallpaper_v_offset = real(ini_read_string("NINTY_WALLPAPER","vertical_offset","0"));
+    wallpaper_h_scrolling = real(ini_read_string("NINTY_WALLPAPER","horizontal_scrolling","0"));
+    wallpaper_v_scrolling = real(ini_read_string("NINTY_WALLPAPER","vertical_scrolling","0"));
+    wallpaper_animframes = real(ini_read_string("NINTY_WALLPAPER","animframes","1"));
+    wallpaper_animspeed = real(ini_read_string("NINTY_WALLPAPER","animspeed","0"));
+    ini_close();
+      
     //Trocar
     wallpaper = sprite_add(wpp,wallpaper_animframes,0,0,0,0);
     file_copy_fmns(wpp,game_save_id+"wallpaper.png");
@@ -374,7 +369,7 @@ window_set_fullscreen(fullscreen);
 var file = get_open_filename("Game Executable (.EXE)|*.exe","");
 if(file != ""){
 
-    var thumb = find_predefined_game(filename_name(file),games_total);
+    var thumb = find_predefined_game(file,games_total);
     
     //Checar se existe miniatura predefinida...
     if(thumb == ""){
@@ -779,27 +774,47 @@ if(dialog == 1){
         exit;
     };
     
-    //SFX de tecla
-    if(keyboard_check_pressed(vk_anykey))
-        audio_play_sfx(snd_keyboard);
+    //Clipboard
+    if(keyboard_check(vk_control)){
     
-    //Trocar caracteres inválidos
-    if(keyboard_check(vk_anykey)){
+        //Colar
+        if(keyboard_check_pressed(ord("V"))){
+        
+            audio_play_sfx(snd_keyboard);
+            keyboard_string = string_copy(clipboard_get_text(),0,32);
+            dialog_return = string_copy(clipboard_get_text(),0,32);
+        };
+        //Copiar
+        else if(keyboard_check_pressed(ord("C"))){
+        
+            audio_play_sfx(snd_keyboard);
+            clipboard_set_text(dialog_return);
+        };
+    };
+    else{
     
-        var stg_b,stg_1,stg_2,stg_3,stg_4,stg_5,stg_6,stg_7,stg_8,stg_9,stg_f;
-        stg_b = string_copy(keyboard_string,0,32);
-        stg_1 = string_replace(stg_b,"\","");
-        stg_2 = string_replace(stg_1,"/","");
-        stg_3 = string_replace(stg_2,":","");
-        stg_4 = string_replace(stg_3,"*","");
-        stg_5 = string_replace(stg_4,"?","");
-        stg_6 = string_replace(stg_5,"&lt;","");
-        stg_7 = string_replace(stg_6,"&gt;","");
-        stg_8 = string_replace(stg_7,'"',"");
-        stg_9 = string_replace(stg_8,'#',"");
-        stg_f = string_replace(stg_9,"'","");
-        keyboard_string = stg_f;
-        dialog_return = stg_f;
+        //SFX de tecla
+        if(keyboard_check_pressed(vk_anykey))
+            audio_play_sfx(snd_keyboard);
+        
+        //Trocar caracteres inválidos
+        if(keyboard_check(vk_anykey)){
+        
+            var stg_b,stg_1,stg_2,stg_3,stg_4,stg_5,stg_6,stg_7,stg_8,stg_9,stg_f;
+            stg_b = string_copy(keyboard_string,0,32);
+            stg_1 = string_replace(stg_b,"\","");
+            stg_2 = string_replace(stg_1,"/","");
+            stg_3 = string_replace(stg_2,":","");
+            stg_4 = string_replace(stg_3,"*","");
+            stg_5 = string_replace(stg_4,"?","");
+            stg_6 = string_replace(stg_5,"&lt;","");
+            stg_7 = string_replace(stg_6,"&gt;","");
+            stg_8 = string_replace(stg_7,'"',"");
+            stg_9 = string_replace(stg_8,'#',"");
+            stg_f = string_replace(stg_9,"'","");
+            keyboard_string = stg_f;
+            dialog_return = stg_f;
+        };
     };
         
     //Efeito
@@ -950,6 +965,7 @@ if(point_in_rectangle(mouse_x,mouse_y,230,30,230+46,30+56)){
             parental_unlock += 29;
     };
 };
+
 //---------------------
 
 //Retirar Popup de informações
@@ -1015,8 +1031,8 @@ if(mouse_check_button_released(mb_left))
 
             //Apagar apenas esse
             games_path[select_index] = "";
-            games_animframes[move_rest] = 1;
-            games_animspeed[move_rest] = 0
+            games_animframes[select_index] = 1;
+            games_animspeed[select_index] = 0
             
             //Decrementar
             audio_play_sfx(snd_alert);
@@ -1536,19 +1552,23 @@ if(sprite_exists(wallpaper)){
             anim_wallpaper += 1/wallpaper_animspeed;
         else
             anim_wallpaper = 0;
-    };    
+    };
+    
+    //Rolagem
+    wallpaper_h_offset += wallpaper_h_scrolling;
+    wallpaper_v_offset += wallpaper_v_scrolling;    
     
     //Esticado
     if(wallpaper_stretched == 1)
-        draw_sprite_stretched(wallpaper,anim_wallpaper,wallpaper_h_offset+wallpaper_h_scrolling,wallpaper_v_offset+wallpaper_v_scrolling,1280,720);
+        draw_sprite_stretched(wallpaper,anim_wallpaper,wallpaper_h_offset,wallpaper_v_offset,1280,720);
     else{
     
         //Tiled
         if(wallpaper_tiled == 1)
-            draw_sprite_tiled(wallpaper,anim_wallpaper,wallpaper_h_offset+wallpaper_h_scrolling,wallpaper_v_offset+wallpaper_v_scrolling);
+            draw_sprite_tiled(wallpaper,anim_wallpaper,wallpaper_h_offset,wallpaper_v_offset);
         //Normal
         else
-            draw_sprite(wallpaper,anim_wallpaper,wallpaper_h_offset+wallpaper_h_scrolling,wallpaper_v_offset+wallpaper_v_scrolling);        
+            draw_sprite(wallpaper,anim_wallpaper,wallpaper_h_offset,wallpaper_v_offset);        
     };
 };
 //------------- Base -------------

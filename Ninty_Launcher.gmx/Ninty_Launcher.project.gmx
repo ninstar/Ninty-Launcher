@@ -168,7 +168,6 @@
     <script>scripts\ExecuteShell.gml</script>
     <script>scripts\audio_play_sfx.gml</script>
     <script>scripts\find_predefined_game.gml</script>
-    <script>scripts\script24.gml</script>
     <script>scripts\get_anim_frames.gml</script>
     <script>scripts\get_anim_speed.gml</script>
   </scripts>
