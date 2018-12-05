@@ -1,6 +1,9 @@
 ///find_predefined_game(name,index)
 switch(argument0){
 
+//Template
+//case(""): case(""): games_title[argument1] = ""; return assets_dir+"assets\fangame_.png"; break;
+
 //FANGAMES ----------------------------------
 
 //Super Mario Bros. X
@@ -171,6 +174,25 @@ case("SuperMario64New.exe"): case("Super Mario 64 Remake.exe"): case("SM64 Remak
 //New Super Mario Forever
 case("SMForever-2016-08-12.exe"): case("New Super Mario Forever.exe"): games_title[argument1] = "New Super Mario Forever"; return assets_dir+"assets\fangame_nsmf.png"; break;
 
+//New Super Mario Forever
+case("SMForever-2016-08-12.exe"): case("New Super Mario Forever.exe"): games_title[argument1] = "New Super Mario Forever"; return assets_dir+"assets\fangame_nsmf.png"; break;
+
+//Super Mario 64 (Unity)
+case("SM64HD 1.4.exe.exe"): case("Super Mario 64 Unity.exe"): case("Super Mario 64 Fan Remake.exe"): case("SM64 Unity.exe"): case("Super Mario 64 Unreal.exe"): case("SM64 Unreal.exe"): games_title[argument1] = "Super Mario 64 (Unity)"; return assets_dir+"assets\fangame_sm64unity.png"; break;
+
+//Normal Super Mario Bros. 3
+case("NSMB3v2.exe"): case("NSMB3.exe"): case("Normal Super Mario Bros. 3.exe"): case("Normal SMB3.exe"): games_title[argument1] = "Normal Super Mario Bros. 3"; return assets_dir+"assets\fangame_normalsmb3.png"; break;
+
+
+//Template
+//case(""): case(""): games_title[argument1] = ""; return assets_dir+"assets\fangame_.png"; break;
+
+//Template
+//case(""): case(""): games_title[argument1] = ""; return assets_dir+"assets\fangame_.png"; break;
+
+//Template
+//case(""): case(""): games_title[argument1] = ""; return assets_dir+"assets\fangame_.png"; break;
+
 //FERRAMENTAS ----------------------------------
 
 //Aseprite
@@ -203,7 +225,19 @@ case("Smash Forge.exe"): case("Smash_Forge.exe"): games_title[argument1] = "Smas
 //SZS Tool
 case("Szs Tool.exe"): case("SZS Modifier.exe"): games_title[argument1] = "SZS Tool"; return assets_dir+"assets\tool_szs.png"; break;
 
-//
+//Super Mario Multiverse Editor (SFMB)
+case("Super Mario Multiverse Editor.exe"): case("SFMB Editor.exe"): case("Super Fan Made Mario Bros Editor.exe"): case("MarioEditor.exe"): games_title[argument1] = "Super Mario Multiverse (Editor)"; return assets_dir+"assets\tool_sfmbeditor.png"; break;
+
+//GameMaker: Studio 1.4
+case("GameMaker-Studio.exe"): case("GMS 1.4.exe"): case("5piceIDE.exe"): games_title[argument1] = "GameMaker: Studio"; return assets_dir+"assets\fangame_gms14.png"; break;
+
+//GameMaker Studio 2
+case("GameMakerStudio.exe"): case("GMS2.exe"): case(""): games_title[argument1] = "GameMaker Studio 2"; return assets_dir+"assets\fangame_gms2.png"; break;
+
+//Net64+
+case("Net64+.exe"): case("Net64.exe"): case("Super Mario 64 Multiplayer.exe"): case("Super Mario 64 Online.exe"): case("SM64 Online.exe"): games_title[argument1] = "Net64+"; return assets_dir+"assets\fangame_net64.png"; break;
+
+//Template
 //case(""): case(""): games_title[argument1] = ""; return assets_dir+"assets\fangame_.png"; break;
 
 //EMULADORES ----------------------------------

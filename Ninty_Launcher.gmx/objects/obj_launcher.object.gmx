@@ -346,7 +346,7 @@ if(file != ""){
             file_copy_fmns(thumb,game_save_id+"collection\game_"+string(games_total)+".png");
         };
         else
-            games_thumb[games_total] = sprite_add(assets_dir+"assets\undefined.png",0,0,0,0,0);
+            games_thumb[games_total] = sprite_add(assets_dir+"default.tbn",0,0,0,0,0);
         
         //SFX
         audio_play_sfx(snd_addgame_step2);
@@ -1113,7 +1113,8 @@ if(alarm[0] == -1)
 &amp;&amp;(games_total &gt; 0){
 
     //Mover jogo
-    if(keyboard_check_pressed(vk_shift)){
+    if(keyboard_check_pressed(vk_shift))
+    &amp;&amp;(move == 0){
     
         move = 1;
         move_origin = select_index;
@@ -1424,7 +1425,7 @@ for(i=0; i&lt;games_total; i+=1){
     if(file_exists(game_save_id+"collection\game_"+string(i)+".png"))
         games_thumb[i] = sprite_add(game_save_id+"collection\game_"+string(i)+".png",0,0,0,0,0);
     else
-        games_thumb[i] = sprite_add(assets_dir+"assets\undefined.png",0,0,0,0,0);
+        games_thumb[i] = sprite_add(assets_dir+"assets\default.tbn",0,0,0,0,0);
     ini_close();
 };
 

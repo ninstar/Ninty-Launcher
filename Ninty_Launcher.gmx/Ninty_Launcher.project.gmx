@@ -3,26 +3,24 @@
   <Configs name="configs">
     <Config>Configs\Default</Config>
   </Configs>
-  <datafiles number="118" name="datafiles">
-    <datafiles number="118" name="assets">
-      <datafile>
-        <name>undefined.png</name>
-        <exists>-1</exists>
-        <size>2686</size>
-        <exportAction>2</exportAction>
-        <exportDir></exportDir>
-        <overwrite>0</overwrite>
-        <freeData>-1</freeData>
-        <removeEnd>0</removeEnd>
-        <store>0</store>
-        <ConfigOptions>
-          <Config name="Default">
-            <CopyToMask>9223372036854775807</CopyToMask>
-          </Config>
-        </ConfigOptions>
-        <filename>undefined.png</filename>
-      </datafile>
-    </datafiles>
+  <datafiles number="119" name="datafiles">
+    <datafile>
+      <name>default.tbn</name>
+      <exists>-1</exists>
+      <size>2686</size>
+      <exportAction>2</exportAction>
+      <exportDir></exportDir>
+      <overwrite>0</overwrite>
+      <freeData>-1</freeData>
+      <removeEnd>0</removeEnd>
+      <store>0</store>
+      <ConfigOptions>
+        <Config name="Default">
+          <CopyToMask>9223372036854775807</CopyToMask>
+        </Config>
+      </ConfigOptions>
+      <filename>default.tbn</filename>
+    </datafile>
     <datafile>
       <name>filemng.dll</name>
       <exists>-1</exists>
@@ -186,7 +184,6 @@
     <script>scripts\ExecuteShell.gml</script>
     <script>scripts\audio_play_sfx.gml</script>
     <script>scripts\find_predefined_game.gml</script>
-    <script>scripts\Te.gml</script>
   </scripts>
   <fonts name="fonts">
     <font>fonts\fnt_clock</font>
