@@ -26,12 +26,17 @@
           <argument>
             <kind>1</kind>
             <string>///NNITY LAUNCHER
+image_speed = 0;
 is_playing = 0;
 nav_time = 60;
 offset = 98;
 offset_v = 32;
 info_popup = 0;
 boot_res = "/max ";
+
+//Animações
+wp_x = 0;
+wp_y = 0;
 
 //Mover
 move = 0;
@@ -120,6 +125,7 @@ else{
     games_animspeed[select_index] = move_temp_animspeed;
     games_playtime[select_index,0] = move_temp_playtime[0];
     games_playtime[select_index,1] = move_temp_playtime[1];
+    sprite_delete(games_thumb[select_index]);
     games_thumb[select_index] = sprite_duplicate(move_temp_thumbnail);
     
     //Corrigir nome
@@ -133,6 +139,9 @@ else{
     //Renomear
     file_rename_fmns(game_save_id+"collection\game_TMP.png",game_save_id+"collection\game_"+string(select_index)+".png");
     file_rename_fmns(game_save_id+"collection\game_TMP.ini",game_save_id+"collection\game_"+string(select_index)+".ini");
+
+    //Limpar
+    cleanmem();
 
     //SFX
     audio_play_sfx(snd_move_set);
@@ -174,6 +183,7 @@ if(move_rest &lt; games_total-1){
     games_animspeed[move_rest] = games_animspeed[move_rest+1];
     games_playtime[move_rest,0] = games_playtime[move_rest+1,0];
     games_playtime[move_rest,1] = games_playtime[move_rest+1,1];
+    sprite_delete(games_thumb[move_rest]);
     games_thumb[move_rest] = sprite_duplicate(games_thumb[move_rest+1]);
     file_rename_fmns(game_save_id+"collection\game_"+string(move_rest+1)+".png",game_save_id+"collection\game_"+string(move_rest)+".png");
     file_rename_fmns(game_save_id+"collection\game_"+string(move_rest+1)+".ini",game_save_id+"collection\game_"+string(move_rest)+".ini");
@@ -193,6 +203,9 @@ else{
     ini_open(game_save_id+"collection\_total.ini");
     ini_write_string("NINTY_ENTRY","total",string(games_total));
     ini_close();
+
+    //Limpar
+    cleanmem();
 
     //Atualizar RPC
     event_user(0);
@@ -224,7 +237,7 @@ else{
             <string>///Alterar miniatura do Jogo
 
 //Buscar caminho...
-var mod_file = get_open_filename("Game Executable (.EXE)|*.exe","");
+var mod_file = get_open_filename("Executable/Link|*.exe;*.url","");
 if(mod_file != ""){
 
     //SFX
@@ -264,7 +277,10 @@ if(mod_file != ""){
     ini_write_string("NINTY_ENTRY","animframes",string(games_animframes[select_index]));
     ini_write_string("NINTY_ENTRY","animspeed",string(games_animspeed[select_index]));
     ini_close();
-            
+    
+    //Limpar
+    cleanmem();
+                
     //Atualizar RPC
     event_user(0);
     
@@ -301,35 +317,36 @@ else{
             <kind>1</kind>
             <string>///Wallpaper
 var wpp = get_open_filename(".PNG/.JPG (1280x720)|*.png;*.jpg","");
+
+//Definir sem animação previamente
+wallpaper_animframes = 0;
+    
+//Deletar wallpaper do launcher
+if(sprite_exists(wallpaper))
+    sprite_delete(wallpaper);
+ 
+//Deletar arquivo antigo
+file_delete_fmns(game_save_id+"wallpaper.png");
+file_delete_fmns(game_save_id+"wallpaper.ini");
+    
+//Copiar
+file_copy_fmns(string_copy(wpp,1,string_length(wpp)-4)+".ini",game_save_id+"wallpaper.ini");
+
+//Carregar configuração do Wallpaper
+ini_open(game_save_id+"wallpaper.ini");
+wallpaper_tiled = real(ini_read_string("NINTY_WALLPAPER","tiled","1"));
+wallpaper_stretched = real(ini_read_string("NINTY_WALLPAPER","stretched","0"));
+wallpaper_smooth = real(ini_read_string("NINTY_WALLPAPER","smooth","1"));
+wallpaper_h_offset = real(ini_read_string("NINTY_WALLPAPER","horizontal_offset","0"));
+wallpaper_v_offset = real(ini_read_string("NINTY_WALLPAPER","vertical_offset","0"));
+wallpaper_h_scrolling = real(ini_read_string("NINTY_WALLPAPER","horizontal_scrolling","0"));
+wallpaper_v_scrolling = real(ini_read_string("NINTY_WALLPAPER","vertical_scrolling","0"));
+wallpaper_animframes = real(ini_read_string("NINTY_WALLPAPER","animframes","1"));
+wallpaper_animspeed = real(ini_read_string("NINTY_WALLPAPER","animspeed","0"));
+ini_close();
+      
 if(wpp != ""){
 
-    //Definir sem animação previamente
-    wallpaper_animframes = 0;
-    
-    //Deletar wallpaper do launcher
-    if(sprite_exists(wallpaper))
-        sprite_delete(wallpaper);
- 
-    //Deletar arquivo antigo
-    file_delete_fmns(game_save_id+"wallpaper.png");
-    file_delete_fmns(game_save_id+"wallpaper.ini");
-    
-    //Copiar
-    file_copy_fmns(string_copy(wpp,1,string_length(wpp)-4)+".ini",game_save_id+"wallpaper.ini");
-
-    //Carregar configuração do Wallpaper
-    ini_open(game_save_id+"wallpaper.ini");
-    wallpaper_tiled = real(ini_read_string("NINTY_WALLPAPER","tiled","1"));
-    wallpaper_stretched = real(ini_read_string("NINTY_WALLPAPER","stretched","0"));
-    wallpaper_smooth = real(ini_read_string("NINTY_WALLPAPER","smooth","1"));
-    wallpaper_h_offset = real(ini_read_string("NINTY_WALLPAPER","horizontal_offset","0"));
-    wallpaper_v_offset = real(ini_read_string("NINTY_WALLPAPER","vertical_offset","0"));
-    wallpaper_h_scrolling = real(ini_read_string("NINTY_WALLPAPER","horizontal_scrolling","0"));
-    wallpaper_v_scrolling = real(ini_read_string("NINTY_WALLPAPER","vertical_scrolling","0"));
-    wallpaper_animframes = real(ini_read_string("NINTY_WALLPAPER","animframes","1"));
-    wallpaper_animspeed = real(ini_read_string("NINTY_WALLPAPER","animspeed","0"));
-    ini_close();
-      
     //Trocar
     wallpaper = sprite_add(wpp,wallpaper_animframes,0,wallpaper_smooth,0,0);
     file_copy_fmns(wpp,game_save_id+"wallpaper.png");
@@ -341,6 +358,9 @@ if(wpp != ""){
 else
     audio_play_sfx(snd_alert);
 
+//Limpar
+cleanmem();
+    
 //Voltar fullscreen... (Se tiver sido definido antes)    
 window_set_fullscreen(fullscreen);
 </string>
@@ -368,7 +388,7 @@ window_set_fullscreen(fullscreen);
             <string>///Adicionar Jogo
 
 //Buscar caminho...
-var file = get_open_filename("Game Executable (.EXE)|*.exe","");
+var file = get_open_filename("Executable/Link|*.exe;*.url","");
 if(file != ""){
 
     var thumb = find_predefined_game(file,games_total);
@@ -452,6 +472,9 @@ if(file != ""){
     games_total++;
     select_index = games_total-1;
   
+    //Limpar
+    cleanmem();
+    
     //Atualizar RPC
     event_user(0);
     
@@ -564,7 +587,7 @@ if(fullscreen == 0){
     window_set_size(temp_w,temp_h);
     
     //Centralizar
-    alarm[3] = 2;
+    //alarm[3] = 2;
 };
 else
     window_set_position(-4000,-4000);
@@ -622,7 +645,7 @@ temp_h = window_get_height();
             <kind>1</kind>
             <string>///Retomar launcher
 is_playing = 0;
-display_set_ui_visibility(1);
+draw_enable_drawevent(1);
 
 ///Salvar tempo jogando
 games_playtime[select_index,0] = string(round(date_hour_span(time_start,date_current_datetime()))+real(games_playtime[select_index,0]));
@@ -634,6 +657,10 @@ ini_write_string("NINTY_ENTRY","0",base64_encode(games_playtime[select_index,0])
 ini_write_string("NINTY_ENTRY","1",base64_encode(games_playtime[select_index,1]));
 ini_close();
 
+//Reiniciar animações
+wp_x = 0;
+wp_y = 0;
+
 //SFX
 audio_play_sfx(snd_launcher_open);
 
@@ -642,6 +669,9 @@ alarm[4] = 2;
 
 //Deletar .BAT
 file_delete_fmns(game_save_id+"gameboot.bat");
+
+//Re-carregar assets (Lista, Thumbnails e Wallpaper)
+event_user(1);
 
 //Atualizar RPC
 event_user(0);
@@ -669,11 +699,14 @@ event_user(0);
             <kind>1</kind>
             <string>///Iniciar jogo
 
+//Descarregar assets (RAM)
+event_user(2);
+
 //Executar .BAT (E aguardar execução ser finalizada...)
 ExecuteShell('"'+game_save_id+'gameboot.bat"',1,1);
 
 //Após jogo finalizado...
-alarm[2] = 30;
+alarm[2] = 15;
 </string>
           </argument>
         </arguments>
@@ -698,7 +731,7 @@ alarm[2] = 30;
             <kind>1</kind>
             <string>///Preparar para iniciar jogo
 is_playing = 1;
-display_set_ui_visibility(0);
+draw_enable_drawevent(0);
 
 //Lembrar posição/tamanho
 if(fullscreen == 0){
@@ -759,6 +792,16 @@ if(is_playing == 1)
 ||(alarm[11] != -1)
     exit;
     
+//Mover janela
+if((mouse_check_button(mb_right))
+||(mouse_check_button(mb_middle)))
+&amp;&amp;!(window_get_fullscreen()){
+
+    window_set_position(display_mouse_get_x()-window_get_width()/2,display_mouse_get_y()-window_get_height()/2);
+    temp_x = window_get_x();
+    temp_y = window_get_y();
+};
+
 //Inserir texto
 if(dialog == 1){
 
@@ -915,6 +958,12 @@ for(gp_count = 0; gp_count &lt; 5; gp_count += 1){
         gp_count = 0;
 };
 
+//WASD
+keyboard_set_map(ord("W"),vk_up);
+keyboard_set_map(ord("A"),vk_left);
+keyboard_set_map(ord("S"),vk_down);
+keyboard_set_map(ord("D"),vk_right);
+
 //---------------------
 
 //Controle dos Pais
@@ -979,15 +1028,14 @@ if(info_popup == 1){
 };
 
 //Opções de Interface
-if(mouse_check_button_released(mb_left))
-||(mouse_check_button_released(mb_right)){
+if(mouse_check_button_released(mb_left)){
     
     //Fullscreen
     if(point_in_rectangle(mouse_x,mouse_y,1121,41,1121+34,41+34)){
     
         audio_play_sfx(snd_window);
         fullscreen =! fullscreen;
-        alarm[4] = 3;
+        alarm[4] = 4;
     };
     //Fechar
     if(point_in_rectangle(mouse_x,mouse_y,1170,41,1170+34,41+34))
@@ -1046,6 +1094,9 @@ if(mouse_check_button_released(mb_left))
             ini_write_string("NINTY_CONFIG","total",string(games_total));
             ini_close();
             
+            //Limpar
+            cleanmem();
+
             //Atualizar RPC
             event_user(0);
         };
@@ -1084,7 +1135,7 @@ if(mouse_check_button_released(mb_left))
     
         audio_play_sfx(snd_changethumbnail);
         window_set_fullscreen(0);
-        alarm[9] = 2;
+        alarm[9] = 4;
     };
            
     //Tema (Branco/Preto)
@@ -1102,7 +1153,7 @@ if(mouse_check_button_released(mb_left))
     
         audio_play_sfx(snd_wallpaper);
         window_set_fullscreen(0);
-        alarm[8] = 2;
+        alarm[8] = 4;
     };
     
     //Adicionar jogo
@@ -1112,7 +1163,7 @@ if(mouse_check_button_released(mb_left))
     
         audio_play_sfx(snd_addgame);
         window_set_fullscreen(0);
-        alarm[7] = 2;
+        alarm[7] = 4;
     };
 };
     
@@ -1232,7 +1283,7 @@ if(alarm[0] == -1)
             //Fullscreen
             audio_play_sfx(snd_window);
             fullscreen =! fullscreen;
-            alarm[4] = 3;
+            alarm[4] = 4;
         };
         else{
         
@@ -1252,7 +1303,7 @@ if(alarm[0] == -1)
                     move_temp_animframes = games_animframes[move_origin];
                     move_temp_animspeed = games_animspeed[move_origin];
                     move_temp_playtime[0] = games_playtime[move_origin,0];
-                    move_temp_playtime[1] = games_playtime[move_origin,1];                    
+                    move_temp_playtime[1] = games_playtime[move_origin,1];
                     move_temp_thumbnail = sprite_duplicate(games_thumb[move_origin]);
                     
                     //Deletar de origem
@@ -1304,6 +1355,139 @@ if(os_is_paused())
         </arguments>
       </action>
     </event>
+    <event eventtype="7" enumb="12">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///Descarregar assets (RAM)
+
+//Deletar Wallpaper
+if(sprite_exists(wallpaper))
+    sprite_delete(wallpaper);
+
+//Lista
+var i;
+for(i=0; i&lt;games_total; i+=1){
+    
+    //Deketar thumbnail
+    if(sprite_exists(games_thumb[i]))
+        sprite_delete(games_thumb[i]);
+};
+
+//Limpar
+cleanmem();
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="7" enumb="11">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///Carregar assets (Jogos, Thumbnails e Wallpaper)
+
+// WALLPAPER ----------------------------------------------
+
+//Configuração do Wallpaper
+if(launched == 0){
+
+    ini_open(game_save_id+"wallpaper.ini")
+    wallpaper_tiled = real(ini_read_string("NINTY_WALLPAPER","tiled","1"));
+    wallpaper_stretched = real(ini_read_string("NINTY_WALLPAPER","stretched","0"));
+    wallpaper_smooth = real(ini_read_string("NINTY_WALLPAPER","smooth","1"));
+    wallpaper_h_offset = real(ini_read_string("NINTY_WALLPAPER","horizontal_offset","0"));
+    wallpaper_v_offset = real(ini_read_string("NINTY_WALLPAPER","vertical_offset","0"));
+    wallpaper_h_scrolling = real(ini_read_string("NINTY_WALLPAPER","horizontal_scrolling","0"));
+    wallpaper_v_scrolling = real(ini_read_string("NINTY_WALLPAPER","vertical_scrolling","0"));
+    wallpaper_animframes = real(ini_read_string("NINTY_WALLPAPER","animframes","1"));
+    wallpaper_animspeed = real(ini_read_string("NINTY_WALLPAPER","animspeed","0"));
+    ini_close();
+};
+
+//Wallpaper
+if(file_exists_fmns(game_save_id+"wallpaper.png"))
+    wallpaper = sprite_add(game_save_id+"wallpaper.png",wallpaper_animframes,0,0,0,0);
+else
+    wallpaper = noone;
+    
+//Animador (Wallpaper)
+anim_wallpaper = 0;
+
+// JOGOS ----------------------------------------------
+
+//Buscar total de jogos
+if(launched == 0){
+
+    ini_open(game_save_id+"collection\_total.ini");
+    games_total = real(ini_read_string("NINTY_ENTRY","total","0"));
+    ini_close();
+};
+
+//Lista
+var i;
+for(i=0; i&lt;games_total; i+=1){
+
+    //Dados
+    if(launched == 0){
+    
+        ini_open(game_save_id+"collection\game_"+string(i)+".ini");
+        games_title[i] = ini_read_string("NINTY_ENTRY","title","???");
+        games_path[i] = ini_read_string("NINTY_ENTRY","path","");
+        games_animframes[i] = real(ini_read_string("NINTY_ENTRY","animframes","1"));
+        games_animspeed[i] = real(ini_read_string("NINTY_ENTRY","animspeed","0"));
+        games_playtime[i,0] = real(base64_decode(ini_read_string("NINTY_ENTRY","0","0")));
+        games_playtime[i,1] = real(base64_decode(ini_read_string("NINTY_ENTRY","1","0")));
+        ini_close();
+    };
+    
+    //Importar thumbnail
+    if(file_exists_fmns(game_save_id+"collection\game_"+string(i)+".png"))
+        games_thumb[i] = sprite_add(game_save_id+"collection\game_"+string(i)+".png",games_animframes[i],0,1,0,0);
+    else
+        games_thumb[i] = sprite_add(assets_dir+"thumbnails\_default.tbn",0,0,0,0,0);
+        
+    //Animador
+    anim_games[i] = 0;
+};
+
+//Limpar
+cleanmem();
+    
+//Próxima vez que carregar, apenas o básico
+if(launched == 0)
+    launched = 1;
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
     <event eventtype="7" enumb="10">
       <action>
         <libid>1</libid>
@@ -1323,7 +1507,6 @@ if(os_is_paused())
             <kind>1</kind>
             <string>///Discord RPC padrão
 discord_update_presence("🔍 | Selecting a Game...","⭐ | "+string(games_total)+" Games in Library.","default","");
-
 </string>
           </argument>
         </arguments>
@@ -1377,6 +1560,7 @@ ini_write_string("NINTY_ENTRY","total",string(games_total));
 ini_close();
 
 //Descarregar DLLs
+cleanmem_init(1);
 discord_free_app();
 discord_free_dll();
 </string>
@@ -1403,6 +1587,15 @@ discord_free_dll();
             <kind>1</kind>
             <string>///Carregar definições
 assets_dir = working_directory;
+launched = 0;
+
+//Clean Memory
+cleanmem_init(0);
+
+//Rich Presence
+discord_init_dll();
+discord_init_app("518643988778057729");
+discord_update_presence("","","","");
 
 //Menor que 1080p
 if(display_get_width() &lt; 1920-8){
@@ -1427,28 +1620,6 @@ display_set_gui_size(1280,720);
 
 //Centralizar janela
 alarm[3] = 2;
-    
-//Configuração do Wallpaper
-ini_open(game_save_id+"wallpaper.ini")
-wallpaper_tiled = real(ini_read_string("NINTY_WALLPAPER","tiled","1"));
-wallpaper_stretched = real(ini_read_string("NINTY_WALLPAPER","stretched","0"));
-wallpaper_smooth = real(ini_read_string("NINTY_WALLPAPER","smooth","1"));
-wallpaper_h_offset = real(ini_read_string("NINTY_WALLPAPER","horizontal_offset","0"));
-wallpaper_v_offset = real(ini_read_string("NINTY_WALLPAPER","vertical_offset","0"));
-wallpaper_h_scrolling = real(ini_read_string("NINTY_WALLPAPER","horizontal_scrolling","0"));
-wallpaper_v_scrolling = real(ini_read_string("NINTY_WALLPAPER","vertical_scrolling","0"));
-wallpaper_animframes = real(ini_read_string("NINTY_WALLPAPER","animframes","1"));
-wallpaper_animspeed = real(ini_read_string("NINTY_WALLPAPER","animspeed","0"));
-ini_close();
-
-//Wallpaper
-if(file_exists_fmns(game_save_id+"wallpaper.png"))
-    wallpaper = sprite_add(game_save_id+"wallpaper.png",wallpaper_animframes,0,0,0,0);
-else
-    wallpaper = noone;
-
-//Animador (Wallpaper)
-anim_wallpaper = 0;
 
 //Configurações do Launcher
 ini_open(game_save_id+"config.ini")
@@ -1461,52 +1632,19 @@ ini_close();
 //Definir fullscreen
 alarm[4] = 6;
 
-//Buscar total de jogos
-ini_open(game_save_id+"collection\_total.ini");
-games_total = real(ini_read_string("NINTY_ENTRY","total","0"));
-ini_close();
-
-//Buscar total de jogos auto-detectaveis
-ini_open(assets_dir+"thumbnails\_titles.ini");
-autotitle_total = real(ini_read_string("NINTY_TITLE_MASTER","total","0"));
-ini_close();
+//Carregar assets
+event_user(1);
 
 //Impedir seletor de começar fora da lista
 if(select_index &gt; games_total-1){
+
     if(games_total == 0)
         select_index = 0
     else
         select_index = games_total-1;
 };
 
-//Criar lista de jogos
-var i;
-for(i=0; i&lt;games_total; i+=1){
-
-    //Dados
-    ini_open(game_save_id+"collection\game_"+string(i)+".ini");
-    games_title[i] = ini_read_string("NINTY_ENTRY","title","???");
-    games_path[i] = ini_read_string("NINTY_ENTRY","path","");
-    games_animframes[i] = real(ini_read_string("NINTY_ENTRY","animframes","1"));
-    games_animspeed[i] = real(ini_read_string("NINTY_ENTRY","animspeed","0"));
-    games_playtime[i,0] = real(base64_decode(ini_read_string("NINTY_ENTRY","0","0")));
-    games_playtime[i,1] = real(base64_decode(ini_read_string("NINTY_ENTRY","1","0")));
-    ini_close();
-    
-    //Importar thumbnail
-    if(file_exists_fmns(game_save_id+"collection\game_"+string(i)+".png"))
-        games_thumb[i] = sprite_add(game_save_id+"collection\game_"+string(i)+".png",games_animframes[i],0,1,0,0);
-    else
-        games_thumb[i] = sprite_add(assets_dir+"thumbnails\_default.tbn",0,0,0,0,0);
-        
-    //Animador
-    anim_games[i] = 0;
-};
-
-//Rich Presence
-discord_init_dll();
-discord_init_app("518643988778057729");
-discord_update_presence("","","","");
+//Atualizar RPC
 event_user(0);
 
 //SFX
@@ -1548,33 +1686,41 @@ else
 //Customizado
 if(sprite_exists(wallpaper)){
     
-    //Animação
-    if(wallpaper_animframes &gt; 1)
-    &amp;&amp;(wallpaper_animspeed &gt; 0){
-            
-        if(anim_wallpaper &lt; wallpaper_animframes)
-            anim_wallpaper += 1/wallpaper_animspeed;
-        else
-            anim_wallpaper = 0;
+    //Animações
+    if(alarm[10] == -1)
+    &amp;&amp;(alarm[11] == -1){
+        
+        //Animação
+        if(wallpaper_animframes &gt; 1)
+        &amp;&amp;(wallpaper_animspeed &gt; 0){
+                
+            if(anim_wallpaper &lt; wallpaper_animframes)
+                anim_wallpaper += 1/wallpaper_animspeed;
+            else
+                anim_wallpaper = 0;
+        };
+        
+        //Rolagem
+        if(wallpaper_h_scrolling != 0)
+            wp_x += wallpaper_h_scrolling;
+        if(wallpaper_v_scrolling != 0)    
+            wp_y += wallpaper_v_scrolling;
     };
-    
-    //Rolagem
-    wallpaper_h_offset += wallpaper_h_scrolling;
-    wallpaper_v_offset += wallpaper_v_scrolling;    
     
     //Esticado
     if(wallpaper_stretched == 1)
-        draw_sprite_stretched(wallpaper,anim_wallpaper,wallpaper_h_offset,wallpaper_v_offset,1280,720);
+        draw_sprite_stretched(wallpaper,anim_wallpaper,wallpaper_h_offset+wp_x,wallpaper_v_offset+wp_y,1280,720);
     else{
     
         //Tiled
         if(wallpaper_tiled == 1)
-            draw_sprite_tiled(wallpaper,anim_wallpaper,wallpaper_h_offset,wallpaper_v_offset);
+            draw_sprite_tiled(wallpaper,anim_wallpaper,wallpaper_h_offset+wp_x,wallpaper_v_offset+wp_y);
         //Normal
         else
-            draw_sprite(wallpaper,anim_wallpaper,wallpaper_h_offset,wallpaper_v_offset);        
+            draw_sprite(wallpaper,anim_wallpaper,wallpaper_h_offset+wp_x,wallpaper_v_offset+wp_y);        
     };
 };
+
 //------------- Base -------------
 
 //Parental Control
@@ -1715,7 +1861,9 @@ for(i=i_start; i&lt;i_end; i+=1){
         
             //Animação
             if(games_animframes[i] &gt; 1)
-            &amp;&amp;(games_animspeed[i] &gt; 0){
+            &amp;&amp;(games_animspeed[i] &gt; 0)
+            &amp;&amp;(alarm[10] == -1)
+            &amp;&amp;(alarm[11] == -1){
             
                 if(anim_games[i] &lt; games_animframes[i])
                     anim_games[i] += 1/games_animspeed[i];
