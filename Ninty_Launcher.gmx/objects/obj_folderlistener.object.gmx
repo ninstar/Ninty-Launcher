@@ -27,14 +27,14 @@
             <kind>1</kind>
             <string>
 //Predefinições (com base no aplicativo)
-parent_path = working_directory;
+folderlist_path = working_directory;
 
-//Criar lista
-list_select = 0;
-list_find = 1;
-list_total = 0;
-list_data = ds_map_create();
-list_file = file_find_first(parent_path+"*",fa_directory);
+//Criar lista de arquivos de pasta
+folderlist_select = 0;
+folderlist_find = 1;
+folderlist_total = 0;
+folderlist_data = ds_map_create();
+folderlist_file = file_find_first(parent_path+"*",fa_directory);
 </string>
           </argument>
         </arguments>
@@ -58,38 +58,38 @@ list_file = file_find_first(parent_path+"*",fa_directory);
           <argument>
             <kind>1</kind>
             <string>//SE for permitido buscar níveis...
-if(list_find == 1){
+if(forwarder_find == 1){
 
     //SE não encontrar nenhum arquivo...
-    if(list_file == ""){  
+    if(forwarder_file == ""){  
         
         //Definir como nenhum arquivo
-        list_file = "???";
+        forwarder_file = "???";
         
         //Terminar busca
         file_find_close();
         
         //Parar permissão de busca
-        list_find = 0;
+        forwarder_find = 0;
     };
     
     //Enquanto existir algum arquivo durante busca...
-    while(list_file != ""){
+    while(forwarder_file != ""){
          
          //Buscar pelo próximo
-         list_file = file_find_next();
+         forwarder_file = file_find_next();
          
          //Incluir NOME do arquivo a lista
-         ds_map_add(list_data,string(list_total)+"_t",list_file);
+         ds_map_add(forwarder_list,string(forwarder_total)+"_t",forwarder_file);
 
          //Incluir CAMINHO do arquivo a lista
-         ds_map_add(list_data,string(list_total)+"_p",parent_path+list_file);
+         ds_map_add(forwarder_list,string(forwarder_total)+"_p",forwarder_path+forwarder_file);
                   
          //Incrementar total de aquivos
-         list_total++;
+         forwarder_total++;
          
          //Se não tiver nenhum arquivo...
-         if(list_file == ""){
+         if(forwarder_file == ""){
          
             //Parar loop
             break;
@@ -120,36 +120,36 @@ if(list_find == 1){
           <argument>
             <kind>1</kind>
             <string>//Fundo
-draw_sprite(spr_folderlistener_menu,obj_launcher.theme,1280/2,720/2);
-draw_sprite(spr_folderlistener_line,obj_launcher.theme,348,109);
+draw_sprite(spr_folderlistener_menu,theme,1280/2,720/2);
+draw_sprite(spr_folderlistener_line,theme,348,109);
 
 //Miniatura
-if(sprite_exists(obj_launcher.games_thumb[obj_launcher.select_index]))
-    draw_sprite_stretched_ext(obj_launcher.games_thumb[obj_launcher.select_index],obj_launcher.anim_games[obj_launcher.select_index],680,400,256,256,c_white,0.1);
+if(sprite_exists(games_thumb[select_index]))
+    draw_sprite_stretched_ext(games_thumb[select_index],anim_games[select_index],680,400,256,256,c_white,0.1);
 
 //Titulo
 draw_set_font(fnt_folder);
-if(obj_launcher.theme == 0)
+if(theme == 0)
     draw_set_color(c_black);
 else
     draw_set_color(c_white);
-draw_text(353,74,obj_launcher.games_title[obj_launcher.select_index]); 
+draw_text(353,74,games_title[select_index]); 
 draw_set_color(c_white);
 
 //Lista de arquivos (16 são apresentados)
 var l = 0;
-for(l = 0; l &lt; list_total; l++){
+for(l = 0; l &lt; 16; l++){
 
     //Se não for um arquivo inválido
-    if!(is_undefined(ds_map_find_value(list_data,string(l)+"_t"))){
+    if!(is_undefined(ds_map_find_value(forwarder_list,string(l)+"_t"))){
     
         var _dot;
 
         //Selecionado
-        if(list_select == l){
+        if(forwarder_select == l){
             
             _dot = "• ";
-            draw_set_color(merge_colour(c_aqua,c_teal,obj_launcher.col_numb));
+            draw_set_color(merge_colour(c_aqua,c_teal,col_numb));
         };
         //Não-selecionado
         else{
@@ -157,15 +157,14 @@ for(l = 0; l &lt; list_total; l++){
              _dot = "";
              
             //Cor do tema
-            if(obj_launcher.theme == 0)
+            if(theme == 0)
                 draw_set_color(c_black);
             else
                 draw_set_color(c_white);
        };
        
        //Arquivo
-       var _stg_title = string_copy(ds_map_find_value(list_data,string(l)+"_t"),0,36);
-       draw_text(353,130+(l*32),_dot+_stg_title);
+       draw_text(353,130+(l*32),_dot+string_copy(ds_map_find_value(list_data,string(l)+"_t"),0,36));
     };
 };
 

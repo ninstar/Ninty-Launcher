@@ -134,6 +134,7 @@
   </sounds>
   <sprites name="sprites">
     <sprite>sprites\spr_launcher_cursor</sprite>
+    <sprite>sprites\spr_launcher_movewindow</sprite>
     <sprite>sprites\spr_launcher_line</sprite>
     <sprite>sprites\spr_launcher_controller</sprite>
     <sprite>sprites\spr_launcher_basicinfo</sprite>
