@@ -147,6 +147,8 @@
     <sprite>sprites\spr_launcher_selector</sprite>
     <sprite>sprites\spr_launcher_about</sprite>
     <sprite>sprites\spr_launcher_information</sprite>
+    <sprite>sprites\spr_folderlistener_menu</sprite>
+    <sprite>sprites\spr_folderlistener_line</sprite>
   </sprites>
   <backgrounds name="background">
     <background>background\bgr_dark</background>
@@ -193,12 +195,14 @@
     <script>scripts\audio_play_sfx.gml</script>
   </scripts>
   <fonts name="fonts">
-    <font>fonts\fnt_clock</font>
     <font>fonts\fnt_default</font>
-    <font>fonts\fnt_playtime</font>
+    <font>fonts\fnt_folder</font>
+    <font>fonts\fnt_clock</font>
   </fonts>
   <objects name="objects">
     <object>objects\obj_launcher</object>
+    <object>objects\obj_folderlistener</object>
+    <object>objects\obj_informations</object>
   </objects>
   <rooms name="rooms">
     <room>rooms\rm_launcher</room>
