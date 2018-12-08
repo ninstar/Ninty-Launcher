@@ -296,11 +296,7 @@ if(mod_file != ""){
         audio_play_sfx(snd_addgame_step2);
              
         //Buscar pasta de referencia
-        var mid_fward = get_open_filename("FILE/ROM Path (Forward)|*","");
-        if(mid_fward != "")
-            games_forwarder[games_total] = filename_path(fward);
-        else
-            games_forwarder[games_total] = "";
+        games_forwarder[select_index] = get_open_filename("ROM/FILE Path (Forwarder)|*","");
     };
     
     //SFX
@@ -811,17 +807,24 @@ time_start = date_current_datetime();
 discord_update_presence("🎮 | "+string(games_title[select_index]),"⭐ | "+string(games_total)+" Games in Library.","default","");
 
 //Criar .BAT direcionado ao local do jogo (evita falhas)
-var test = file_text_open_write(game_save_id+"gameboot.bat")
-file_text_write_string(test,filename_drive(games_path[select_index]));
-file_text_writeln(test);
-file_text_write_string(test,"cd "+filename_path(games_path[select_index])+"");
-file_text_writeln(test);
-if(boot_attach == "")
+if(boot_attach == ""){
+
+    var test = file_text_open_write(game_save_id+"gameboot.bat")
+    file_text_write_string(test,filename_drive(games_path[select_index]));
+    file_text_writeln(test);
+    file_text_write_string(test,"cd "+filename_path(games_path[select_index])+"");
+    file_text_writeln(test);
     file_text_write_string(test,'start "Ninty_Game_Boot" '+boot_res+'/wait "'+filename_name(games_path[select_index])+'"');
-else
-    file_text_write_string(test,'start "Ninty_Game_Boot" '+boot_res+'/wait "'+filename_name(games_path[select_index])+'" '+boot_attach);
-file_text_writeln(test);
-file_text_close(test);
+    file_text_writeln(test);
+    file_text_close(test);
+};
+else{
+
+    var test = file_text_open_write(game_save_id+"gameboot.bat")
+    file_text_write_string(test,'start "Ninty_Game_Boot" '+boot_res+'/wait '+boot_attach+' "'+games_path[select_index]+'"');
+    file_text_writeln(test);
+    file_text_close(test);
+};
 
 //Prosseguir para inicialização
 alarm[1] = 4;
@@ -887,10 +890,6 @@ if(forwarder_find == 1){
             //Parar permissão de busca
             forwarder_find = 0;
             forwarder_total--;
-            
-            //Posicionar seletor
-            if(forwarder_total &gt; 1)
-                forwarder_select = 1;
             
             //Limpar
             cleanmem();
@@ -964,9 +963,9 @@ for(gp_count = 0; gp_count &lt; 5; gp_count += 1){
            keyboard_key_release(vk_right);
 
         //X, Y e Select - Mover
-        if(gamepad_button_check_pressed(gp_count,gp_face3))
+        if(gamepad_button_check_pressed(gp_count,gp_face1))
             keyboard_key_press(vk_shift);
-        else if(gamepad_button_check_released(gp_count,gp_face3))
+        else if(gamepad_button_check_released(gp_count,gp_face1))
             keyboard_key_release(vk_shift);
             
         if(gamepad_button_check_pressed(gp_count,gp_face4))
@@ -979,22 +978,21 @@ for(gp_count = 0; gp_count &lt; 5; gp_count += 1){
         else if(gamepad_button_check_released(gp_count,gp_select))
             keyboard_key_release(vk_shift);
                             
-        //A e Start - Iniciar
-        if(gamepad_button_check_pressed(gp_count,gp_face1))
+        //A, B e Start - Iniciar
+        if(gamepad_button_check_pressed(gp_count,gp_face2))
             keyboard_key_press(vk_enter);
-        else if(gamepad_button_check_released(gp_count,gp_face1))
+        else if(gamepad_button_check_released(gp_count,gp_face2))
+            keyboard_key_release(vk_enter);
+            
+        if(gamepad_button_check_pressed(gp_count,gp_face3))
+            keyboard_key_press(vk_enter);
+        else if(gamepad_button_check_released(gp_count,gp_face3))
             keyboard_key_release(vk_enter);
             
         if(gamepad_button_check_pressed(gp_count,gp_start))
             keyboard_key_press(vk_enter);
         else if(gamepad_button_check_released(gp_count,gp_start))
             keyboard_key_release(vk_enter);
-        
-        //B - Cancelar
-        if(gamepad_button_check_pressed(gp_count,gp_face2))
-            keyboard_key_press(vk_escape);
-        else if(gamepad_button_check_released(gp_count,gp_face2))
-            keyboard_key_release(vk_escape);
     };
     if(gp_count &gt; 4)
         gp_count = 0;
@@ -1315,7 +1313,8 @@ if(mouse_check_button_released(mb_left))
 //Fechar
 if(forwarder == 1)
 &amp;&amp;((keyboard_check_pressed(vk_escape))
-||(keyboard_check_pressed(vk_backspace))){
+||(keyboard_check_pressed(vk_backspace))
+||(mouse_check_button_pressed(mb_any))){
                         
     //SFX
     audio_play_sfx(snd_alert);
@@ -1323,8 +1322,7 @@ if(forwarder == 1)
 };
 
 if(forwarder == 1)
-&amp;&amp;(forwarder_fade &gt; 0.1)
-&amp;&amp;(forwarder_total &gt; 0){
+&amp;&amp;(forwarder_fade &gt; 0.1){
 
     //Navegação rápida (Loop)
     if(keyboard_check(vk_down)){
@@ -2249,6 +2247,8 @@ if(forwarder_fade &gt; 0){
     draw_set_alpha(forwarder_fade-0.3);
     draw_rectangle(0,-2000,1280,4000,0);
     draw_set_colour(c_white);
+
+    
     draw_sprite_ext(spr_folderlistener_menu,theme,1280/2,720/2-128+(128*forwarder_fade),1,1,0,theme_color,forwarder_fade);
     draw_sprite_ext(spr_folderlistener_line,theme,348,109-128+(128*forwarder_fade),1,1,0,theme_color,forwarder_fade);
     
@@ -2341,8 +2341,7 @@ if(infopopup_fade &gt; 0){
     draw_set_colour(c_white);
     
     //Janela
-    draw_sprite_ext(spr_folderlistener_menu,theme,1280/2,720/2-128+(128*infopopup_fade),1,1,0,theme_color,infopopup_fade);
-    draw_sprite_ext(spr_launcher_information,theme,1280/2,720/2-128+(128*infopopup_fade),1,1,0,c_white,infopopup_fade);
+    draw_sprite_ext(spr_launcher_information,theme,1280/2,720/2-128+(128*infopopup_fade),1,1,0,theme_color,infopopup_fade);
 };
 
 //------------- Dialogo -------------
