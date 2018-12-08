@@ -107,7 +107,9 @@
       <filename>discord-rpc.dll</filename>
     </datafile>
   </datafiles>
-  <NewExtensions/>
+  <NewExtensions>
+    <extension index="0">extensions\GMFileSystem</extension>
+  </NewExtensions>
   <sounds name="sound">
     <sound>sound\snd_alert</sound>
     <sound>sound\snd_window</sound>
@@ -188,9 +190,9 @@
       <script>scripts\cleanmem_get_mem.gml</script>
       <script>scripts\cleanmem.gml</script>
     </scripts>
+    <script>scripts\find_game.gml</script>
     <script>scripts\ExecuteShell.gml</script>
     <script>scripts\draw_text_shadow.gml</script>
-    <script>scripts\find_predefined_game.gml</script>
     <script>scripts\get_anim_frames.gml</script>
     <script>scripts\get_anim_speed.gml</script>
     <script>scripts\audio_play_sfx.gml</script>
@@ -202,8 +204,6 @@
   </fonts>
   <objects name="objects">
     <object>objects\obj_launcher</object>
-    <object>objects\obj_folderlistener</object>
-    <object>objects\obj_informations</object>
   </objects>
   <rooms name="rooms">
     <room>rooms\rm_launcher</room>
