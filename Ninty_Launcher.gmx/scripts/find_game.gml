@@ -11,7 +11,7 @@ if(file_exists_fmns(assets_dir+"thumbnails\_titles.ini")){
     ini_close();
     
     //Primeiro checar nome do caminho (evita confudir executaveis com nomes iguais)
-    for(t=1; t<70; t+=1){
+    for(t=1; t<_total; t+=1){
         
         var _title, _thumb, _tagA, _tagB, _tagC, _tagD, _forward;
 
@@ -26,10 +26,10 @@ if(file_exists_fmns(assets_dir+"thumbnails\_titles.ini")){
         _tagD = ini_read_string("NINTY_TITLE_"+string(t),"tagD","");
         ini_close();
 
-        if(string_pos(_tagA,filename_path(argument0)))
-        ||(string_pos(_tagB,filename_path(argument0)))
-        ||(string_pos(_tagC,filename_path(argument0)))
-        ||(string_pos(_tagD,filename_path(argument0))){
+        if(string_pos(string_lower(_tagA),string_lower(filename_path(argument0))))
+        ||(string_pos(string_lower(_tagB),string_lower(filename_path(argument0))))
+        ||(string_pos(string_lower(_tagC),string_lower(filename_path(argument0))))
+        ||(string_pos(string_lower(_tagD),string_lower(filename_path(argument0)))){
             
             games_title[argument1] = _title;
             forwarder_openexplorer = _forward;
@@ -55,10 +55,10 @@ if(file_exists_fmns(assets_dir+"thumbnails\_titles.ini")){
         ini_close();
         
         //Checar nome do caminho (evita confudir executaveis com nomes iguais)
-        if(filename_name(argument0) == _tagA)
-        ||(filename_name(argument0) == _tagB)
-        ||(filename_name(argument0) == _tagC)
-        ||(filename_name(argument0) == _tagD){
+        if(string_lower(filename_name(argument0)) == string_lower(_tagA))
+        ||(string_lower(filename_name(argument0)) == string_lower(_tagB))
+        ||(string_lower(filename_name(argument0)) == string_lower(_tagC))
+        ||(string_lower(filename_name(argument0)) == string_lower(_tagD)){
         
             games_title[argument1] = _title;
             forwarder_openexplorer = _forward;
