@@ -885,7 +885,7 @@ if((keyboard_check_pressed(vk_escape))
     if(move == 1){
     
         //SFX
-        audio_play_sfx(snd_move_set);
+        audio_play_sfx(snd_alert);
                             
         //Finalizar
         move = 0;
@@ -1572,7 +1572,7 @@ if(alarm[0] == -1)
                 else{
                         
                     //SFX
-                    audio_play_sfx(snd_move_set);
+                    audio_play_sfx(snd_alert);
                             
                     //Finalizar
                     move = 0;
