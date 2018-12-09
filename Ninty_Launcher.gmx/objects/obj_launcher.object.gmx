@@ -869,6 +869,30 @@ if((mouse_check_button(mb_right))
     temp_y = window_get_y();
 };
 
+//CANCELAR
+if((keyboard_check_pressed(vk_escape))
+||(keyboard_check_pressed(vk_backspace))){
+                  
+    //Forwarder...      
+    if(forwarder == 1){ 
+    
+        //SFX
+        audio_play_sfx(snd_alert);
+        forwarder = 0;
+    };
+    
+    //Movimento dos jogos...
+    if(move == 1){
+    
+        //SFX
+        audio_play_sfx(snd_move_set);
+                            
+        //Finalizar
+        move = 0;
+        move_origin = -1;
+    };
+};
+
 //------------- Forwarder -------------
 
 //SE for permitido buscar níveis...
@@ -1312,16 +1336,6 @@ if(mouse_check_button_released(mb_left))
 
 //------------- Menu de Forwarder -------------
 
-//Fechar
-if(forwarder == 1)
-&amp;&amp;((keyboard_check_pressed(vk_escape))
-||(keyboard_check_pressed(vk_backspace))){
-                        
-    //SFX
-    audio_play_sfx(snd_alert);
-    forwarder = 0;
-};
-
 if(forwarder == 1)
 &amp;&amp;(forwarder_fade &gt; 0.1)
 &amp;&amp;(forwarder_total &gt; 0){
@@ -1422,7 +1436,8 @@ if(alarm[0] == -1)
     
         //Mover jogo
         if(keyboard_check_pressed(vk_shift))
-        &amp;&amp;(move == 0){
+        &amp;&amp;(move == 0)
+        &amp;&amp;(parental_control == 0){
         
             move = 1;
             move_origin = select_index;
