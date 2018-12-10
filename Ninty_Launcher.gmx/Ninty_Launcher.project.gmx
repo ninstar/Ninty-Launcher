@@ -136,14 +136,14 @@
   </sounds>
   <sprites name="sprites">
     <sprite>sprites\spr_launcher_cursor</sprite>
-    <sprite>sprites\spr_launcher_movewindow</sprite>
     <sprite>sprites\spr_launcher_line</sprite>
     <sprite>sprites\spr_launcher_controller</sprite>
     <sprite>sprites\spr_launcher_basicinfo</sprite>
+    <sprite>sprites\spr_launcher_ctrlmap</sprite>
     <sprite>sprites\spr_launcher_options</sprite>
+    <sprite>sprites\spr_launcher_connection</sprite>
     <sprite>sprites\spr_launcher_parental</sprite>
     <sprite>sprites\spr_launcher_clock</sprite>
-    <sprite>sprites\spr_launcher_connection</sprite>
     <sprite>sprites\spr_launcher_icons</sprite>
     <sprite>sprites\spr_launcher_thumbnail</sprite>
     <sprite>sprites\spr_launcher_thumbnail_shadow</sprite>
@@ -191,15 +191,15 @@
       <script>scripts\cleanmem.gml</script>
     </scripts>
     <script>scripts\find_game.gml</script>
-    <script>scripts\ExecuteShell.gml</script>
     <script>scripts\draw_text_shadow.gml</script>
+    <script>scripts\ExecuteShell.gml</script>
     <script>scripts\get_anim_frames.gml</script>
     <script>scripts\get_anim_speed.gml</script>
     <script>scripts\audio_play_sfx.gml</script>
   </scripts>
   <fonts name="fonts">
     <font>fonts\fnt_default</font>
-    <font>fonts\fnt_folder</font>
+    <font>fonts\fnt_small</font>
     <font>fonts\fnt_clock</font>
   </fonts>
   <objects name="objects">

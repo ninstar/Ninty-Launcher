@@ -10,7 +10,7 @@
   <bbox_left>0</bbox_left>
   <bbox_right>45</bbox_right>
   <bbox_top>0</bbox_top>
-  <bbox_bottom>55</bbox_bottom>
+  <bbox_bottom>45</bbox_bottom>
   <HTile>0</HTile>
   <VTile>0</VTile>
   <TextureGroups>
@@ -18,7 +18,7 @@
   </TextureGroups>
   <For3D>0</For3D>
   <width>46</width>
-  <height>56</height>
+  <height>46</height>
   <frames>
     <frame index="0">images\spr_launcher_parental_0.png</frame>
     <frame index="1">images\spr_launcher_parental_1.png</frame>

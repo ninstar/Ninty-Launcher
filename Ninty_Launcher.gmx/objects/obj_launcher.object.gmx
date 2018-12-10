@@ -3,7 +3,7 @@
   <spriteName>&lt;undefined&gt;</spriteName>
   <solid>0</solid>
   <visible>-1</visible>
-  <depth>2</depth>
+  <depth>0</depth>
   <persistent>0</persistent>
   <parentName>&lt;undefined&gt;</parentName>
   <maskName>&lt;undefined&gt;</maskName>
@@ -29,6 +29,7 @@
 image_speed = 0;
 is_playing = 0;
 nav_time = 60;
+icon_select = -1;
 
 //Animações
 wp_x = 0;
@@ -89,6 +90,54 @@ infopopup_fade = 0;
 //Cor do Seletor
 col_numb = 0;
 col_mod = 0;
+
+//Textos predefinidos (Idioma)
+if(os_get_language() == "pt"){
+
+    text_deleting = "Deletando...";
+    text_moving = "Movendo...";
+    text_notfound = "[NÃO LOCALIZADO]";
+    text_forwarder[0] = "[Iniciar sem jogo]";
+    text_forwarder[1] = "Nenhum arquivo encontrado.";
+    
+    text_dialog[0] = "Defina o título do jogo:";
+        
+    text_ctrl[0] = "Iniciar";
+    text_ctrl[1] = "Fechar";
+    text_ctrl[2] = "Mover";
+    text_ctrl[3] = "Cancelar";
+    text_ctrl[4] = "Confirmar";
+    
+    text_icon[0] = "Remover jogo";
+    text_icon[1] = "Renomear jogo";
+    text_icon[2] = "Alterar caminho do jogo";
+    text_icon[3] = "Cor de tema";
+    text_icon[4] = "Alterar o plano de fundo";
+    text_icon[5] = "Adicionar um novo jogo";
+};
+else{
+
+    text_deleting = "Deleting...";
+    text_moving = "Moving...";
+    text_notfound = "[NOT FOUND]";
+    text_forwarder[0] = "[Start without game]";
+    text_forwarder[1] = "No files found.";
+    
+    text_dialog[0] = "Set game title:";
+    
+    text_ctrl[0] = "Start";
+    text_ctrl[1] = "Close";
+    text_ctrl[2] = "Move";
+    text_ctrl[3] = "Cancel";
+    text_ctrl[4] = "Confirm";
+    
+    text_icon[0] = "Remove game";
+    text_icon[1] = "Rename game";
+    text_icon[2] = "Change game path";
+    text_icon[3] = "Theme color";
+    text_icon[4] = "Wallpaper";
+    text_icon[5] = "Add a new game";
+};
 </string>
           </argument>
         </arguments>
@@ -467,7 +516,7 @@ if(file != ""){
         games_title[games_total] = string_copy(filename_name(file),0,32);
         
         //Alterar nome
-        dialog_description = "Set Game Title:"
+        dialog_description = text_dialog[0];
         keyboard_string = string_copy(filename_name(file),0,32);
         dialog_return = string_copy(filename_name(file),0,32);
         dialog = 1;
@@ -706,9 +755,12 @@ is_playing = 0;
 draw_enable_drawevent(1);
 
 ///Salvar tempo jogando
-games_playtime[select_index,0] = string(round(date_hour_span(time_start,date_current_datetime()))+real(games_playtime[select_index,0]));
-games_playtime[select_index,1] = string(round(date_minute_span(time_start,date_current_datetime()))+real(games_playtime[select_index,1]));
-    
+var _date; 
+_date = date_inc_hour(date_current_datetime(),real(games_playtime[select_index,0]));
+_date = date_inc_minute(_date,real(games_playtime[select_index,1]));
+games_playtime[select_index,0] = string(date_hour_span(time_start,_date));
+games_playtime[select_index,1] = string(date_minute_span(time_start,_date));
+
 //Salvar no arquivo
 ini_open(game_save_id+"collection\game_"+string(select_index)+".ini");
 ini_write_string("NINTY_ENTRY","0",base64_encode(games_playtime[select_index,0]));
@@ -858,7 +910,7 @@ if(is_playing == 1)
 //Standby
 if(os_is_paused())
     audio_play_sfx(snd_launcher_close);
-
+        
 //Mover janela
 if((mouse_check_button(mb_right))
 ||(mouse_check_button(mb_middle)))
@@ -987,38 +1039,78 @@ for(gp_count = 0; gp_count &lt; 5; gp_count += 1){
         else if(gamepad_button_check_released(gp_count,gp_shoulderr))
            keyboard_key_release(vk_right);
 
-        //X, Y e Select - Mover
-        if(gamepad_button_check_pressed(gp_count,gp_face3))
-            keyboard_key_press(vk_shift);
-        else if(gamepad_button_check_released(gp_count,gp_face3))
-            keyboard_key_release(vk_shift);
-            
-        if(gamepad_button_check_pressed(gp_count,gp_face4))
-            keyboard_key_press(vk_shift);
-        else if(gamepad_button_check_released(gp_count,gp_face4))
-            keyboard_key_release(vk_shift);
+        //Generico (DirecInput)
+        if(gp_count == 4){
 
-        if(gamepad_button_check_pressed(gp_count,gp_select))
-            keyboard_key_press(vk_shift);
-        else if(gamepad_button_check_released(gp_count,gp_select))
-            keyboard_key_release(vk_shift);
-                            
-        //A e Start - Iniciar
-        if(gamepad_button_check_pressed(gp_count,gp_face1))
-            keyboard_key_press(vk_enter);
-        else if(gamepad_button_check_released(gp_count,gp_face1))
-            keyboard_key_release(vk_enter);
+            //1, 4 e Select - Mover
+            if(gamepad_button_check_pressed(gp_count,gp_face1))
+                keyboard_key_press(vk_shift);
+            else if(gamepad_button_check_released(gp_count,gp_face1))
+                keyboard_key_release(vk_shift);
+                
+            if(gamepad_button_check_pressed(gp_count,gp_face4))
+                keyboard_key_press(vk_shift);
+            else if(gamepad_button_check_released(gp_count,gp_face4))
+                keyboard_key_release(vk_shift);
+    
+            if(gamepad_button_check_pressed(gp_count,gp_select))
+                keyboard_key_press(vk_shift);
+            else if(gamepad_button_check_released(gp_count,gp_select))
+                keyboard_key_release(vk_shift);
+                                
+            //2 e Start - Iniciar
+            if(gamepad_button_check_pressed(gp_count,gp_face2))
+                keyboard_key_press(vk_enter);
+            else if(gamepad_button_check_released(gp_count,gp_face2))
+                keyboard_key_release(vk_enter);
+                
+            if(gamepad_button_check_pressed(gp_count,gp_start))
+                keyboard_key_press(vk_enter);
+            else if(gamepad_button_check_released(gp_count,gp_start))
+                keyboard_key_release(vk_enter);
             
-        if(gamepad_button_check_pressed(gp_count,gp_start))
-            keyboard_key_press(vk_enter);
-        else if(gamepad_button_check_released(gp_count,gp_start))
-            keyboard_key_release(vk_enter);
+            //3 - Cancelar
+            if(gamepad_button_check_pressed(gp_count,gp_face3))
+                keyboard_key_press(vk_escape);
+            else if(gamepad_button_check_released(gp_count,gp_face3))
+                keyboard_key_release(vk_escape);
+        };    
+        //XBOX (XInput)
+        else{
         
-        //B - Cancelar
-        if(gamepad_button_check_pressed(gp_count,gp_face2))
-            keyboard_key_press(vk_escape);
-        else if(gamepad_button_check_released(gp_count,gp_face2))
-            keyboard_key_release(vk_escape);
+            //X, Y e Select - Mover
+            if(gamepad_button_check_pressed(gp_count,gp_face3))
+                keyboard_key_press(vk_shift);
+            else if(gamepad_button_check_released(gp_count,gp_face3))
+                keyboard_key_release(vk_shift);
+                
+            if(gamepad_button_check_pressed(gp_count,gp_face4))
+                keyboard_key_press(vk_shift);
+            else if(gamepad_button_check_released(gp_count,gp_face4))
+                keyboard_key_release(vk_shift);
+    
+            if(gamepad_button_check_pressed(gp_count,gp_select))
+                keyboard_key_press(vk_shift);
+            else if(gamepad_button_check_released(gp_count,gp_select))
+                keyboard_key_release(vk_shift);
+                                
+            //A e Start - Iniciar
+            if(gamepad_button_check_pressed(gp_count,gp_face1))
+                keyboard_key_press(vk_enter);
+            else if(gamepad_button_check_released(gp_count,gp_face1))
+                keyboard_key_release(vk_enter);
+                
+            if(gamepad_button_check_pressed(gp_count,gp_start))
+                keyboard_key_press(vk_enter);
+            else if(gamepad_button_check_released(gp_count,gp_start))
+                keyboard_key_release(vk_enter);
+            
+            //B - Cancelar
+            if(gamepad_button_check_pressed(gp_count,gp_face2))
+                keyboard_key_press(vk_escape);
+            else if(gamepad_button_check_released(gp_count,gp_face2))
+                keyboard_key_release(vk_escape);
+        };
     };
     if(gp_count &gt; 4)
         gp_count = 0;
@@ -1095,7 +1187,7 @@ else{
 };
 
 //Bloquear/Desbloquear
-if(point_in_rectangle(mouse_x,mouse_y,230,30,230+46,30+56)){
+if(point_in_rectangle(mouse_x,mouse_y,77,41,77+34,41+34)){
         
     if(mouse_check_button_pressed(mb_left)){
     
@@ -1194,7 +1286,16 @@ else{
 };
 
 //------------- Botões -------------
-  
+
+//Seletor de icones
+if((point_in_rectangle(mouse_x,mouse_y,328,504,328+86,504+86))&amp;&amp;(parental_control == 0)) icon_select = 0;
+else if((point_in_rectangle(mouse_x,mouse_y,436,504,436+86,504+86))&amp;&amp;(parental_control == 0)) icon_select = 1;
+else if((point_in_rectangle(mouse_x,mouse_y,544,504,544+86,504+86))&amp;&amp;(parental_control == 0)) icon_select = 2;
+else if(point_in_rectangle(mouse_x,mouse_y,653-parental_offset,504,(653+86)-parental_offset,504+86)) icon_select = 3;
+else if(point_in_rectangle(mouse_x,mouse_y,761-parental_offset,504,(761+86)-parental_offset,504+86)) icon_select = 4;
+else if((point_in_rectangle(mouse_x,mouse_y,869-parental_offset,504,(869+86)+parental_offset,504+86))&amp;&amp;(parental_control == 0)) icon_select = 5;
+else icon_select = -1;
+
 //Icones
 if(mouse_check_button_released(mb_left))
 &amp;&amp;(alarm[0] == -1)
@@ -1204,7 +1305,8 @@ if(mouse_check_button_released(mb_left))
 &amp;&amp;(alarm[8] == -1)
 &amp;&amp;(alarm[9] == -1)
 &amp;&amp;(dialog == 0)
-&amp;&amp;(forwarder == 0){
+&amp;&amp;(forwarder == 0)
+&amp;&amp;(move == 0){
         
     //Pasta do Launcher
     if(point_in_rectangle(mouse_x,mouse_y,595,662,595+44,662+44))
@@ -1228,15 +1330,15 @@ if(mouse_check_button_released(mb_left))
     //----------------
 
     //Deletar jogo
-    if(point_in_rectangle(mouse_x,mouse_y,328,504,328+86,504+86))
-    &amp;&amp;(parental_control == 0)
+    if(icon_select == 0)
+    
     &amp;&amp;(games_total &gt; 0){
         
         //Deletar sprite
         sprite_delete(games_thumb[select_index]);
         
         //Nulo
-        games_title[select_index] = "Deleting...";
+        games_title[select_index] = text_deleting;
         games_playtime[select_index,0] = "0";
         games_playtime[select_index,1] = "0";
   
@@ -1280,24 +1382,21 @@ if(mouse_check_button_released(mb_left))
     };
         
     //Alterar nome do jogo
-    if(point_in_rectangle(mouse_x,mouse_y,436,504,436+86,504+86))
+    if(icon_select == 1)
     &amp;&amp;(parental_control == 0)
     &amp;&amp;(games_total &gt; 0){
-
-        if(filename_ext(games_path[select_index]) == ".exe"){
         
-            //Alterar nome
-            audio_play_sfx(snd_changetitle);
-            dialog_description = "Set Game Title:"
-            keyboard_string = games_title[select_index];
-            dialog_return = games_title[select_index];
-            dialog = 1;
-            alarm[6] = 1;
-        };
+        //Alterar nome
+        audio_play_sfx(snd_changetitle);
+        dialog_description = text_dialog[0];
+        keyboard_string = games_title[select_index];
+        dialog_return = games_title[select_index];
+        dialog = 1;
+        alarm[6] = 1;
     };
         
     //Alterar thumbnail do jogo
-    if(point_in_rectangle(mouse_x,mouse_y,544,504,544+86,504+86))
+    if(icon_select == 2)
     &amp;&amp;(parental_control == 0)
     &amp;&amp;(games_total &gt; 0){
     
@@ -1307,7 +1406,7 @@ if(mouse_check_button_released(mb_left))
     };
            
     //Tema (Branco/Preto)
-    if(point_in_rectangle(mouse_x,mouse_y,653-parental_offset,504,(653+86)-parental_offset,504+86)){
+    if(icon_select == 3){
     
         theme =! theme;
         if(theme == 0)
@@ -1317,7 +1416,7 @@ if(mouse_check_button_released(mb_left))
     };
 
     //Alterar wallpaper
-    if(point_in_rectangle(mouse_x,mouse_y,761-parental_offset,504,(761+86)-parental_offset,504+86)){
+    if(icon_select == 4){
     
         audio_play_sfx(snd_wallpaper);
         window_set_fullscreen(0);
@@ -1325,7 +1424,7 @@ if(mouse_check_button_released(mb_left))
     };
     
     //Adicionar jogo
-    if(point_in_rectangle(mouse_x,mouse_y,869,504,869+86,504+86))
+    if(icon_select == 5)
     &amp;&amp;(parental_control == 0){
     
         audio_play_sfx(snd_addgame);
@@ -1349,7 +1448,7 @@ if(forwarder == 1)
         else{
         
             //Delay em frames
-            nav_time = 5;
+            nav_time = 2;
             
             //Próximo
             if(forwarder_select &lt; forwarder_total-1){
@@ -1368,7 +1467,7 @@ if(forwarder == 1)
         else{
             
             //Delay em frames
-            nav_time = 5;
+            nav_time = 2;
                     
             //Anterior
             if(forwarder_select &gt; 0){
@@ -1546,7 +1645,7 @@ if(alarm[0] == -1)
                         
                     //SFX
                     audio_play_sfx(snd_move_pick);
-                    games_title[select_index] = "Moving...";
+                    games_title[select_index] = text_moving;
                             
                     //Copiar
                     move_temp_title = games_title[move_origin];
@@ -1610,6 +1709,7 @@ if(alarm[0] == -1)
             
                     //Forwarder
                     if(forwarder != 0)
+                    &amp;&amp;(forwarder_select &gt; 0)
                         boot_attach = '"'+string(ds_map_find_value(forwarder_list,string(forwarder_select)+"_p"))+'"';
                     else
                         boot_attach = "";
@@ -1829,11 +1929,6 @@ if(file_exists_fmns(game_save_id+"wallpaper.png"))
     ini_close();
 };
 
-//Salvar total de jogos
-ini_open(game_save_id+"collection\_total.ini");
-ini_write_string("NINTY_ENTRY","total",string(games_total));
-ini_close();
-
 //Descarregar DLLs
 cleanmem_init(1);
 discord_free_app();
@@ -1887,7 +1982,7 @@ if(display_get_width() &lt; 1920-8){
     else
         window_set_size(800,450);
 };
-else   
+else
     window_set_size(1280,720);
     
 //Tamanho padrão da interface relativa ao display
@@ -2014,16 +2109,19 @@ draw_sprite_ext(spr_launcher_line,theme,29,646,1,1,0,c_white,1);
 draw_sprite_ext(spr_launcher_about,theme,1280/2,664,1,1,0,c_white,parental_fadeicons);
 
 //Total de jogos
+if(theme == 0)
+    draw_set_colour(c_black);        
 if(games_total &gt; 0){
 
-    if(theme == 0)
-        draw_set_colour(c_black);
+    draw_text_shadow(132,658,string(select_index+1)+" / "+string(games_total));
     draw_text(132,658,string(select_index+1)+" / "+string(games_total));
     draw_set_font(fnt_default);
-    draw_set_colour(c_white);
+
 };
 
-//Váriavel
+//Comandos de navegação
+draw_set_font(fnt_small);
+//CONTROLE
 if(gamepad_is_connected(0) == 1)
 ||(gamepad_is_connected(4) == 1){
 
@@ -2031,25 +2129,90 @@ if(gamepad_is_connected(0) == 1)
     draw_sprite_ext(spr_launcher_controller,theme+2,51,664,1,1,0,c_white,1);
     
     //informações básicas
-    if(games_total &gt; 0)
-        draw_sprite_ext(spr_launcher_basicinfo,theme+2,860,662,1,1,0,c_white,1);
+    if(games_total &gt; 0){
+    
+        //Y - Mover
+        if(move == 0){
+        
+            if(parental_control == 0){
+            
+                draw_sprite_ext(spr_launcher_ctrlmap,theme+8,931,663,1,1,0,c_white,parental_fadeicons);
+                draw_set_alpha(parental_fadeicons);
+                draw_text(931+10,668,text_ctrl[2]);
+                draw_set_alpha(1);
+            };
+        };
+        //B - Cancelar
+        else{
+        
+            draw_sprite_ext(spr_launcher_ctrlmap,theme+10,931-50,663,1,1,0,c_white,1);
+            draw_text(931+10-50,668,text_ctrl[3]);
+        };
+        
+        //A - Iniciar
+        if(move == 0){
+        
+            draw_sprite_ext(spr_launcher_ctrlmap,theme+6,1163,663,1,1,0,c_white,1);
+            draw_text(1163+10,668,text_ctrl[0]);
+        };
+        //A - Confirmar
+        else{
+        
+            draw_sprite_ext(spr_launcher_ctrlmap,theme+6,1163-50,663,1,1,0,c_white,1);
+            draw_text(1163+10-50,668,text_ctrl[4]);
+        };
+    };
 };
+//TECLADO
 else{
 
     //Controle
-    draw_sprite_ext(spr_launcher_controller,theme,51,664,1,1,0,c_white,1);
+    draw_sprite_ext(spr_launcher_controller,theme,51,663,1,1,0,c_white,1);
     
     //informações básicas
-    if(games_total &gt; 0)
-        draw_sprite_ext(spr_launcher_basicinfo,theme,860,662,1,1,0,c_white,1);
+    if(games_total &gt; 0){
+    
+        //SHIFT - Mover
+        if(move == 0){
+        
+            if(parental_control == 0){
+            
+                draw_sprite_ext(spr_launcher_ctrlmap,theme+2,931,663,1,1,0,c_white,parental_fadeicons);
+                draw_set_alpha(parental_fadeicons);
+                draw_text(931+10,668,text_ctrl[2]);
+                draw_set_alpha(1);
+            };
+        };
+        //ESC - Cancelar
+        else{
+        
+            draw_sprite_ext(spr_launcher_ctrlmap,theme+4,931-50,663,1,1,0,c_white,1);
+            draw_text(931+10-50,668,text_ctrl[3]);
+        };
+        
+        //ENTER - Iniciar
+        if(move == 0){
+        
+            draw_sprite_ext(spr_launcher_ctrlmap,theme,1163,663,1,1,0,c_white,1);
+            draw_text(1163+10,668,text_ctrl[0]);
+        };
+        //ENTER - Confirmar
+        else{
+        
+            draw_sprite_ext(spr_launcher_ctrlmap,theme,1163-50,663,1,1,0,c_white,1);
+            draw_text(1163+10-50,668,text_ctrl[4]);
+        };
+    };
 };
+draw_set_colour(c_white);
+draw_set_font(fnt_default);
 
 //------------- Icones -------------
 
 //Deletar
 draw_sprite_ext(spr_launcher_icons,theme,322+parental_offset,498,1,1,0,theme_color,parental_fadeicons);
 draw_sprite_ext(spr_launcher_icons,2,322+parental_offset,498,1,1,0,c_white,parental_fadeicons);
-    
+
 //Nome
 draw_sprite_ext(spr_launcher_icons,theme,430+parental_offset,498,1,1,0,theme_color,parental_fadeicons);
 draw_sprite_ext(spr_launcher_icons,3,430+parental_offset,498,1,1,0,c_white,parental_fadeicons);
@@ -2069,11 +2232,33 @@ draw_sprite_ext(spr_launcher_icons,7+theme,755-parental_offset,498,1,1,0,c_white
 //Adicionar
 draw_sprite_ext(spr_launcher_icons,theme,863-parental_offset,498,1,1,0,theme_color,parental_fadeicons);
 draw_sprite_ext(spr_launcher_icons,9+theme,863-parental_offset,498,1,1,0,c_white,parental_fadeicons);
-if(games_total == 0){
+
+//Aviso para adicionar jogos (caso não tenha nenhum)
+if(games_total == 0)
+    draw_sprite_ext(spr_launcher_icons,11,863-parental_offset,498,1,1,0,merge_colour(c_yellow,c_orange,col_numb),parental_fadeicons);
+
+//Aviso para atualizar jogos (caso não seja encontrado)
+if(move == 0)
+&amp;&amp;(games_total &gt; 0){
+
+    if(!file_exists_fmns(games_path[select_index]))
+        draw_sprite_ext(spr_launcher_icons,11,538+parental_offset,498,1,1,0,merge_colour(c_yellow,c_orange,col_numb),parental_fadeicons);
+};
+
+//Seletor
+if(icon_select &gt; -1){
 
     //Highlight
-    adcol = merge_colour(c_aqua,c_teal,col_numb);
-    draw_sprite_ext(spr_launcher_icons,11,863-parental_offset,498,1,1,0,adcol,parental_fadeicons);
+    is_col = merge_colour(c_aqua,c_teal,col_numb);
+    draw_sprite_ext(spr_launcher_icons,11,322-parental_offset+(98+10)*icon_select,498,1,1,0,is_col,1);
+    
+    //Texto
+    draw_set_font(fnt_small);
+    draw_set_halign(fa_center);
+    draw_text_shadow(322-parental_offset+50+(98+10)*icon_select,498+108,text_icon[icon_select]);
+    draw_text_colour(322-parental_offset+50+(98+10)*icon_select,498+108,text_icon[icon_select],is_col,is_col,is_col,is_col,1);
+    draw_set_halign(fa_left);
+    draw_set_font(fnt_default);
 };
 
 //------------- Lista de Jogos -------------
@@ -2166,7 +2351,7 @@ if(select_index &lt; games_total+1)
         //Jogo não encotrado
         else{
      
-            _msg = "[NOT FOUND] Update path";
+            _msg = text_notfound;
             _col1 = c_red;
             _col2 = c_maroon;
         };
@@ -2190,11 +2375,15 @@ if(select_index &lt; games_total+1)
     draw_sprite_ext(spr_launcher_selector,0,(offset-10)+276*select_index,185-offset_v-move_offset,1,1,0,col,1);
 
     //Nome do jogo selecionado
-    if(select_index == 0)
+    if(select_index == 0){
+    
+        draw_text_shadow(offset-16,123-offset_v-move_offset,_msg);    
         draw_text_colour(offset-16,123-offset_v-move_offset,_msg,col,col,col,col,1);    
+    };
     else{
     
         draw_set_halign(fa_center);
+        draw_text_shadow(offset+(276*select_index)+256/2,123-offset_v-move_offset,_msg);
         draw_text_colour(offset+(276*select_index)+256/2,123-offset_v-move_offset,_msg,col,col,col,col,1);
         draw_set_halign(fa_left);
     };
@@ -2214,6 +2403,7 @@ if(select_index &lt; games_total+1)
             var _pt_min = string_replace_all(string_format(real(games_playtime[select_index,1]),2,0)," ","0");
         };
         draw_set_font(fnt_clock);
+        draw_text_shadow(offset+(276*select_index)+(256/2)-18,466-offset_v,_pt_hour+":"+_pt_min);
         draw_text_colour(offset+(276*select_index)+(256/2)-18,466-offset_v,_pt_hour+":"+_pt_min,col,col,col,col,1);
         draw_set_font(fnt_default);
         draw_sprite_ext(spr_launcher_clock,1,offset+(276*select_index)+(256/2)-48-18,466-offset_v,1,1,0,col,1);
@@ -2265,7 +2455,7 @@ if(forwarder_fade &gt; 0){
     draw_rectangle(0,-2000,1280,4000,0);
     draw_set_colour(c_white);
     draw_sprite_ext(spr_folderlistener_menu,theme,1280/2,720/2-128+(128*forwarder_fade),1,1,0,theme_color,forwarder_fade);
-    draw_sprite_ext(spr_folderlistener_line,theme,348,109-128+(128*forwarder_fade),1,1,0,theme_color,forwarder_fade);
+    draw_sprite_ext(spr_folderlistener_line,theme,348,109-128+(128*forwarder_fade),1,1,0,c_white,forwarder_fade);
     
     //Miniatura
     if(sprite_exists(games_thumb[select_index]))
@@ -2273,17 +2463,50 @@ if(forwarder_fade &gt; 0){
     
     //Titulo
     draw_set_alpha(forwarder_fade);
-    draw_set_font(fnt_folder);
+    draw_set_font(fnt_small);
     if(theme == 0)
         draw_set_color(c_black);
     else
         draw_set_color(c_white);
     draw_set_halign(fa_center);
-    draw_text(1280/2,64-128+(128*forwarder_fade)-3,games_title[select_index]); 
+    draw_text(1280/2,64-128+(128*forwarder_fade)-3,games_title[select_index]);
     draw_set_halign(fa_left);
     
     //Total
-    draw_text(350,630-128+(128*forwarder_fade)-3,string(forwarder_select+1)+" / "+string(forwarder_total));
+    if(forwarder_total &gt; 0)
+        draw_text(350,630-128+(128*forwarder_fade)-3,string(forwarder_select+1)+" / "+string(forwarder_total));
+    else{
+    
+        //Nenhum
+        draw_text(350,630-128+(128*forwarder_fade)-3,"0/0");
+        draw_text(350,125-128+(128*forwarder_fade),text_forwarder[1]);
+    };
+    
+    //Comandos de navegação
+    
+    //CONTROLE
+    if(gamepad_is_connected(0) == 1)
+    ||(gamepad_is_connected(4) == 1){
+
+        //B - Fechar
+        draw_sprite_ext(spr_launcher_ctrlmap,theme+10,571,622-128+(128*forwarder_fade),1,1,0,c_white,forwarder_fade);
+        draw_text(571+10,627-128+(128*forwarder_fade),text_ctrl[1]);
+            
+        //A - Iniciar
+        draw_sprite_ext(spr_launcher_ctrlmap,theme+6,803,622-128+(128*forwarder_fade),1,1,0,c_white,forwarder_fade);
+        draw_text(803+10,627-128+(128*forwarder_fade),text_ctrl[0]);
+    };
+    //TECLADO
+    else{
+
+        //ESC - Fechar
+        draw_sprite_ext(spr_launcher_ctrlmap,theme+4,571,622-128+(128*forwarder_fade),1,1,0,c_white,forwarder_fade);
+        draw_text(571+10,627-128+(128*forwarder_fade),text_ctrl[1]);
+            
+        //ENTER - Iniciar
+        draw_sprite_ext(spr_launcher_ctrlmap,theme,803,622-128+(128*forwarder_fade),1,1,0,c_white,forwarder_fade);
+        draw_text(803+10,627-128+(128*forwarder_fade),text_ctrl[0]);
+    };
     draw_set_color(c_white);
     
     //Lista de arquivos (16 são apresentados)
@@ -2312,10 +2535,14 @@ if(forwarder_fade &gt; 0){
                     draw_set_color(c_black);
                 else
                     draw_set_color(c_white);
-           };
+            };
            
-           //Arquivo
-           draw_text(350,125+((l*32)-(forwarder_listoffset*32))-128+(128*forwarder_fade),_dot+string_copy(ds_map_find_value(forwarder_list,string(l)+"_t"),0,44));
+            //Arquivo
+            var _fl;
+            if(l == 0)
+                draw_text(350,125+((l*32)-(forwarder_listoffset*32))-128+(128*forwarder_fade),text_forwarder[0]);                
+            else
+                draw_text(350,125+((l*32)-(forwarder_listoffset*32))-128+(128*forwarder_fade),_dot+string_copy(ds_map_find_value(forwarder_list,string(l)+"_t"),0,44));
         };
     };
     
@@ -2405,7 +2632,7 @@ if(alarm[10] != -1){
     //Texto
     draw_set_colour(merge_colour(c_aqua,c_teal,col_numb));
     draw_set_halign(fa_center);
-    draw_text(1280/2,(720/2)-32,"Deleting...");
+    draw_text(1280/2,(720/2)-32,text_deleting);
     draw_set_halign(fa_left);
     draw_set_colour(c_white);
 };
@@ -2416,9 +2643,9 @@ if(alarm[10] != -1){
 var _hour = string_replace_all(string_format(current_hour,2,0)," ","0");
 var _min = string_replace_all(string_format(current_minute,2,0)," ","0");
 draw_set_font(fnt_clock);
-draw_sprite_ext(spr_launcher_clock,theme,71,35,1,1,0,c_white,1);
 if(theme == 0)
     draw_set_colour(c_black);
+draw_text_shadow(124,38,_hour+":"+_min);
 draw_text(124,38,_hour+":"+_min);
 draw_set_font(fnt_default);
 draw_set_colour(c_white);
@@ -2428,10 +2655,10 @@ if(parental_control){
 
     if(parental_fade &gt; 0)
         parental_fade -= 0.05;
-    draw_sprite_ext(spr_launcher_parental,theme+2,230,30,1,1,0,c_white,parental_fade);
+    draw_sprite_ext(spr_launcher_parental,theme+2,71,35,1,1,0,c_white,parental_fade);
 };
 else
-    draw_sprite_ext(spr_launcher_parental,theme,230,30,1,1,0,c_white,1);
+    draw_sprite_ext(spr_launcher_parental,theme,71,35,1,1,0,c_white,parental_fade);
 
 //Opções de Janela
 draw_sprite_ext(spr_launcher_options,theme,1075,35,1,1,0,c_white,1);
@@ -2439,6 +2666,17 @@ draw_sprite_ext(spr_launcher_options,theme,1075,35,1,1,0,c_white,1);
 //Conexão
 if(os_is_network_connected())
     draw_sprite_ext(spr_launcher_connection,0,1060,36,1,1,0,c_white,1);
+
+//Filtro
+if!(window_has_focus())
+&amp;&amp;!(window_get_fullscreen()){
+
+    draw_set_colour(c_black);
+    draw_set_alpha(0.7);
+    draw_rectangle(0,0,1280,720,0);
+    draw_set_alpha(1);
+    draw_set_colour(c_white);
+};
 
 //Cursor
 draw_sprite_ext(spr_launcher_cursor,0,mouse_x,mouse_y,1,1,0,merge_colour(c_aqua,c_teal,col_numb),1);
@@ -2453,36 +2691,9 @@ if((mouse_check_button(mb_right))
     draw_rectangle_colour(4,4,1280-4,720-4,merge_colour(c_aqua,c_teal,col_numb),merge_colour(c_teal,c_aqua,col_numb),merge_colour(c_aqua,c_teal,col_numb),merge_colour(c_teal,c_aqua,col_numb),1);
     draw_rectangle_colour(5,5,1280-5,720-5,merge_colour(c_aqua,c_teal,col_numb),merge_colour(c_teal,c_aqua,col_numb),merge_colour(c_aqua,c_teal,col_numb),merge_colour(c_teal,c_aqua,col_numb),1);
 };
-
-//Filtro
-if!(window_has_focus())
-&amp;&amp;!(window_get_fullscreen()){
-
-    draw_set_colour(c_black);
-    draw_set_alpha(0.7);
-    draw_rectangle(0,0,1280,720,0);
-    draw_set_alpha(1);
-    draw_set_colour(c_white);
-};
 </string>
           </argument>
         </arguments>
-      </action>
-    </event>
-    <event eventtype="9" enumb="112">
-      <action>
-        <libid>1</libid>
-        <id>331</id>
-        <kind>0</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>0</useapplyto>
-        <exetype>1</exetype>
-        <functionname>action_restart_game</functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
       </action>
     </event>
   </events>
