@@ -238,6 +238,10 @@ else{
     file_rename_fmns(game_save_id+"collection\game_TMP.png",game_save_id+"collection\game_"+string(select_index)+".png");
     file_rename_fmns(game_save_id+"collection\game_TMP.ini",game_save_id+"collection\game_"+string(select_index)+".ini");
 
+    //Checar arquivo
+    if(file_exists_fmns(games_path[select_index])) select_exists = 1;
+    else select_exists = 0;
+    
     //Limpar
     cleanmem();
 
@@ -304,6 +308,10 @@ else{
     ini_write_string("NINTY_ENTRY","total",string(games_total));
     ini_close();
 
+    //Checar arquivo
+    if(file_exists_fmns(games_path[select_index])) select_exists = 1;
+    else select_exists = 0;
+            
     //Limpar
     cleanmem();
 
@@ -392,7 +400,11 @@ if(mod_file != ""){
     ini_write_string("NINTY_ENTRY","animframes",string(games_animframes[select_index]));
     ini_write_string("NINTY_ENTRY","animspeed",string(games_animspeed[select_index]));
     ini_close();
-    
+
+    //Checar arquivo
+    if(file_exists_fmns(games_path[select_index])) select_exists = 1;
+    else select_exists = 0;
+        
     //Limpar
     cleanmem();
                 
@@ -605,7 +617,11 @@ if(file != ""){
   
     //Lembrar de não abrir forwarder próxima vez...
     forwarder_openexplorer = 0;
-    
+
+    //Checar arquivo
+    if(file_exists_fmns(games_path[select_index])) select_exists = 1;
+    else select_exists = 0;
+        
     //Limpar
     cleanmem();
     
@@ -1392,7 +1408,11 @@ if(mouse_check_button_released(mb_left))
             ini_open(game_save_id+"collection\_total.ini");
             ini_write_string("NINTY_ENTRY","total",string(games_total));
             ini_close();
-            
+
+            //Checar arquivo
+            if(file_exists_fmns(games_path[select_index])) select_exists = 1;
+            else select_exists = 0;
+                        
             //Limpar
             cleanmem();
 
@@ -1872,6 +1892,7 @@ anim_wallpaper = 0;
 //Buscar total de jogos
 if(launched == 0){
 
+    games_total = 0;
     ini_open(game_save_id+"collection\_total.ini");
     games_total = real(ini_read_string("NINTY_ENTRY","total","0"));
     ini_close();
@@ -1879,7 +1900,7 @@ if(launched == 0){
 
 //Lista
 var i;
-for(i=0; i&lt;games_total; i+=1){
+for(i=0; i&lt;games_total+1; i+=1){
 
     //Dados
     if(launched == 0){
