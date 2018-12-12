@@ -23,6 +23,9 @@ Programmed/written in GML, Ninty is a launcher based on the Nintendo Switch inte
 **Logo:**
 *Biel98765*
 
+**Translations:**
+*GlitchyPSIX (Spanish)*
+
 **Extensions:**
 *Samuel Venable (FMNS), Aouab (DiscordRPC), Paul Weijtens (GMFile)*
 
