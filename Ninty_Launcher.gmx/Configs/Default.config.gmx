@@ -492,11 +492,11 @@
     <option_version_build>0</option_version_build>
     <option_version_company></option_version_company>
     <option_version_copyright></option_version_copyright>
-    <option_version_description>Ninty Launcher | 1.5.1</option_version_description>
+    <option_version_description>Ninty Launcher | 1.5.2</option_version_description>
     <option_version_major>1</option_version_major>
     <option_version_minor>5</option_version_minor>
     <option_version_product></option_version_product>
-    <option_version_release>1</option_version_release>
+    <option_version_release>2</option_version_release>
     <option_win8_advertising_appid></option_win8_advertising_appid>
     <option_win8_advertising_enable>0</option_win8_advertising_enable>
     <option_win8_advertising_key></option_win8_advertising_key>
@@ -573,7 +573,7 @@
     <option_windows_company_info></option_windows_company_info>
     <option_windows_copyright_info></option_windows_copyright_info>
     <option_windows_create_textures_on_demand>False</option_windows_create_textures_on_demand>
-    <option_windows_description_info>Ninty Launcher | 1.5.1</option_windows_description_info>
+    <option_windows_description_info>Ninty Launcher | 1.5.2</option_windows_description_info>
     <option_windows_enable_steam>0</option_windows_enable_steam>
     <option_windows_game_icon>Configs\Default\windows\runner_icon.ico</option_windows_game_icon>
     <option_windows_license>Configs\Default\windows\License.txt</option_windows_license>
@@ -581,7 +581,7 @@
     <option_windows_major_version>1</option_windows_major_version>
     <option_windows_nsis_file>Configs\Default\windows\RunnerInstaller.nsi</option_windows_nsis_file>
     <option_windows_product_info></option_windows_product_info>
-    <option_windows_release_version>1</option_windows_release_version>
+    <option_windows_release_version>2</option_windows_release_version>
     <option_windows_runner_finished>Configs\Default\windows\Runner_finish.bmp</option_windows_runner_finished>
     <option_windows_runner_header>Configs\Default\windows\Runner_header.bmp</option_windows_runner_header>
     <option_windows_save_location>0</option_windows_save_location>

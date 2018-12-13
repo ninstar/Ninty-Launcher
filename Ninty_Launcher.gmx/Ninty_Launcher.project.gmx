@@ -112,7 +112,8 @@
   </NewExtensions>
   <sounds name="sound">
     <sound>sound\snd_alert</sound>
-    <sound>sound\snd_window</sound>
+    <sound>sound\snd_window_open</sound>
+    <sound>sound\snd_window_close</sound>
     <sound>sound\snd_parentalcontrol</sound>
     <sound>sound\snd_loading</sound>
     <sound>sound\snd_launcher_open</sound>
