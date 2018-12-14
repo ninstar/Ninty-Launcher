@@ -52,7 +52,7 @@ move_origin = -1;
 move_temp_title = "";
 move_temp_path = "";
 move_temp_forwarder = "";
-move_temp_bootwait = 1;
+move_temp_shortcut = 1;
 move_temp_animframes = 1;
 move_temp_animspeed = 0;
 move_temp_playtime[0] = "0";
@@ -198,7 +198,7 @@ if(file_exists_fmns(game_save_id+"collection\game_"+string(select_index)+".ini")
     games_title[move_origin] = games_title[select_index];
     games_path[move_origin] = games_path[select_index];
     games_forwarder[move_origin] = games_forwarder[select_index];
-    games_bootwait[move_origin] = games_bootwait[select_index];
+    games_shortcut[move_origin] = games_shortcut[select_index];
     games_animframes[move_origin] = games_animframes[select_index];
     games_animspeed[move_origin] = games_animspeed[select_index];
     games_playtime[move_origin,0] = games_playtime[select_index,0];
@@ -222,7 +222,7 @@ else{
     games_title[select_index] = move_temp_title;
     games_path[select_index] = move_temp_path;
     games_forwarder[select_index] = move_temp_forwarder;
-    games_bootwait[select_index] = move_temp_bootwait;
+    games_shortcut[select_index] = move_temp_shortcut;
     games_animframes[select_index] = move_temp_animframes;
     games_animspeed[select_index] = move_temp_animspeed;
     games_playtime[select_index,0] = move_temp_playtime[0];
@@ -286,7 +286,7 @@ if(move_rest &lt; games_total-1){
     games_title[move_rest] = games_title[move_rest+1];
     games_path[move_rest] = games_path[move_rest+1];
     games_forwarder[move_rest] = games_forwarder[move_rest+1];
-    games_bootwait[move_rest] = games_bootwait[move_rest+1];
+    games_shortcut[move_rest] = games_shortcut[move_rest+1];
     games_animframes[move_rest] = games_animframes[move_rest+1];
     games_animspeed[move_rest] = games_animspeed[move_rest+1];
     games_playtime[move_rest,0] = games_playtime[move_rest+1,0];
@@ -604,10 +604,10 @@ if(file != ""){
                     
     //Salvar no diretório
     ini_open(game_save_id+"collection\game_"+string(games_total)+".ini");
+    ini_write_string("NINTY_ENTRY","forwarder",string(games_forwarder[games_total]));
+    ini_write_string("NINTY_ENTRY","shortcut",string(games_shortcut[games_total]));
     ini_write_string("NINTY_ENTRY","title",games_title[games_total]);
     ini_write_string("NINTY_ENTRY","path",string(file));
-    ini_write_string("NINTY_ENTRY","forwarder",string(games_forwarder[games_total]));
-    ini_write_string("NINTY_ENTRY","wait",string(games_bootwait[games_total]));
     ini_write_string("NINTY_ENTRY","animframes",string(games_animframes[games_total]));
     ini_write_string("NINTY_ENTRY","animspeed",string(games_animspeed[games_total]));
     ini_write_string("NINTY_ENTRY","0",base64_encode("0"));
@@ -805,7 +805,7 @@ draw_enable_drawevent(1);
 
 //Determinar tempo de jogo
 var t, _date, _hour, _minute;
-_date = date_minute_span(time_start,date_current_datetime());
+_date = round(date_minute_span(time_start,date_current_datetime()));
 _hour = real(games_playtime[select_index,0]);
 _minute = real(games_playtime[select_index,1]);
 for(t = 0; t &lt; _date; t += 1){
@@ -931,23 +931,23 @@ if(boot_wait != ""){
 
     //Começar registro de tempo
     time_start = date_current_datetime();
+
+    //Discord RPC
+    discord_update_presence("🎮 | "+string(games_title[select_index]),"⭐ | "+string(games_total)+" Games in Library.","default","");
+    
+    //Criar .BAT direcionado ao local do jogo (evita falhas)
+    var test = file_text_open_write(game_save_id+"gameboot.bat")
+    file_text_write_string(test,filename_drive(games_path[select_index]));
+    file_text_writeln(test);
+    file_text_write_string(test,"cd "+filename_path(games_path[select_index])+"");
+    file_text_writeln(test);
+    if(boot_attach == "")
+        file_text_write_string(test,'start "Ninty_Game_Boot" '+boot_res+''+boot_wait+'"'+filename_name(games_path[select_index])+'"');
+    else
+        file_text_write_string(test,'start "Ninty_Game_Boot" '+boot_res+''+boot_wait+'"'+filename_name(games_path[select_index])+'" '+boot_attach);
+    file_text_writeln(test);
+    file_text_close(test);
 };
-
-//Discord RPC
-discord_update_presence("🎮 | "+string(games_title[select_index]),"⭐ | "+string(games_total)+" Games in Library.","default","");
-
-//Criar .BAT direcionado ao local do jogo (evita falhas)
-var test = file_text_open_write(game_save_id+"gameboot.bat")
-file_text_write_string(test,filename_drive(games_path[select_index]));
-file_text_writeln(test);
-file_text_write_string(test,"cd "+filename_path(games_path[select_index])+"");
-file_text_writeln(test);
-if(boot_attach == "")
-    file_text_write_string(test,'start "Ninty_Game_Boot" '+boot_res+''+boot_wait+'"'+filename_name(games_path[select_index])+'"');
-else
-    file_text_write_string(test,'start "Ninty_Game_Boot" '+boot_res+''+boot_wait+'"'+filename_name(games_path[select_index])+'" '+boot_attach);
-file_text_writeln(test);
-file_text_close(test);
 
 //Prosseguir para inicialização
 alarm[1] = 4;
@@ -1438,7 +1438,7 @@ if(mouse_check_button_released(mb_left))
             //Apagar apenas esse
             games_path[select_index] = "";
             games_forwarder[select_index] = "";
-            games_bootwait[select_index] = 1;
+            games_shortcut[select_index] = 0;
             games_animframes[select_index] = 1;
             games_animspeed[select_index] = 0
             
@@ -1772,7 +1772,7 @@ if(alarm[0] == -1)
                     move_temp_title = games_title[move_origin];
                     move_temp_path = games_path[move_origin];
                     move_temp_forwarder = games_forwarder[move_origin];
-                    move_temp_bootwait = games_bootwait[move_origin];
+                    move_temp_shortcut = games_shortcut[move_origin];
                     move_temp_animframes = games_animframes[move_origin];
                     move_temp_animspeed = games_animspeed[move_origin];
                     move_temp_playtime[0] = games_playtime[move_origin,0];
@@ -1831,7 +1831,7 @@ if(alarm[0] == -1)
                         boot_res = "";
                         
                     //Iniciar e suspender
-                    if(games_bootwait[select_index] == 1)
+                    if(games_shortcut[select_index] == 0)
                         boot_wait = "/wait ";
                     else
                         boot_wait = "";
@@ -1964,7 +1964,7 @@ for(i=0; i&lt;games_total+1; i+=1){
         games_title[i] = ini_read_string("NINTY_ENTRY","title","???");
         games_path[i] = ini_read_string("NINTY_ENTRY","path","");
         games_forwarder[i] = ini_read_string("NINTY_ENTRY","forwarder","");
-        games_bootwait[i] = real(ini_read_string("NINTY_ENTRY","wait","1"));
+        games_shortcut[i] = real(ini_read_string("NINTY_ENTRY","shortcut","0"));
         games_animframes[i] = real(ini_read_string("NINTY_ENTRY","animframes","1"));
         games_animspeed[i] = real(ini_read_string("NINTY_ENTRY","animspeed","0"));
         games_playtime[i,0] = real(base64_decode(ini_read_string("NINTY_ENTRY","0","0")));
@@ -2166,7 +2166,7 @@ audio_play_sfx(snd_launcher_open);
 //Checar se existem thumbnails (update automático)
 if!(directory_exists_fmns(global.assets_dir+"thumbnails")){
     
-    directory_create(global.assets_dir+"thumbnails\");
+    directory_create_fmns(global.assets_dir+"thumbnails\");
     instance_create(1060,36,obj_downloader);
     updated = 1;
 };
@@ -2553,7 +2553,7 @@ if(select_index &lt; games_total+1)
     
     //Play Time
     if(move == 0)
-    &amp;&amp;(games_bootwait[select_index] == 1){
+    &amp;&amp;(games_shortcut[select_index] == 0){
     
         if(games_playtime[select_index,0] &lt; 1)
         &amp;&amp;(games_playtime[select_index,1] &lt; 1){

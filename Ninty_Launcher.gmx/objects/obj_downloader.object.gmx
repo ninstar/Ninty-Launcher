@@ -254,8 +254,8 @@ else
     draw_set_color(c_white);
 if(thumb_index &gt; 0){
 
-    draw_text_shadow(x-10,y+7,string(thumb_index+1)+"/"+string(ds_list_size(thumb_dlist)+1));
-    draw_text(x-10,y+7,string(thumb_index+1)+"/"+string(ds_list_size(thumb_dlist)+1));
+    draw_text_shadow(x-10,y+7,string(thumb_index)+"/"+string(ds_list_size(thumb_dlist)));
+    draw_text(x-10,y+7,string(thumb_index)+"/"+string(ds_list_size(thumb_dlist)));
 };
 draw_set_color(c_white);
 draw_set_font(fnt_default);

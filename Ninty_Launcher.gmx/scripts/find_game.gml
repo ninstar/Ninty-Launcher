@@ -1,7 +1,7 @@
 ///find_predefined_game(name,index)
 forwarder_openexplorer = 0;
 games_forwarder[argument1] = "";
-games_bootwait[argument1] = 1;
+games_shortcut[argument1] = 0;
 if(file_exists_fmns(global.assets_dir+"thumbnails\_titles.ini")){
 
     var t, p, _total;
@@ -14,11 +14,11 @@ if(file_exists_fmns(global.assets_dir+"thumbnails\_titles.ini")){
     //Primeiro checar nome do caminho (evita confudir executaveis com nomes iguais)
     for(t=1; t<_total; t+=1){
         
-        var _title, _thumb, _tagA, _tagB, _tagC, _tagD, _tagE, _tagF, _forward, _wait;
+        var _title, _thumb, _tagA, _tagB, _tagC, _tagD, _tagE, _tagF, _forward, _shortcut;
 
         ini_open(global.assets_dir+"thumbnails\_titles.ini");
         _forward = ini_read_real("NINTY_TITLE_"+string(t),"forward",0);
-        _wait = ini_read_real("NINTY_TITLE_"+string(t),"wait",1);
+        _shortcut = ini_read_real("NINTY_TITLE_"+string(t),"shortcut",0);
         _title = ini_read_string("NINTY_TITLE_"+string(t),"title","");
         _thumb = ini_read_string("NINTY_TITLE_"+string(t),"thumb","");
         _tagA = ini_read_string("NINTY_TITLE_"+string(t),"tagA","");
@@ -33,10 +33,12 @@ if(file_exists_fmns(global.assets_dir+"thumbnails\_titles.ini")){
         if(string_pos(string_lower(_tagA),string_lower(filename_path(argument0))))
         ||(string_pos(string_lower(_tagB),string_lower(filename_path(argument0))))
         ||(string_pos(string_lower(_tagC),string_lower(filename_path(argument0))))
-        ||(string_pos(string_lower(_tagD),string_lower(filename_path(argument0)))){
+        ||(string_pos(string_lower(_tagD),string_lower(filename_path(argument0))))
+        ||(string_pos(string_lower(_tagE),string_lower(filename_path(argument0))))
+        ||(string_pos(string_lower(_tagF),string_lower(filename_path(argument0)))){
             
             games_title[argument1] = _title;
-            games_bootwait[argument1] = _wait;
+            games_shortcut[argument1] = real(_shortcut);
             forwarder_openexplorer = _forward;
             return global.assets_dir+"thumbnails\"+_thumb;
             break;
@@ -46,11 +48,11 @@ if(file_exists_fmns(global.assets_dir+"thumbnails\_titles.ini")){
     //Depois checar nome do arquivo
     for(p=1; p<_total; p+=1){
         
-        var _title, _thumb, _tagA, _tagB, _tagC, _tagD, _tagE, _tagF, _forward, _wait;
+        var _title, _thumb, _tagA, _tagB, _tagC, _tagD, _tagE, _tagF, _forward, _shortcut;
     
         ini_open(global.assets_dir+"thumbnails\_titles.ini");
         _forward = ini_read_real("NINTY_TITLE_"+string(p),"forward",0);
-        _wait = ini_read_real("NINTY_TITLE_"+string(t),"wait",1);
+        _shortcut = ini_read_real("NINTY_TITLE_"+string(p),"shortcut",0);
         _title = ini_read_string("NINTY_TITLE_"+string(p),"title","");
         _thumb = ini_read_string("NINTY_TITLE_"+string(p),"thumb","");
         _tagA = ini_read_string("NINTY_TITLE_"+string(p),"tagA","");
@@ -66,10 +68,12 @@ if(file_exists_fmns(global.assets_dir+"thumbnails\_titles.ini")){
         if(string_lower(filename_name(argument0)) == string_lower(_tagA))
         ||(string_lower(filename_name(argument0)) == string_lower(_tagB))
         ||(string_lower(filename_name(argument0)) == string_lower(_tagC))
-        ||(string_lower(filename_name(argument0)) == string_lower(_tagD)){
+        ||(string_lower(filename_name(argument0)) == string_lower(_tagD))
+        ||(string_lower(filename_name(argument0)) == string_lower(_tagE))
+        ||(string_lower(filename_name(argument0)) == string_lower(_tagF)){
         
             games_title[argument1] = _title;
-            games_bootwait[argument1] = _wait;
+            games_shortcut[argument1] = real(_shortcut);
             forwarder_openexplorer = _forward;
             return global.assets_dir+"thumbnails\"+_thumb;
             break;
