@@ -550,7 +550,7 @@ if(file != ""){
             //Miniatura sem animação
             games_animframes[games_total] = 1;
             games_animspeed[games_total] = 0;
-            games_thumb[games_total] = sprite_add(assets_dir+"thumbnails\_default.tbn",0,0,0,0,0);
+            games_thumb[games_total] = sprite_add(global.assets_dir+"default.tbn",0,0,0,0,0);
         };
         
         //SFX
@@ -842,7 +842,7 @@ audio_play_sfx(snd_launcher_open);
 alarm[4] = 2;
 
 //Deletar .BAT
-file_delete_fmns(game_save_id+"gameboot.bat");
+file_delete_fmns(game_save_id+"\gameboot.bat");
 
 //Re-carregar assets (Lista, Thumbnails e Wallpaper)
 event_user(1);
@@ -1195,6 +1195,16 @@ for(gp_count = 0; gp_count &lt; 5; gp_count += 1){
 
 if(mouse_check_button_released(mb_any)){
 
+    
+    //Atualizador
+    if(point_in_rectangle(mouse_x,mouse_y,1060,41,1060+34,41+34))
+    &amp;&amp;(os_is_network_connected())
+    &amp;&amp;(updated == 0)
+    &amp;&amp;!(instance_exists(obj_downloader)){
+        
+        instance_create(1060,36,obj_downloader);
+        updated = 1;
+    };
     //Fullscreen
     if(point_in_rectangle(mouse_x,mouse_y,1121,41,1121+34,41+34))
     &amp;&amp;(alarm[4] == -1){
@@ -1794,7 +1804,8 @@ if(alarm[0] == -1)
             else{
 
                 //Checar se software existe
-                if(select_exists == 1){
+                if(select_exists == 1)
+                &amp;&amp;!(instance_exists(obj_downloader)){
                         
                     //SE for um forwarder...    
                     if(games_forwarder[select_index] != "")
@@ -1965,7 +1976,7 @@ for(i=0; i&lt;games_total+1; i+=1){
     if(file_exists_fmns(game_save_id+"collection\game_"+string(i)+".png"))
         games_thumb[i] = sprite_add(game_save_id+"collection\game_"+string(i)+".png",games_animframes[i],0,1,0,0);
     else
-        games_thumb[i] = sprite_add(assets_dir+"thumbnails\_default.tbn",0,0,0,0,0);
+        games_thumb[i] = sprite_add(global.assets_dir+"default.tbn",0,0,0,0,0);
         
     //Animador
     anim_games[i] = 0;
@@ -2085,8 +2096,11 @@ discord_free_dll();
 gml_release_mode(1);
 math_set_epsilon(0.0001);
 
-assets_dir = working_directory;
+global.assets_dir = working_directory; //game_save_id+"/";
 launched = 0;
+
+//Evitar spam de pedidos
+updated = 0;
 
 //Clean Memory
 cleanmem_init(0);
@@ -2148,6 +2162,14 @@ event_user(0);
 
 //SFX
 audio_play_sfx(snd_launcher_open);
+
+//Checar se existem thumbnails (update automático)
+if!(directory_exists_fmns(global.assets_dir+"thumbnails")){
+    
+    directory_create(global.assets_dir+"thumbnails\");
+    instance_create(1060,36,obj_downloader);
+    updated = 1;
+};
 </string>
           </argument>
         </arguments>
@@ -2365,20 +2387,20 @@ draw_sprite_ext(spr_launcher_icons,theme,538+parental_offset,498,1,1,0,theme_col
 draw_sprite_ext(spr_launcher_icons,4,538+parental_offset,498,1,1,0,c_white,parental_fadeicons);
 
 //Tema
-draw_sprite_ext(spr_launcher_icons,theme,647-parental_offset,498,1,1,0,theme_color,1);
-draw_sprite_ext(spr_launcher_icons,5+theme,647-parental_offset,498,1,1,0,c_white,1);
+draw_sprite_ext(spr_launcher_icons,theme,646-parental_offset,498,1,1,0,theme_color,1);
+draw_sprite_ext(spr_launcher_icons,5+theme,646-parental_offset,498,1,1,0,c_white,1);
 
 //Wallpaper
-draw_sprite_ext(spr_launcher_icons,theme,755-parental_offset,498,1,1,0,theme_color,1);
-draw_sprite_ext(spr_launcher_icons,7+theme,755-parental_offset,498,1,1,0,c_white,1);
+draw_sprite_ext(spr_launcher_icons,theme,754-parental_offset,498,1,1,0,theme_color,1);
+draw_sprite_ext(spr_launcher_icons,7+theme,754-parental_offset,498,1,1,0,c_white,1);
 
 //Adicionar
-draw_sprite_ext(spr_launcher_icons,theme,863-parental_offset,498,1,1,0,theme_color,parental_fadeicons);
-draw_sprite_ext(spr_launcher_icons,9+theme,863-parental_offset,498,1,1,0,c_white,parental_fadeicons);
+draw_sprite_ext(spr_launcher_icons,theme,862-parental_offset,498,1,1,0,theme_color,parental_fadeicons);
+draw_sprite_ext(spr_launcher_icons,9+theme,862-parental_offset,498,1,1,0,c_white,parental_fadeicons);
 
 //Aviso para adicionar jogos (caso não tenha nenhum)
 if(games_total == 0)
-    draw_sprite_ext(spr_launcher_icons,11,863-parental_offset,498,1,1,0,merge_colour(c_yellow,c_orange,col_numb),parental_fadeicons);
+    draw_sprite_ext(spr_launcher_icons,11,862-parental_offset,498,1,1,0,merge_colour(c_yellow,c_orange,col_numb),parental_fadeicons);
 
 //Aviso para atualizar jogos (caso não seja encontrado)
 if(move == 0)
@@ -2809,6 +2831,7 @@ draw_sprite_ext(spr_launcher_options,theme,1075,35,1,1,0,c_white,1);
 
 //Conexão
 if(os_is_network_connected())
+&amp;&amp;!(instance_exists(obj_downloader))
     draw_sprite_ext(spr_launcher_connection,0,1060,36,1,1,0,c_white,1);
 
 //Filtro

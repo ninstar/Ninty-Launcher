@@ -15,4 +15,4 @@ Discord Rich Presence for Game Maker made by Aouab
 
 */
 
-external_free(assets_dir+"discrpc.dll")
+external_free(global.assets_dir+"discrpc.dll")

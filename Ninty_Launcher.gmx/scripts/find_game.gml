@@ -2,12 +2,12 @@
 forwarder_openexplorer = 0;
 games_forwarder[argument1] = "";
 games_bootwait[argument1] = 1;
-if(file_exists_fmns(assets_dir+"thumbnails\_titles.ini")){
+if(file_exists_fmns(global.assets_dir+"thumbnails\_titles.ini")){
 
     var t, p, _total;
     
     //Váriavel de retorno
-    ini_open(assets_dir+"thumbnails\_titles.ini");
+    ini_open(global.assets_dir+"thumbnails\_titles.ini");
     _total = real(ini_read_string("NINTY_TITLE_MASTER","total","0"));
     ini_close();
     
@@ -16,9 +16,9 @@ if(file_exists_fmns(assets_dir+"thumbnails\_titles.ini")){
         
         var _title, _thumb, _tagA, _tagB, _tagC, _tagD, _tagE, _tagF, _forward, _wait;
 
-        ini_open(assets_dir+"thumbnails\_titles.ini");
+        ini_open(global.assets_dir+"thumbnails\_titles.ini");
         _forward = ini_read_real("NINTY_TITLE_"+string(t),"forward",0);
-        _wait = ini_read_real("NINTY_TITLE_"+string(t),"wait",0);
+        _wait = ini_read_real("NINTY_TITLE_"+string(t),"wait",1);
         _title = ini_read_string("NINTY_TITLE_"+string(t),"title","");
         _thumb = ini_read_string("NINTY_TITLE_"+string(t),"thumb","");
         _tagA = ini_read_string("NINTY_TITLE_"+string(t),"tagA","");
@@ -38,7 +38,7 @@ if(file_exists_fmns(assets_dir+"thumbnails\_titles.ini")){
             games_title[argument1] = _title;
             games_bootwait[argument1] = _wait;
             forwarder_openexplorer = _forward;
-            return assets_dir+"thumbnails\"+_thumb;
+            return global.assets_dir+"thumbnails\"+_thumb;
             break;
         };
     };
@@ -48,9 +48,9 @@ if(file_exists_fmns(assets_dir+"thumbnails\_titles.ini")){
         
         var _title, _thumb, _tagA, _tagB, _tagC, _tagD, _tagE, _tagF, _forward, _wait;
     
-        ini_open(assets_dir+"thumbnails\_titles.ini");
+        ini_open(global.assets_dir+"thumbnails\_titles.ini");
         _forward = ini_read_real("NINTY_TITLE_"+string(p),"forward",0);
-        _wait = ini_read_real("NINTY_TITLE_"+string(t),"wait",0);
+        _wait = ini_read_real("NINTY_TITLE_"+string(t),"wait",1);
         _title = ini_read_string("NINTY_TITLE_"+string(p),"title","");
         _thumb = ini_read_string("NINTY_TITLE_"+string(p),"thumb","");
         _tagA = ini_read_string("NINTY_TITLE_"+string(p),"tagA","");
@@ -71,7 +71,7 @@ if(file_exists_fmns(assets_dir+"thumbnails\_titles.ini")){
             games_title[argument1] = _title;
             games_bootwait[argument1] = _wait;
             forwarder_openexplorer = _forward;
-            return assets_dir+"thumbnails\"+_thumb;
+            return global.assets_dir+"thumbnails\"+_thumb;
             break;
         };
     };

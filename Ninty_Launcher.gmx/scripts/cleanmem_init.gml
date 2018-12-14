@@ -7,7 +7,7 @@
 if(os_type == os_win32 || os_type == os_windows)
 {
     var cm_dll;
-    cm_dll = assets_dir+"memctrl.dll"; //Incase you have it under a different directory
+    cm_dll = global.assets_dir+"memctrl.dll"; //Incase you have it under a different directory
     if (argument0)
     {
         external_free(cm_dll);

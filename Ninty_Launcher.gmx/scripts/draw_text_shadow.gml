@@ -1,5 +1,5 @@
 ///draw_text_shadow(x,y,string)
-if(theme == 0){
+if(obj_launcher.theme == 0){
 
     //Horizontal + Vertical
     draw_text_colour(argument0-3,argument1,argument2,c_black,c_black,c_black,c_black,0.02);
