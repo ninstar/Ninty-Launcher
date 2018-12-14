@@ -4,6 +4,7 @@
 </div>
 
 Programmed/written in GML, Ninty is a launcher based on the Nintendo Switch interface to run the main Fan Games (and several other softwares) out there.
+Discord Server: https://discord.gg/hPzDxgD
 ## Features
 - Nintendo Swich based UI
 - Customizable themes, including animated wallpapers.
