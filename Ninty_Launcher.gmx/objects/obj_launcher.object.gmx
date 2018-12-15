@@ -805,7 +805,7 @@ draw_enable_drawevent(1);
 
 //Determinar tempo de jogo
 var t, _date, _hour, _minute;
-_date = round(date_minute_span(time_start,date_current_datetime()));
+_date = floor(date_minute_span(time_start,date_current_datetime()));
 _hour = real(games_playtime[select_index,0]);
 _minute = real(games_playtime[select_index,1]);
 for(t = 0; t &lt; _date; t += 1){
@@ -934,21 +934,21 @@ if(boot_wait != ""){
 
     //Discord RPC
     discord_update_presence("🎮 | "+string(games_title[select_index]),"⭐ | "+string(games_total)+" Games in Library.","default","");
-    
-    //Criar .BAT direcionado ao local do jogo (evita falhas)
-    var test = file_text_open_write(game_save_id+"gameboot.bat")
-    file_text_write_string(test,filename_drive(games_path[select_index]));
-    file_text_writeln(test);
-    file_text_write_string(test,"cd "+filename_path(games_path[select_index])+"");
-    file_text_writeln(test);
-    if(boot_attach == "")
-        file_text_write_string(test,'start "Ninty_Game_Boot" '+boot_res+''+boot_wait+'"'+filename_name(games_path[select_index])+'"');
-    else
-        file_text_write_string(test,'start "Ninty_Game_Boot" '+boot_res+''+boot_wait+'"'+filename_name(games_path[select_index])+'" '+boot_attach);
-    file_text_writeln(test);
-    file_text_close(test);
 };
-
+    
+//Criar .BAT direcionado ao local do jogo (evita falhas)
+var test = file_text_open_write(game_save_id+"gameboot.bat")
+file_text_write_string(test,filename_drive(games_path[select_index]));
+file_text_writeln(test);
+file_text_write_string(test,"cd "+filename_path(games_path[select_index])+"");
+file_text_writeln(test);
+if(boot_attach == "")
+    file_text_write_string(test,'start "Ninty_Game_Boot" '+boot_res+''+boot_wait+'"'+filename_name(games_path[select_index])+'"');
+else
+    file_text_write_string(test,'start "Ninty_Game_Boot" '+boot_res+''+boot_wait+'"'+filename_name(games_path[select_index])+'" '+boot_attach);
+file_text_writeln(test);
+file_text_close(test);
+    
 //Prosseguir para inicialização
 alarm[1] = 4;
 </string>
@@ -2094,9 +2094,8 @@ discord_free_dll();
             <kind>1</kind>
             <string>///Carregar definições
 gml_release_mode(1);
-math_set_epsilon(0.0001);
 
-global.assets_dir = working_directory; //game_save_id+"/";
+global.assets_dir = working_directory;
 launched = 0;
 
 //Evitar spam de pedidos
@@ -2164,7 +2163,8 @@ event_user(0);
 audio_play_sfx(snd_launcher_open);
 
 //Checar se existem thumbnails (update automático)
-if!(directory_exists_fmns(global.assets_dir+"thumbnails")){
+if!(directory_exists_fmns(global.assets_dir+"thumbnails"))
+&amp;&amp;(os_is_network_connected()){
     
     directory_create_fmns(global.assets_dir+"thumbnails\");
     instance_create(1060,36,obj_downloader);
