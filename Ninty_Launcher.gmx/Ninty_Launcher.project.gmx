@@ -3,7 +3,7 @@
   <Configs name="configs">
     <Config>Configs\Default</Config>
   </Configs>
-  <datafiles number="121" name="datafiles">
+  <datafiles number="122" name="datafiles">
     <datafile>
       <name>filemng.dll</name>
       <exists>-1</exists>
@@ -122,6 +122,23 @@
         </Config>
       </ConfigOptions>
       <filename>default.tbn</filename>
+    </datafile>
+    <datafile>
+      <name>dummy.ogg</name>
+      <exists>-1</exists>
+      <size>2892</size>
+      <exportAction>2</exportAction>
+      <exportDir></exportDir>
+      <overwrite>0</overwrite>
+      <freeData>-1</freeData>
+      <removeEnd>0</removeEnd>
+      <store>0</store>
+      <ConfigOptions>
+        <Config name="Default">
+          <CopyToMask>9223372036854775807</CopyToMask>
+        </Config>
+      </ConfigOptions>
+      <filename>dummy.ogg</filename>
     </datafile>
   </datafiles>
   <NewExtensions>

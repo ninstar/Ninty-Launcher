@@ -34,6 +34,8 @@ debug = 0;
 is_playing = 0;
 nav_time = 60;
 icon_select = -1;
+network = 0;
+network_anim = 0;
 
 //Animações
 wp_x = 0;
@@ -357,7 +359,7 @@ if(mod_file != ""){
     audio_play_sfx(snd_addgame_step2);
     
     //Buscar miniatura...
-    var mod_thumb = get_open_filename("Thumbnail Bitmap (256x256)|*.png;*.jpg","");
+    var mod_thumb = get_open_filename("Thumbnail (256x256)|*.png;*.jpg","");
     if(mod_thumb != ""){
 
         //Deletar miniatura antiga
@@ -456,13 +458,22 @@ wallpaper_animframes = 0;
 //Deletar wallpaper do launcher
 if(sprite_exists(wallpaper))
     sprite_delete(wallpaper);
- 
+
+//Para música
+audio_stop_sound(wallpaper_song);
+
 //Deletar arquivo antigo
 file_delete_fmns(game_save_id+"wallpaper.png");
 file_delete_fmns(game_save_id+"wallpaper.ini");
+file_delete_fmns(game_save_id+"wallpaper.ogg");
     
-//Copiar
+//Copiar...
+
+//Configurações
 file_copy_fmns(string_copy(wpp,1,string_length(wpp)-4)+".ini",game_save_id+"wallpaper.ini");
+
+//Música
+file_copy_fmns(string_copy(wpp,1,string_length(wpp)-4)+".ogg",game_save_id+"wallpaper.ogg");
 
 //Carregar configuração do Wallpaper
 ini_open(game_save_id+"wallpaper.ini");
@@ -480,10 +491,16 @@ ini_close();
       
 if(wpp != ""){
 
-    //Trocar
+    //Trocar wallpaper
     wallpaper = sprite_add(wpp,wallpaper_animframes,0,wallpaper_smooth,0,0);
     file_copy_fmns(wpp,game_save_id+"wallpaper.png");
-    
+
+    //Trocar música
+    if(file_exists_fmns(game_save_id+"wallpaper.ogg"))
+        wallpaper_song = audio_create_stream(game_save_id+"wallpaper.ogg");
+    else
+        wallpaper_song = audio_create_stream(global.assets_dir+"dummy.ogg");
+        
     //SFX
     audio_play_sfx(snd_addgame_step3);
 };
@@ -533,7 +550,7 @@ if(file != ""){
         audio_play_sfx(snd_addgame_step1);
         
         //Buscar miniatura...
-        thumb = get_open_filename("Thumbnail Bitmap (256x256)|*.png;*.jpg","");
+        thumb = get_open_filename("Thumbnail (256x256)|*.png;*.jpg","");
         if(thumb != ""){
         
             //Miniatura com animação
@@ -560,22 +577,25 @@ if(file != ""){
         games_title[games_total] = string_copy(filename_name(file),0,32);
         
         //Alterar nome
+        var _remove_ext = string_copy(filename_name(file),1,string_length(filename_name(file))-4);
         dialog_description = text_dialog[0];
-        keyboard_string = string_copy(filename_name(file),0,32);
-        dialog_return = string_copy(filename_name(file),0,32);
+        keyboard_string = string_copy(_remove_ext,0,32);
+        dialog_return = string_copy(_remove_ext,0,32);
         dialog = 1;
         alarm[6] = 4;
     };
     else{
     
+        //Sinalizar que está baixando...
+        network = 1;
+    
+        //NOTA: Evento "Image Load" esta ativo esperando baixar a imagem...
+        games_thumb[games_total] = sprite_add(thumb,get_anim_frames(thumb),0,1,0,0);
+
         //Miniatura com animação
         games_animframes[games_total] = get_anim_frames(thumb);
         games_animspeed[games_total] = get_anim_speed(thumb);
-        games_thumb[games_total] = sprite_add(thumb,get_anim_frames(thumb),0,1,0,0);
-        
-        //Copiar para pasta
-        file_copy_fmns(thumb,game_save_id+"collection\game_"+string(games_total)+".png");
-        
+                    
         //Se for um forwarder...
         if(forwarder_openexplorer != 0){
        
@@ -933,7 +953,10 @@ if(boot_wait != ""){
     time_start = date_current_datetime();
 
     //Discord RPC
-    discord_update_presence("🎮 | "+string(games_title[select_index]),"⭐ | "+string(games_total)+" Games in Library.","default","");
+    if(boot_attach == "")
+        discord_update_presence("🎮 | "+string(games_title[select_index]),"⭐ | "+string(games_total)+" Games in Library.","default","");
+    else
+        discord_update_presence("🎮 | "+string(string_copy(ds_map_find_value(forwarder_list,string(forwarder_select)+"_t"),1,string_length(ds_map_find_value(forwarder_list,string(forwarder_select)+"_t"))-4)),"⭐ | "+string(games_title[select_index]),"default","");
 };
     
 //Criar .BAT direcionado ao local do jogo (evita falhas)
@@ -982,10 +1005,21 @@ if(is_playing == 1)
 ||(alarm[11] != -1)
     exit;
 
+//Voltar música música
+if(window_has_focus())
+&amp;&amp;(audio_is_paused(wallpaper_song))
+    audio_resume_sound(wallpaper_song);
+    
 //Standby
-if(os_is_paused())
+if(os_is_paused()){
+
+    //Pausar música
+    audio_pause_sound(wallpaper_song);
+    
+    //SFX
     audio_play_sfx(snd_launcher_close);
-        
+};
+    
 //Mover janela
 if((mouse_check_button(mb_right))
 ||(mouse_check_button(mb_middle)))
@@ -1195,16 +1229,6 @@ for(gp_count = 0; gp_count &lt; 5; gp_count += 1){
 
 if(mouse_check_button_released(mb_any)){
 
-    
-    //Atualizador
-    if(point_in_rectangle(mouse_x,mouse_y,1060,41,1060+34,41+34))
-    &amp;&amp;(os_is_network_connected())
-    &amp;&amp;(updated == 0)
-    &amp;&amp;!(instance_exists(obj_downloader)){
-        
-        instance_create(1060,36,obj_downloader);
-        updated = 1;
-    };
     //Fullscreen
     if(point_in_rectangle(mouse_x,mouse_y,1121,41,1121+34,41+34))
     &amp;&amp;(alarm[4] == -1){
@@ -1392,7 +1416,8 @@ if(mouse_check_button_released(mb_left))
 &amp;&amp;(alarm[9] == -1)
 &amp;&amp;(dialog == 0)
 &amp;&amp;(forwarder == 0)
-&amp;&amp;(move == 0){
+&amp;&amp;(move == 0)
+&amp;&amp;(async_thumbnail == -1){
         
     //Pasta do Launcher
     if(point_in_rectangle(mouse_x,mouse_y,595,662,595+44,662+44))
@@ -1619,7 +1644,8 @@ if(infopopup == 1)
 if(alarm[0] == -1)
 &amp;&amp;(alarm[5] == -1)
 &amp;&amp;(games_total &gt; 0)
-&amp;&amp;(dialog == 0){
+&amp;&amp;(dialog == 0)
+&amp;&amp;(async_thumbnail == -1){
 
     //Bloquear navegação enquanto estiver em menu de forwarder...
     if(forwarder == 0){
@@ -1856,6 +1882,82 @@ if(alarm[0] == -1)
         </arguments>
       </action>
     </event>
+    <event eventtype="7" enumb="62">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///Atualziar base de thumbnails automáticas (thumbdb.ini)
+if(ds_map_find_value(async_load,"id") == async_database){
+
+    //Se download finalizar...
+    if(ds_map_find_value(async_load,"status") &gt;= 0){
+            
+        //Deeletar log antigo
+        file_delete_fmns(game_save_id+"thumbdb.ini");
+
+        //Renomear e finalizar
+        file_rename_fmns(ds_map_find_value(async_load,"result"),game_save_id+"thumbdb.ini");
+        network = 0;   
+    };
+    else
+        network = 0;
+};
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="7" enumb="60">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///Mover imagem para destino após baixar (Adicionar jogo)
+if(ds_map_find_value(async_load,"id") == games_thumb[async_thumbnail]){
+    
+    //Se download finalizar...
+    if(ds_map_find_value(async_load,"status") &gt;= 0){
+    
+        //Salvar thumbnail na pasta
+        sprite_save_strip(games_thumb[async_thumbnail],game_save_id+"collection\game_"+string(async_thumbnail)+".png");
+        
+        //Finalizado
+        async_thumbnail = -1;
+        network = 0;
+    };
+    else
+        network = 0;
+};
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
     <event eventtype="7" enumb="12">
       <action>
         <libid>1</libid>
@@ -1888,6 +1990,10 @@ for(i=0; i&lt;games_total; i+=1){
         sprite_delete(games_thumb[i]);
 };
 
+//Descarregar música
+audio_stop_sound(wallpaper_song);
+audio_destroy_stream(wallpaper_song);
+
 //Limpar
 cleanmem();
 </string>
@@ -1916,9 +2022,10 @@ cleanmem();
 
 // WALLPAPER ----------------------------------------------
 
-//Configuração do Wallpaper
+
 if(launched == 0){
 
+    //Configuração do Wallpaper
     ini_open(game_save_id+"wallpaper.ini")
     wallpaper_tiled = real(ini_read_string("NINTY_WALLPAPER","tiled","1"));
     wallpaper_stretched = real(ini_read_string("NINTY_WALLPAPER","stretched","0"));
@@ -1938,7 +2045,15 @@ if(file_exists_fmns(game_save_id+"wallpaper.png"))
     wallpaper = sprite_add(game_save_id+"wallpaper.png",wallpaper_animframes,0,0,0,0);
 else
     wallpaper = noone;
-    
+
+//Música
+if(file_exists_fmns(game_save_id+"wallpaper.ogg"))
+    wallpaper_song = audio_create_stream(game_save_id+"wallpaper.ogg");
+else
+    wallpaper_song = audio_create_stream(global.assets_dir+"dummy.ogg");
+
+audio_play_sound(wallpaper_song,0,1);
+            
 //Animador (Wallpaper)
 anim_wallpaper = 0;
 
@@ -1983,8 +2098,13 @@ for(i=0; i&lt;games_total+1; i+=1){
 };
 
 //Checar arquivo selecionado
-if(file_exists_fmns(games_path[select_index]))
-    select_exists = 1;
+if(games_total &gt;= select_index){
+
+    if(file_exists_fmns(games_path[select_index]))
+        select_exists = 1;
+    else
+        select_exists = 0;
+};
 else
     select_exists = 0;
 
@@ -2066,6 +2186,9 @@ if(file_exists_fmns(game_save_id+"wallpaper.png"))
     ini_close();
 };
 
+//Descarregar assets
+event_user(2);
+
 //Descarregar DLLs
 cleanmem_init(1);
 discord_free_app();
@@ -2098,8 +2221,12 @@ gml_release_mode(1);
 global.assets_dir = working_directory;
 launched = 0;
 
-//Evitar spam de pedidos
-updated = 0;
+//URL do repositório padrão de thumbnails automáticas
+default_dburl = "https://raw.githubusercontent.com/MarioSilvaGH/Ninty-Launcher/master/assets/thumbnails/";
+
+//Async
+async_thumbnail = -1;
+async_database = noone;
 
 //Clean Memory
 cleanmem_init(0);
@@ -2163,12 +2290,20 @@ event_user(0);
 audio_play_sfx(snd_launcher_open);
 
 //Checar se existem thumbnails (update automático)
-if!(directory_exists_fmns(global.assets_dir+"thumbnails"))
-&amp;&amp;(os_is_network_connected()){
+if(os_is_network_connected()){
+
+    var url;
     
-    directory_create_fmns(global.assets_dir+"thumbnails\");
-    instance_create(1060,36,obj_downloader);
-    updated = 1;
+    //Procurar URL
+    ini_open(game_save_id+"thumbdb.ini");
+    url = ini_read_string("NINTY_TITLE_MASTER","url",default_dburl);
+    ini_close();
+        
+    //Sinalizar que está baixando...
+    network = 1;
+        
+    //Baixar
+    async_database = http_get_file(url+"_titles.ini",game_save_id+"thumbdb_updated.ini");
 };
 </string>
           </argument>
@@ -2238,8 +2373,13 @@ if(sprite_exists(wallpaper)){
     };
     
     //Esticado
-    if(wallpaper_stretched == 1)
-        draw_sprite_stretched(wallpaper,anim_wallpaper,wallpaper_h_offset+wp_x,wallpaper_v_offset+wp_y,1280,720);
+    if(wallpaper_stretched == 1){
+    
+        if(window_get_fullscreen() == 1)
+            draw_sprite_stretched(wallpaper,anim_wallpaper,0,-(display_get_height()-720)/2,display_get_width(),display_get_height());
+        else
+            draw_sprite_stretched(wallpaper,anim_wallpaper,0,0,1280,720);
+    };
     else{
     
         //Tiled
@@ -2830,9 +2970,22 @@ else
 draw_sprite_ext(spr_launcher_options,theme,1075,35,1,1,0,c_white,1);
 
 //Conexão
-if(os_is_network_connected())
-&amp;&amp;!(instance_exists(obj_downloader))
-    draw_sprite_ext(spr_launcher_connection,0,1060,36,1,1,0,c_white,1);
+if(os_is_network_connected()){
+
+    //Não baixando nada...
+    draw_sprite_ext(spr_launcher_connection,theme,1060,36,1,1,0,c_white,1);
+        
+    if(network == 1){
+       
+        //Animação
+        if(network_anim &lt; 3)
+            network_anim += 0.15;
+        else
+            network_anim = 0;
+                
+        draw_sprite_ext(spr_launcher_updating,network_anim,1060,36,1,1,0,c_white,1);    
+    };
+};
 
 //Filtro
 if!(window_has_focus())
