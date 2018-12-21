@@ -34,7 +34,6 @@ debug = 0;
 is_playing = 0;
 nav_time = 60;
 icon_select = -1;
-network = 0;
 network_anim = 0;
 
 //Animações
@@ -459,8 +458,9 @@ wallpaper_animframes = 0;
 if(sprite_exists(wallpaper))
     sprite_delete(wallpaper);
 
-//Para música
+//Parar música
 audio_stop_sound(wallpaper_song);
+audio_destroy_stream(wallpaper_song);
 
 //Deletar arquivo antigo
 file_delete_fmns(game_save_id+"wallpaper.png");
@@ -494,12 +494,6 @@ if(wpp != ""){
     //Trocar wallpaper
     wallpaper = sprite_add(wpp,wallpaper_animframes,0,wallpaper_smooth,0,0);
     file_copy_fmns(wpp,game_save_id+"wallpaper.png");
-
-    //Trocar música
-    if(file_exists_fmns(game_save_id+"wallpaper.ogg"))
-        wallpaper_song = audio_create_stream(game_save_id+"wallpaper.ogg");
-    else
-        wallpaper_song = audio_create_stream(global.assets_dir+"dummy.ogg");
         
     //SFX
     audio_play_sfx(snd_addgame_step3);
@@ -508,6 +502,9 @@ if(wpp != ""){
 else
     audio_play_sfx(snd_alert);
 
+//Trocar música e tocar
+instance_create(0,0,obj_musicplayer);
+    
 //Limpar
 cleanmem();
     
@@ -1007,14 +1004,18 @@ if(is_playing == 1)
 
 //Voltar música música
 if(window_has_focus())
-&amp;&amp;(audio_is_paused(wallpaper_song))
-    audio_resume_sound(wallpaper_song);
-    
+&amp;&amp;(audio_exists(wallpaper_song)){
+
+    if(audio_is_paused(wallpaper_song))
+        audio_resume_sound(wallpaper_song);
+};
+
 //Standby
 if(os_is_paused()){
 
     //Pausar música
-    audio_pause_sound(wallpaper_song);
+    if(audio_exists(wallpaper_song))
+        audio_pause_sound(wallpaper_song);
     
     //SFX
     audio_play_sfx(snd_launcher_close);
@@ -1831,7 +1832,7 @@ if(alarm[0] == -1)
 
                 //Checar se software existe
                 if(select_exists == 1)
-                &amp;&amp;!(instance_exists(obj_downloader)){
+                &amp;&amp;(network == 0){
                         
                     //SE for um forwarder...    
                     if(games_forwarder[select_index] != "")
@@ -1903,15 +1904,8 @@ if(alarm[0] == -1)
 if(ds_map_find_value(async_load,"id") == async_database){
 
     //Se download finalizar...
-    if(ds_map_find_value(async_load,"status") &gt;= 0){
-            
-        //Deeletar log antigo
-        file_delete_fmns(game_save_id+"thumbdb.ini");
-
-        //Renomear e finalizar
-        file_rename_fmns(ds_map_find_value(async_load,"result"),game_save_id+"thumbdb.ini");
-        network = 0;   
-    };
+    if(ds_map_find_value(async_load,"status") &gt;= 0)
+        network = 0;
     else
         network = 0;
 };
@@ -2022,7 +2016,6 @@ cleanmem();
 
 // WALLPAPER ----------------------------------------------
 
-
 if(launched == 0){
 
     //Configuração do Wallpaper
@@ -2038,6 +2031,9 @@ if(launched == 0){
     wallpaper_animframes = real(ini_read_string("NINTY_WALLPAPER","animframes","1"));
     wallpaper_animspeed = real(ini_read_string("NINTY_WALLPAPER","animspeed","0"));
     ini_close();
+    
+    //Música (primeiro carregamento)
+    wallpaper_song = audio_create_stream(global.assets_dir+"dummy.ogg");
 };
 
 //Wallpaper
@@ -2047,12 +2043,7 @@ else
     wallpaper = noone;
 
 //Música
-if(file_exists_fmns(game_save_id+"wallpaper.ogg"))
-    wallpaper_song = audio_create_stream(game_save_id+"wallpaper.ogg");
-else
-    wallpaper_song = audio_create_stream(global.assets_dir+"dummy.ogg");
-
-audio_play_sound(wallpaper_song,0,1);
+instance_create(0,0,obj_musicplayer);
             
 //Animador (Wallpaper)
 anim_wallpaper = 0;
@@ -2166,6 +2157,7 @@ ini_write_real("NINTY_CONFIG","theme",theme);
 ini_write_real("NINTY_CONFIG","fullscreen",fullscreen);
 ini_write_real("NINTY_CONFIG","position",select_index);
 ini_write_real("NINTY_CONFIG","parental",parental_control);
+ini_write_real("NINTY_CONFIG","helptour",help_tour);
 ini_close();
 
 //Salvar configuração do Wallpaper
@@ -2221,12 +2213,15 @@ gml_release_mode(1);
 global.assets_dir = working_directory;
 launched = 0;
 
-//URL do repositório padrão de thumbnails automáticas
-default_dburl = "https://raw.githubusercontent.com/MarioSilvaGH/Ninty-Launcher/master/assets/thumbnails/";
+//Procurar URL
+ini_open(game_save_id+"_thumbdb.ini");
+default_dburl = ini_read_string("NINTY_TITLE_MASTER","url","https://raw.githubusercontent.com/MarioSilvaGH/Ninty-Launcher/master/assets/thumbnails/");
+ini_close();
 
 //Async
 async_thumbnail = -1;
-async_database = noone;
+async_database = 0;
+network = 0;
 
 //Clean Memory
 cleanmem_init(0);
@@ -2266,6 +2261,7 @@ theme = ini_read_real("NINTY_CONFIG","theme",1);
 fullscreen = ini_read_real("NINTY_CONFIG","fullscreen",0);
 select_index = ini_read_real("NINTY_CONFIG","position",0);
 parental_control = ini_read_real("NINTY_CONFIG","parental",0);
+help_tour = ini_read_real("NINTY_CONFIG","helptour",0);
 ini_close();
 
 //Definir fullscreen
@@ -2290,20 +2286,14 @@ event_user(0);
 audio_play_sfx(snd_launcher_open);
 
 //Checar se existem thumbnails (update automático)
-if(os_is_network_connected()){
-
-    var url;
-    
-    //Procurar URL
-    ini_open(game_save_id+"thumbdb.ini");
-    url = ini_read_string("NINTY_TITLE_MASTER","url",default_dburl);
-    ini_close();
-        
-    //Sinalizar que está baixando...
-    network = 1;
+if(os_is_network_connected())
+&amp;&amp;(parental_control == 0){
         
     //Baixar
-    async_database = http_get_file(url+"_titles.ini",game_save_id+"thumbdb_updated.ini");
+    async_database = http_get_file(default_dburl+"_thumbdb.ini",game_save_id+"_thumbdb.ini");
+    
+    //Sinalizar que está baixando...
+    network = 1;
 };
 </string>
           </argument>

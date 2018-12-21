@@ -2,13 +2,13 @@
 forwarder_openexplorer = 0;
 games_forwarder[argument1] = "";
 games_shortcut[argument1] = 0;
-if(file_exists_fmns(game_save_id+"thumbdb.ini"))
+if(file_exists_fmns(game_save_id+"_thumbdb.ini"))
 &&(os_is_network_connected()){
 
     var t, p, _url, _total;
     
     //Váriavel de retorno
-    ini_open(game_save_id+"thumbdb.ini");
+    ini_open(game_save_id+"_thumbdb.ini");
     _url = ini_read_string("NINTY_TITLE_MASTER","url",default_dburl);
     _total = real(ini_read_string("NINTY_TITLE_MASTER","total","0"));
     ini_close();
@@ -18,7 +18,7 @@ if(file_exists_fmns(game_save_id+"thumbdb.ini"))
         
         var _title, _thumb, _tagA, _tagB, _tagC, _tagD, _tagE, _tagF, _forward, _shortcut;
 
-        ini_open(game_save_id+"thumbdb.ini");
+        ini_open(game_save_id+"_thumbdb.ini");
         _forward = ini_read_real("NINTY_TITLE_"+string(t),"forward",0);
         _shortcut = ini_read_real("NINTY_TITLE_"+string(t),"shortcut",0);
         _title = ini_read_string("NINTY_TITLE_"+string(t),"title","");
@@ -53,7 +53,7 @@ if(file_exists_fmns(game_save_id+"thumbdb.ini"))
         
         var _title, _thumb, _tagA, _tagB, _tagC, _tagD, _tagE, _tagF, _forward, _shortcut;
     
-        ini_open(game_save_id+"thumbdb.ini");
+        ini_open(game_save_id+"_thumbdb.ini");
         _forward = ini_read_real("NINTY_TITLE_"+string(p),"forward",0);
         _shortcut = ini_read_real("NINTY_TITLE_"+string(p),"shortcut",0);
         _title = ini_read_string("NINTY_TITLE_"+string(p),"title","");
