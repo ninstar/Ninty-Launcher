@@ -2927,7 +2927,7 @@ if(forwarder_fade &gt; 0){
                 draw_text(350,125+((l*32)-(forwarder_listoffset*32))-128+(128*forwarder_fade),_dot+string_copy(ds_map_find_value(forwarder_list,string(l)+"_t"),0,44));
         };
     };
-    draw_text(0,0,"offset: "+string(forwarder_listoffset));
+    
     //Resetar
     draw_set_alpha(1);
     draw_set_color(c_white);
@@ -2966,7 +2966,11 @@ if(infopopup_fade &gt; 0){
     
     //Janela
     draw_sprite_ext(spr_folderlistener_menu,theme,1280/2,720/2-128+(128*infopopup_fade),1,1,0,theme_color,infopopup_fade);
-    draw_sprite_ext(spr_launcher_information,theme,1280/2,720/2-128+(128*infopopup_fade),1,1,0,c_white,infopopup_fade);
+    draw_sprite_ext(spr_launcher_information,1,1280/2,720/2-128+(128*infopopup_fade),1,1,0,c_white,infopopup_fade);
+    if(theme == 0)
+        draw_sprite_ext(spr_launcher_information,0,1280/2,720/2-128+(128*infopopup_fade),1,1,0,c_black,infopopup_fade);
+    else
+        draw_sprite_ext(spr_launcher_information,0,1280/2,720/2-128+(128*infopopup_fade),1,1,0,c_white,infopopup_fade);
 };
 
 //------------- Dialogo -------------
