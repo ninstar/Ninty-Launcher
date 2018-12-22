@@ -348,17 +348,27 @@ else{
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>///Alterar miniatura do Jogo
+            <string>///Alterar caminho do Jogo
+
+//Cópiar thumbnail temporariamente
+directory_create_fmns(game_save_id+"thumbnail");
+file_copy_fmns(game_save_id+"collection\game_"+string(select_index)+".png",game_save_id+"thumbnail\original_anim"+string_replace_all(string_format(games_animframes[select_index],2,0)," ","0")+"_speed"+string_replace_all(string_format(games_animspeed[select_index],2,0)," ","0")+".png");
 
 //Buscar caminho...
-var mod_file = get_open_filename("Game Path (.exe, .url, .swf)|*.exe;*.url;*.swf","");
+var mod_file_path;
+if(directory_exists(filename_dir(games_path[select_index])))
+    mod_file_path = filename_dir(games_path[select_index])+"\";
+else
+    mod_file_path = program_directory+"\";
+var mod_file = get_open_filename_ext("APP/Game (.exe, .url, .swf)|*.exe;*.url;*.swf",filename_name(games_path[select_index]),filename_dir(games_path[select_index]),"Ninty Launcher");
 if(mod_file != ""){
 
     //SFX
     audio_play_sfx(snd_addgame_step2);
     
     //Buscar miniatura...
-    var mod_thumb = get_open_filename("Thumbnail (256x256)|*.png;*.jpg","");
+    var mod_thumb = get_open_filename_ext("Thumbnail (256x256)|*.png;*.jpg","original_anim"+string_replace_all(string_format(games_animframes[select_index],2,0)," ","0")+"_speed"+string_replace_all(string_format(games_animspeed[select_index],2,0)," ","0")+".png",game_save_id+"thumbnail\","Ninty Launcher");
+
     if(mod_thumb != ""){
 
         //Deletar miniatura antiga
@@ -386,11 +396,9 @@ if(mod_file != ""){
         audio_play_sfx(snd_addgame_step2);
              
         //Buscar pasta de referencia
-        var mod_forwarder = get_open_filename("FILE/ROM Path (Forward)|*","");
+        var mod_forwarder = get_open_filename_ext("FILE/ROM Path (Forward)|*","",games_forwarder[select_index],"Ninty Launcher");
         if(mod_forwarder != "")
-            games_forwarder[games_total] = filename_path(mod_forwarder);
-        else
-            games_forwarder[games_total] = "";
+            games_forwarder[select_index] = filename_path(mod_forwarder);
     };
     
     //SFX
@@ -426,6 +434,9 @@ else{
     audio_play_sfx(snd_alert);
     window_set_fullscreen(fullscreen);
 };
+
+//Deletar thumbnail temporariamente
+directory_destroy_fmns(game_save_id+"thumbnail");
 </string>
           </argument>
         </arguments>
@@ -453,6 +464,8 @@ var wpp = get_open_filename(".PNG/.JPG (1280x720)|*.png;*.jpg","");
 
 //Definir sem animação previamente
 wallpaper_animframes = 0;
+wp_x = 0;
+wp_y = 0;
     
 //Deletar wallpaper do launcher
 if(sprite_exists(wallpaper))
@@ -477,10 +490,17 @@ file_copy_fmns(string_copy(wpp,1,string_length(wpp)-4)+".ogg",game_save_id+"wall
 
 //Carregar configuração do Wallpaper
 ini_open(game_save_id+"wallpaper.ini");
+theme = real(ini_read_string("NINTY_WALLPAPER","theme","1"));
+wallpaper_opaquebuttons = real(ini_read_string("NINTY_WALLPAPER","opaquebuttons","0"));
 wallpaper_tiled = real(ini_read_string("NINTY_WALLPAPER","tiled","1"));
 wallpaper_stretched = real(ini_read_string("NINTY_WALLPAPER","stretched","0"));
 wallpaper_smooth = real(ini_read_string("NINTY_WALLPAPER","smooth","1"));
 wallpaper_huecolor = real(ini_read_string("NINTY_WALLPAPER","huecolor","0"));
+wallpaper_huecursor = real(ini_read_string("NINTY_WALLPAPER","cursor_hue","0"));
+wallpaper_sat1cursor = real(ini_read_string("NINTY_WALLPAPER","cursor_saturationA","255"));
+wallpaper_sat2cursor = real(ini_read_string("NINTY_WALLPAPER","cursor_saturationB","255"));
+wallpaper_lum1cursor = real(ini_read_string("NINTY_WALLPAPER","cursor_luminosityA","255"));
+wallpaper_lum2cursor = real(ini_read_string("NINTY_WALLPAPER","cursor_luminosityB","64"));
 wallpaper_h_offset = real(ini_read_string("NINTY_WALLPAPER","horizontal_offset","0"));
 wallpaper_v_offset = real(ini_read_string("NINTY_WALLPAPER","vertical_offset","0"));
 wallpaper_h_scrolling = real(ini_read_string("NINTY_WALLPAPER","horizontal_scrolling","0"));
@@ -488,7 +508,7 @@ wallpaper_v_scrolling = real(ini_read_string("NINTY_WALLPAPER","vertical_scrolli
 wallpaper_animframes = real(ini_read_string("NINTY_WALLPAPER","animframes","1"));
 wallpaper_animspeed = real(ini_read_string("NINTY_WALLPAPER","animspeed","0"));
 ini_close();
-      
+
 if(wpp != ""){
 
     //Trocar wallpaper
@@ -535,7 +555,7 @@ window_set_fullscreen(fullscreen);
             <string>///Adicionar Jogo
 
 //Buscar caminho...
-var file = get_open_filename("Game Path (.exe, .url, .swf)|*.exe;*.url;*.swf","");
+var file = get_open_filename("APP/Game (.exe, .url, .swf)|*.exe;*.url;*.swf","");
 if(file != ""){
 
     var thumb = find_game(file,games_total);
@@ -1276,10 +1296,10 @@ if(parental_control == 1){
         parental_fadeicons = 0;
         
     //Scroll
-    if(parental_offset &lt; 112-8)
-        parental_offset += 8;
+    if(parental_offset &lt; 48-4)
+        parental_offset += 4;
     else
-        parental_offset = 112;
+        parental_offset = 48;
 };
 else{
 
@@ -1290,8 +1310,8 @@ else{
         parental_fadeicons = 1;
         
     //Scroll    
-    if(parental_offset &gt; 8)
-        parental_offset -= 8;
+    if(parental_offset &gt; 4)
+        parental_offset -= 4;
     else
         parental_offset = 0;
 };
@@ -1399,13 +1419,18 @@ else{
 //------------- Botões -------------
 
 //Seletor de icones
-if((point_in_rectangle(mouse_x,mouse_y,328,504,328+86,504+86))&amp;&amp;(parental_control == 0)) icon_select = 0;
-else if((point_in_rectangle(mouse_x,mouse_y,436,504,436+86,504+86))&amp;&amp;(parental_control == 0)) icon_select = 1;
-else if((point_in_rectangle(mouse_x,mouse_y,544,504,544+86,504+86))&amp;&amp;(parental_control == 0)) icon_select = 2;
-else if(point_in_rectangle(mouse_x,mouse_y,653-parental_offset,504,(653+86)-parental_offset,504+86)) icon_select = 3;
-else if(point_in_rectangle(mouse_x,mouse_y,761-parental_offset,504,(761+86)-parental_offset,504+86)) icon_select = 4;
-else if((point_in_rectangle(mouse_x,mouse_y,869-parental_offset,504,(869+86)+parental_offset,504+86))&amp;&amp;(parental_control == 0)) icon_select = 5;
-else icon_select = -1;
+if(parental_control == 0){
+
+    if(point_in_rectangle(mouse_x,mouse_y,328,504,328+86,504+86)) icon_select = 0;
+    else if(point_in_rectangle(mouse_x,mouse_y,436,504,436+86,504+86)) icon_select = 1;
+    else if(point_in_rectangle(mouse_x,mouse_y,544,504,544+86,504+86)) icon_select = 2;
+    else if(point_in_rectangle(mouse_x,mouse_y,653-parental_offset,504,(653+86)-parental_offset,504+86)) icon_select = 3;
+    else if(point_in_rectangle(mouse_x,mouse_y,761-parental_offset,504,(761+86)-parental_offset,504+86)) icon_select = 4;
+    else if(point_in_rectangle(mouse_x,mouse_y,869-parental_offset,504,(869+86)+parental_offset,504+86)) icon_select = 5;
+    else icon_select = -1;
+};
+else
+    icon_select = -1;
 
 //Icones
 if(mouse_check_button_released(mb_left))
@@ -1418,7 +1443,8 @@ if(mouse_check_button_released(mb_left))
 &amp;&amp;(dialog == 0)
 &amp;&amp;(forwarder == 0)
 &amp;&amp;(move == 0)
-&amp;&amp;(async_thumbnail == -1){
+&amp;&amp;(async_thumbnail == -1)
+&amp;&amp;(parental_control == 0){
         
     //Pasta do Launcher
     if(point_in_rectangle(mouse_x,mouse_y,595,662,595+44,662+44))
@@ -1427,8 +1453,7 @@ if(mouse_check_button_released(mb_left))
         ExecuteShell(game_save_id,0,0);
     };
     //Informações do Launcher
-    if(point_in_rectangle(mouse_x,mouse_y,641,662,641+44,662+44))
-    &amp;&amp;(parental_control == 0){
+    if(point_in_rectangle(mouse_x,mouse_y,641,662,641+44,662+44)){
     
         if(infopopup == 0)
         &amp;&amp;(infopopup_fade == 0){
@@ -1499,7 +1524,6 @@ if(mouse_check_button_released(mb_left))
         
     //Alterar nome do jogo
     if(icon_select == 1)
-    &amp;&amp;(parental_control == 0)
     &amp;&amp;(games_total &gt; 0)
     &amp;&amp;(dialog == 0){
         
@@ -1514,7 +1538,6 @@ if(mouse_check_button_released(mb_left))
         
     //Alterar thumbnail do jogo
     if(icon_select == 2)
-    &amp;&amp;(parental_control == 0)
     &amp;&amp;(games_total &gt; 0){
     
         audio_play_sfx(snd_changethumbnail);
@@ -1541,8 +1564,7 @@ if(mouse_check_button_released(mb_left))
     };
     
     //Adicionar jogo
-    if(icon_select == 5)
-    &amp;&amp;(parental_control == 0){
+    if(icon_select == 5){
     
         audio_play_sfx(snd_addgame);
         window_set_fullscreen(0);
@@ -1569,10 +1591,18 @@ if(forwarder == 1)
             
             //Próximo
             if(forwarder_select &lt; forwarder_total-1){
+            
                 forwarder_select++;
                 if(forwarder_select &gt; 14)
                     forwarder_listoffset++;
                 audio_play_sfx(snd_select_next);
+            };            
+            else{
+                
+                if(forwarder_total &gt; 14)
+                    forwarder_listoffset = 0;
+                forwarder_select = 0;
+                audio_play_sfx(snd_select_border);
             };
         };
     };
@@ -1588,10 +1618,18 @@ if(forwarder == 1)
                     
             //Anterior
             if(forwarder_select &gt; 0){
+            
                 forwarder_select--;
                 if(forwarder_select &gt; 13)
                     forwarder_listoffset--;
                 audio_play_sfx(snd_select_previous);
+            };
+            else{
+            
+                if(forwarder_total &gt; 14)
+                    forwarder_listoffset = forwarder_total-15;
+                forwarder_select = forwarder_total-1;
+                audio_play_sfx(snd_select_border);
             };
         };
     };
@@ -1603,25 +1641,37 @@ if(forwarder == 1)
         
         //Próximo
         if(forwarder_select &lt; forwarder_total-1){
+        
             forwarder_select++;
             if(forwarder_select &gt; 14)
                 forwarder_listoffset++;
             audio_play_sfx(snd_select_next);
         };
-        else
+        else{
+            
+            if(forwarder_total &gt; 14)
+                forwarder_listoffset = 0;
+            forwarder_select = 0;
             audio_play_sfx(snd_select_border);
+        };
     };
     else if(keyboard_check_pressed(vk_up)){
     
         //Anterior
         if(forwarder_select &gt; 0){
+        
             forwarder_select--;
             if(forwarder_select &gt; 13)
                 forwarder_listoffset--;
             audio_play_sfx(snd_select_previous);
         };
-        else
+        else{
+        
+            if(forwarder_total &gt; 14)
+                forwarder_listoffset = forwarder_total-15;
+            forwarder_select = forwarder_total-1;
             audio_play_sfx(snd_select_border);
+        };
     };
 };
 
@@ -1820,7 +1870,7 @@ if(alarm[0] == -1)
                 else{
                         
                     //SFX
-                    audio_play_sfx(snd_alert);
+                    audio_play_sfx(snd_window_close);
                             
                     //Finalizar
                     move = 0;
@@ -2019,11 +2069,18 @@ cleanmem();
 if(launched == 0){
 
     //Configuração do Wallpaper
-    ini_open(game_save_id+"wallpaper.ini")
+    ini_open(game_save_id+"wallpaper.ini");
+    theme = real(ini_read_string("NINTY_WALLPAPER","theme","1"));
+    wallpaper_opaquebuttons = real(ini_read_string("NINTY_WALLPAPER","opaquebuttons","0"));
     wallpaper_tiled = real(ini_read_string("NINTY_WALLPAPER","tiled","1"));
     wallpaper_stretched = real(ini_read_string("NINTY_WALLPAPER","stretched","0"));
     wallpaper_smooth = real(ini_read_string("NINTY_WALLPAPER","smooth","1"));
     wallpaper_huecolor = real(ini_read_string("NINTY_WALLPAPER","huecolor","0"));
+    wallpaper_huecursor = real(ini_read_string("NINTY_WALLPAPER","cursor_hue","0"));
+    wallpaper_sat1cursor = real(ini_read_string("NINTY_WALLPAPER","cursor_saturationA","255"));
+    wallpaper_sat2cursor = real(ini_read_string("NINTY_WALLPAPER","cursor_saturationB","255"));
+    wallpaper_lum1cursor = real(ini_read_string("NINTY_WALLPAPER","cursor_luminosityA","255"));
+    wallpaper_lum2cursor = real(ini_read_string("NINTY_WALLPAPER","cursor_luminosityB","64"));
     wallpaper_h_offset = real(ini_read_string("NINTY_WALLPAPER","horizontal_offset","0"));
     wallpaper_v_offset = real(ini_read_string("NINTY_WALLPAPER","vertical_offset","0"));
     wallpaper_h_scrolling = real(ini_read_string("NINTY_WALLPAPER","horizontal_scrolling","0"));
@@ -2033,7 +2090,7 @@ if(launched == 0){
     ini_close();
     
     //Música (primeiro carregamento)
-    wallpaper_song = audio_create_stream(global.assets_dir+"dummy.ogg");
+    wallpaper_song = audio_create_stream(global.assets_dir+"dummy.aud");
 };
 
 //Wallpaper
@@ -2153,7 +2210,6 @@ discord_update_presence("🔍 | Selecting a Game...","⭐ | "+string(games_total
             <kind>1</kind>
             <string>///Salvar configurações do Launcher
 ini_open(game_save_id+"config.ini")
-ini_write_real("NINTY_CONFIG","theme",theme);
 ini_write_real("NINTY_CONFIG","fullscreen",fullscreen);
 ini_write_real("NINTY_CONFIG","position",select_index);
 ini_write_real("NINTY_CONFIG","parental",parental_control);
@@ -2161,14 +2217,20 @@ ini_write_real("NINTY_CONFIG","helptour",help_tour);
 ini_close();
 
 //Salvar configuração do Wallpaper
-if(file_exists_fmns(game_save_id+"wallpaper.png"))
-&amp;&amp;!(file_exists_fmns(game_save_id+"wallpaper.ini")){
+if!(file_exists_fmns(game_save_id+"wallpaper.ini")){
 
     ini_open(game_save_id+"wallpaper.ini")
+    ini_write_string("NINTY_WALLPAPER","theme",string(theme));
+    ini_write_string("NINTY_WALLPAPER","opaquebuttons",string(wallpaper_opaquebuttons));
     ini_write_string("NINTY_WALLPAPER","tiled",string(wallpaper_tiled));
     ini_write_string("NINTY_WALLPAPER","stretched",string(wallpaper_stretched));
     ini_write_string("NINTY_WALLPAPER","smooth",string(wallpaper_smooth));
     ini_write_string("NINTY_WALLPAPER","huecolor",string(wallpaper_huecolor));
+    ini_write_string("NINTY_WALLPAPER","cursor_hue",string(wallpaper_huecursor));
+    ini_write_string("NINTY_WALLPAPER","cursor_saturationA",string(wallpaper_sat1cursor));
+    ini_write_string("NINTY_WALLPAPER","cursor_saturationB",string(wallpaper_sat2cursor));
+    ini_write_string("NINTY_WALLPAPER","cursor_luminosityA",string(wallpaper_lum1cursor));
+    ini_write_string("NINTY_WALLPAPER","cursor_luminosityB",string(wallpaper_lum2cursor));    
     ini_write_string("NINTY_WALLPAPER","horizontal_offset",string(wallpaper_h_offset));
     ini_write_string("NINTY_WALLPAPER","vertical_offset",string(wallpaper_v_offset));
     ini_write_string("NINTY_WALLPAPER","horizontal_scrolling",string(wallpaper_h_scrolling));
@@ -2177,6 +2239,9 @@ if(file_exists_fmns(game_save_id+"wallpaper.png"))
     ini_write_string("NINTY_WALLPAPER","animspeed",string(wallpaper_animspeed));
     ini_close();
 };
+
+//Deletar .BAT
+file_delete_fmns(game_save_id+"\gameboot.bat");
 
 //Descarregar assets
 event_user(2);
@@ -2256,8 +2321,7 @@ display_set_gui_size(1280,720);
 alarm[3] = 2;
 
 //Configurações do Launcher
-ini_open(game_save_id+"config.ini")
-theme = ini_read_real("NINTY_CONFIG","theme",1);
+ini_open(game_save_id+"config.ini");
 fullscreen = ini_read_real("NINTY_CONFIG","fullscreen",0);
 select_index = ini_read_real("NINTY_CONFIG","position",0);
 parental_control = ini_read_real("NINTY_CONFIG","parental",0);
@@ -2331,6 +2395,19 @@ if(wallpaper_huecolor &gt; 0)
     theme_color = make_colour_hsv(wallpaper_huecolor,255,255);
 else
     theme_color = c_white;
+    
+//Cor HUE para seletor/cursor
+var c_col_d, c_col_l;
+if(wallpaper_huecursor &gt; 0){
+    
+    c_col_l = make_colour_hsv(wallpaper_huecursor,wallpaper_sat1cursor,wallpaper_lum1cursor);
+    c_col_d = make_colour_hsv(wallpaper_huecursor,wallpaper_sat2cursor,wallpaper_lum2cursor);
+};
+else{
+
+    c_col_l = c_aqua;
+    c_col_d = c_teal;
+};
 
 //Cor
 if(theme == 1)
@@ -2338,8 +2415,16 @@ if(theme == 1)
 else
     draw_background_tiled_ext(bgr_light,0,0,1,1,theme_color,1);
 
+var icon_opc;
+
 //Customizado
 if(sprite_exists(wallpaper)){
+    
+    //Opacidade dos icones
+    if(wallpaper_opaquebuttons == 0)
+        icon_opc = 12;
+    else
+        icon_opc = 0;
     
     //Animações
     if(alarm[10] == -1)
@@ -2380,6 +2465,8 @@ if(sprite_exists(wallpaper)){
             draw_sprite(wallpaper,anim_wallpaper,wallpaper_h_offset+wp_x,wallpaper_v_offset+wp_y);        
     };
 };
+else
+    icon_opc = 0;
 
 //------------- Base -------------
 
@@ -2505,51 +2592,51 @@ draw_set_font(fnt_default);
 //------------- Icones -------------
 
 //Deletar
-draw_sprite_ext(spr_launcher_icons,theme,322+parental_offset,498,1,1,0,theme_color,parental_fadeicons);
-draw_sprite_ext(spr_launcher_icons,2,322+parental_offset,498,1,1,0,c_white,parental_fadeicons);
+draw_sprite_ext(spr_launcher_icons,theme+icon_opc,322,498-(parental_offset*1.6),1,1,0,theme_color,parental_fadeicons);
+draw_sprite_ext(spr_launcher_icons,2,322,498-(parental_offset*1.6),1,1,0,c_white,parental_fadeicons);
 
 //Nome
-draw_sprite_ext(spr_launcher_icons,theme,430+parental_offset,498,1,1,0,theme_color,parental_fadeicons);
-draw_sprite_ext(spr_launcher_icons,3,430+parental_offset,498,1,1,0,c_white,parental_fadeicons);
+draw_sprite_ext(spr_launcher_icons,theme+icon_opc,430,498-(parental_offset*1.5),1,1,0,theme_color,parental_fadeicons);
+draw_sprite_ext(spr_launcher_icons,3,430,498-(parental_offset*1.5),1,1,0,c_white,parental_fadeicons);
     
 //Thumbnail
-draw_sprite_ext(spr_launcher_icons,theme,538+parental_offset,498,1,1,0,theme_color,parental_fadeicons);
-draw_sprite_ext(spr_launcher_icons,4,538+parental_offset,498,1,1,0,c_white,parental_fadeicons);
+draw_sprite_ext(spr_launcher_icons,theme+icon_opc,538,498-(parental_offset*1.4),1,1,0,theme_color,parental_fadeicons);
+draw_sprite_ext(spr_launcher_icons,4,538,498-(parental_offset*1.4),1,1,0,c_white,parental_fadeicons);
 
 //Tema
-draw_sprite_ext(spr_launcher_icons,theme,646-parental_offset,498,1,1,0,theme_color,1);
-draw_sprite_ext(spr_launcher_icons,5+theme,646-parental_offset,498,1,1,0,c_white,1);
+draw_sprite_ext(spr_launcher_icons,theme+icon_opc,646,498-(parental_offset*1.3),1,1,0,theme_color,parental_fadeicons);
+draw_sprite_ext(spr_launcher_icons,5+theme,646,498-(parental_offset*1.3),1,1,0,c_white,parental_fadeicons);
 
 //Wallpaper
-draw_sprite_ext(spr_launcher_icons,theme,754-parental_offset,498,1,1,0,theme_color,1);
-draw_sprite_ext(spr_launcher_icons,7+theme,754-parental_offset,498,1,1,0,c_white,1);
+draw_sprite_ext(spr_launcher_icons,theme+icon_opc,754,498-(parental_offset*1.2),1,1,0,theme_color,parental_fadeicons);
+draw_sprite_ext(spr_launcher_icons,7+theme,754,498-(parental_offset*1.2),1,1,0,c_white,parental_fadeicons);
 
 //Adicionar
-draw_sprite_ext(spr_launcher_icons,theme,862-parental_offset,498,1,1,0,theme_color,parental_fadeicons);
-draw_sprite_ext(spr_launcher_icons,9+theme,862-parental_offset,498,1,1,0,c_white,parental_fadeicons);
+draw_sprite_ext(spr_launcher_icons,theme+icon_opc,862,498-parental_offset,1,1,0,theme_color,parental_fadeicons);
+draw_sprite_ext(spr_launcher_icons,9+theme,862,498-parental_offset,1,1,0,c_white,parental_fadeicons);
 
 //Aviso para adicionar jogos (caso não tenha nenhum)
 if(games_total == 0)
-    draw_sprite_ext(spr_launcher_icons,11,862-parental_offset,498,1,1,0,merge_colour(c_yellow,c_orange,col_numb),parental_fadeicons);
+    draw_sprite_ext(spr_launcher_icons,11,862,498-parental_offset,1,1,0,merge_colour(c_yellow,c_orange,col_numb),parental_fadeicons);
 
 //Aviso para atualizar jogos (caso não seja encontrado)
 if(move == 0)
 &amp;&amp;(games_total &gt; 0)
 &amp;&amp;(select_exists == 0)
-    draw_sprite_ext(spr_launcher_icons,11,538+parental_offset,498,1,1,0,merge_colour(c_yellow,c_orange,col_numb),parental_fadeicons);
+    draw_sprite_ext(spr_launcher_icons,11,538,498-parental_offset,1,1,0,merge_colour(c_yellow,c_orange,col_numb),parental_fadeicons);
 
 //Seletor de icones
 if(icon_select &gt; -1){
 
     //Highlight
-    is_col = merge_colour(c_aqua,c_teal,col_numb);
-    draw_sprite_ext(spr_launcher_icons,11,322-parental_offset+(98+10)*icon_select,498,1,1,0,is_col,1);
+    is_col = merge_colour(c_col_l,c_col_d,col_numb);
+    draw_sprite_ext(spr_launcher_icons,11,322+(98+10)*icon_select,498-parental_offset,1,1,0,is_col,1);
     
     //Texto
     draw_set_font(fnt_small);
     draw_set_halign(fa_center);
-    draw_text_shadow(322-parental_offset+50+(98+10)*icon_select,498+104,text_icon[icon_select]);
-    draw_text_colour(322-parental_offset+50+(98+10)*icon_select,498+104,text_icon[icon_select],is_col,is_col,is_col,is_col,1);
+    draw_text_shadow(322+50+(98+10)*icon_select,498+104-parental_offset,text_icon[icon_select]);
+    draw_text_colour(322+50+(98+10)*icon_select,498+104-parental_offset,text_icon[icon_select],is_col,is_col,is_col,is_col,1);
     draw_set_halign(fa_left);
     draw_set_font(fnt_default);
 };
@@ -2591,12 +2678,12 @@ for(i=i_start; i&lt;i_end; i+=1){
         vv = offset_v;
                 
     //Sombra
-    draw_sprite(spr_launcher_thumbnail_shadow,theme,offset+(256+20)*i,194-vv);
+    draw_sprite(spr_launcher_thumbnail_shadow,theme,offset+(256+20)*i,194+parental_offset-vv);
     
     //Blocos vázios
     if(i &gt; games_total-1)
     ||((move == 1)&amp;&amp;(i == move_origin))
-        draw_sprite_ext(spr_launcher_thumbnail,theme,offset+(256+20)*i,194-vv,1,1,0,theme_color,1);
+        draw_sprite_ext(spr_launcher_thumbnail,theme,offset+(256+20)*i,194+parental_offset-vv,1,1,0,theme_color,1);
     //Thumbnail dos jogos
     else{
     
@@ -2614,7 +2701,7 @@ for(i=i_start; i&lt;i_end; i+=1){
                 else
                     anim_games[i] = 0;
             };
-            draw_sprite_stretched(games_thumb[i],anim_games[i],offset+(256+20)*i,194-vv,256,256);
+            draw_sprite_stretched(games_thumb[i],anim_games[i],offset+(256+20)*i,194+parental_offset-vv,256,256);
         };
     };
 };
@@ -2638,8 +2725,8 @@ if(select_index &lt; games_total+1)
         if(select_exists == 1){
         
             _msg = games_title[select_index];
-            _col1 = c_aqua;
-            _col2 = c_teal;
+            _col1 = c_col_l;
+            _col2 = c_col_d;
         };
         //Jogo não encotrado
         else{
@@ -2658,26 +2745,26 @@ if(select_index &lt; games_total+1)
         if(sprite_exists(games_thumb[move_origin])){
         
             draw_set_alpha(col_numb+0.4);
-            draw_sprite_stretched(games_thumb[move_origin],0,(offset-0)+276*select_index,194-32,256,256);
+            draw_sprite_stretched(games_thumb[move_origin],0,(offset-0)+276*select_index,194+parental_offset-32,256,256);
             draw_set_alpha(1);
         };
     };
     
     //Seletor
     col = merge_colour(_col1,_col2,col_numb);
-    draw_sprite_ext(spr_launcher_selector,0,(offset-10)+276*select_index,185-offset_v-move_offset,1,1,0,col,1);
+    draw_sprite_ext(spr_launcher_selector,0,(offset-10)+276*select_index,185+parental_offset-offset_v-move_offset,1,1,0,col,1);
 
     //Nome do jogo selecionado
     if(select_index == 0){
     
-        draw_text_shadow(offset-16,123-offset_v-move_offset,_msg);    
-        draw_text_colour(offset-16,123-offset_v-move_offset,_msg,col,col,col,col,1);    
+        draw_text_shadow(offset-16,123+parental_offset-offset_v-move_offset,_msg);    
+        draw_text_colour(offset-16,123+parental_offset-offset_v-move_offset,_msg,col,col,col,col,1);    
     };
     else{
     
         draw_set_halign(fa_center);
-        draw_text_shadow(offset+(276*select_index)+256/2,123-offset_v-move_offset,_msg);
-        draw_text_colour(offset+(276*select_index)+256/2,123-offset_v-move_offset,_msg,col,col,col,col,1);
+        draw_text_shadow(offset+(276*select_index)+256/2,123+parental_offset-offset_v-move_offset,_msg);
+        draw_text_colour(offset+(276*select_index)+256/2,123+parental_offset-offset_v-move_offset,_msg,col,col,col,col,1);
         draw_set_halign(fa_left);
     };
     
@@ -2697,10 +2784,10 @@ if(select_index &lt; games_total+1)
             var _pt_min = string_replace_all(string_format(real(games_playtime[select_index,1]),2,0)," ","0");
         };
         draw_set_font(fnt_clock);
-        draw_text_shadow(offset+(276*select_index)+(256/2)-18,466-offset_v,_pt_hour+":"+_pt_min);
-        draw_text_colour(offset+(276*select_index)+(256/2)-18,466-offset_v,_pt_hour+":"+_pt_min,col,col,col,col,1);
+        draw_text_shadow(offset+(276*select_index)+(256/2)-18,466+parental_offset-offset_v,_pt_hour+":"+_pt_min);
+        draw_text_colour(offset+(276*select_index)+(256/2)-18,466+parental_offset-offset_v,_pt_hour+":"+_pt_min,col,col,col,col,1);
         draw_set_font(fnt_default);
-        draw_sprite_ext(spr_launcher_clock,1,offset+(276*select_index)+(256/2)-48-18,466-offset_v,1,1,0,col,1);
+        draw_sprite_ext(spr_launcher_clock,1,offset+(276*select_index)+(256/2)-48-18,466+parental_offset-offset_v,1,1,0,col,1);
     };
 };
 
@@ -2818,7 +2905,7 @@ if(forwarder_fade &gt; 0){
             if(forwarder_select == l){
                 
                 _dot = "• ";
-                draw_set_color(merge_colour(c_aqua,c_teal,col_numb));
+                draw_set_color(merge_colour(c_col_l,c_col_d,col_numb));
             };
             //Não-selecionado
             else{
@@ -2840,7 +2927,7 @@ if(forwarder_fade &gt; 0){
                 draw_text(350,125+((l*32)-(forwarder_listoffset*32))-128+(128*forwarder_fade),_dot+string_copy(ds_map_find_value(forwarder_list,string(l)+"_t"),0,44));
         };
     };
-    
+    draw_text(0,0,"offset: "+string(forwarder_listoffset));
     //Resetar
     draw_set_alpha(1);
     draw_set_color(c_white);
@@ -2898,7 +2985,7 @@ draw_set_alpha(1);
 if(dialog == 1){
     
     //Descrição
-    draw_set_colour(merge_colour(c_aqua,c_teal,col_numb));
+    draw_set_colour(merge_colour(c_col_l,c_col_d,col_numb));
     draw_set_halign(fa_center);
     draw_text(1280/2,720/2-48,dialog_description);
     
@@ -2926,7 +3013,7 @@ if(alarm[10] != -1){
     draw_set_colour(c_white);
     
     //Texto
-    draw_set_colour(merge_colour(c_aqua,c_teal,col_numb));
+    draw_set_colour(merge_colour(c_col_l,c_col_d,col_numb));
     draw_set_halign(fa_center);
     draw_text(1280/2,(720/2)-32,text_deleting);
     draw_set_halign(fa_left);
@@ -2947,11 +3034,16 @@ draw_set_font(fnt_default);
 draw_set_colour(c_white);
 
 //Parental Control
-if(parental_control){
+if(parental_control == 1){
 
-    if(parental_fade &gt; 0)
+    if(parental_fade &gt; 0){
+    
         parental_fade -= 0.05;
-    draw_sprite_ext(spr_launcher_parental,theme+2,71,35,1,1,0,c_white,parental_fade);
+        draw_sprite_ext(spr_launcher_parental,theme+2,71,35,1,1,0,c_white,parental_fade);
+    };
+    else
+        draw_sprite_ext(spr_launcher_clock,theme,71,35,1,1,0,c_white,1);
+    
 };
 else
     draw_sprite_ext(spr_launcher_parental,theme,71,35,1,1,0,c_white,parental_fade);
@@ -2989,17 +3081,17 @@ if!(window_has_focus())
 };
 
 //Cursor
-draw_sprite_ext(spr_launcher_cursor,0,mouse_x,mouse_y,1,1,0,merge_colour(c_aqua,c_teal,col_numb),1);
+draw_sprite_ext(spr_launcher_cursor,0,mouse_x,mouse_y,1,1,0,merge_colour(c_col_l,c_col_d,col_numb),1);
 if((mouse_check_button(mb_right))
 ||(mouse_check_button(mb_middle)))
 &amp;&amp;!(window_get_fullscreen()){
 
-    draw_rectangle_colour(0,0,1280,720,merge_colour(c_aqua,c_teal,col_numb),merge_colour(c_teal,c_aqua,col_numb),merge_colour(c_aqua,c_teal,col_numb),merge_colour(c_teal,c_aqua,col_numb),1);
-    draw_rectangle_colour(1,1,1280-1,720-1,merge_colour(c_aqua,c_teal,col_numb),merge_colour(c_teal,c_aqua,col_numb),merge_colour(c_aqua,c_teal,col_numb),merge_colour(c_teal,c_aqua,col_numb),1);
-    draw_rectangle_colour(2,2,1280-2,720-2,merge_colour(c_aqua,c_teal,col_numb),merge_colour(c_teal,c_aqua,col_numb),merge_colour(c_aqua,c_teal,col_numb),merge_colour(c_teal,c_aqua,col_numb),1);
-    draw_rectangle_colour(3,3,1280-3,720-3,merge_colour(c_aqua,c_teal,col_numb),merge_colour(c_teal,c_aqua,col_numb),merge_colour(c_aqua,c_teal,col_numb),merge_colour(c_teal,c_aqua,col_numb),1);
-    draw_rectangle_colour(4,4,1280-4,720-4,merge_colour(c_aqua,c_teal,col_numb),merge_colour(c_teal,c_aqua,col_numb),merge_colour(c_aqua,c_teal,col_numb),merge_colour(c_teal,c_aqua,col_numb),1);
-    draw_rectangle_colour(5,5,1280-5,720-5,merge_colour(c_aqua,c_teal,col_numb),merge_colour(c_teal,c_aqua,col_numb),merge_colour(c_aqua,c_teal,col_numb),merge_colour(c_teal,c_aqua,col_numb),1);
+    draw_rectangle_colour(0,0,1280,720,merge_colour(c_col_l,c_col_d,col_numb),merge_colour(c_col_d,c_col_l,col_numb),merge_colour(c_col_l,c_col_d,col_numb),merge_colour(c_col_d,c_col_l,col_numb),1);
+    draw_rectangle_colour(1,1,1280-1,720-1,merge_colour(c_col_l,c_col_d,col_numb),merge_colour(c_col_d,c_col_l,col_numb),merge_colour(c_col_l,c_col_d,col_numb),merge_colour(c_col_d,c_col_l,col_numb),1);
+    draw_rectangle_colour(2,2,1280-2,720-2,merge_colour(c_col_l,c_col_d,col_numb),merge_colour(c_col_d,c_col_l,col_numb),merge_colour(c_col_l,c_col_d,col_numb),merge_colour(c_col_d,c_col_l,col_numb),1);
+    draw_rectangle_colour(3,3,1280-3,720-3,merge_colour(c_col_l,c_col_d,col_numb),merge_colour(c_col_d,c_col_l,col_numb),merge_colour(c_col_l,c_col_d,col_numb),merge_colour(c_col_d,c_col_l,col_numb),1);
+    draw_rectangle_colour(4,4,1280-4,720-4,merge_colour(c_col_l,c_col_d,col_numb),merge_colour(c_col_d,c_col_l,col_numb),merge_colour(c_col_l,c_col_d,col_numb),merge_colour(c_col_d,c_col_l,col_numb),1);
+    draw_rectangle_colour(5,5,1280-5,720-5,merge_colour(c_col_l,c_col_d,col_numb),merge_colour(c_col_d,c_col_l,col_numb),merge_colour(c_col_l,c_col_d,col_numb),merge_colour(c_col_d,c_col_l,col_numb),1);
 };
 </string>
           </argument>

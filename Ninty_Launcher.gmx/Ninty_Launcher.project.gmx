@@ -107,7 +107,7 @@
       <filename>default.tbn</filename>
     </datafile>
     <datafile>
-      <name>dummy.ogg</name>
+      <name>dummy.aud</name>
       <exists>-1</exists>
       <size>2892</size>
       <exportAction>2</exportAction>
@@ -121,7 +121,7 @@
           <CopyToMask>9223372036854775807</CopyToMask>
         </Config>
       </ConfigOptions>
-      <filename>dummy.ogg</filename>
+      <filename>dummy.aud</filename>
     </datafile>
   </datafiles>
   <NewExtensions>
@@ -221,7 +221,6 @@
   <objects name="objects">
     <object>objects\obj_launcher</object>
     <object>objects\obj_musicplayer</object>
-    <object>objects\obj_helptour</object>
   </objects>
   <rooms name="rooms">
     <room>rooms\rm_launcher</room>

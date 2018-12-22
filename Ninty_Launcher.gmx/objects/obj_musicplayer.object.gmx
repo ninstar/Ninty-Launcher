@@ -82,7 +82,7 @@ if(audio_exists(obj_launcher.wallpaper_song))
 if(file_exists_fmns(game_save_id+"wallpaper.ogg"))
     obj_launcher.wallpaper_song = audio_create_stream(game_save_id+"wallpaper.ogg");
 else
-    obj_launcher.wallpaper_song = audio_create_stream(global.assets_dir+"dummy.ogg");
+    obj_launcher.wallpaper_song = audio_create_stream(global.assets_dir+"dummy.aud");
     
 //Tocar
 alarm[1] = 15;
