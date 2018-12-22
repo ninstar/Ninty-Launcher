@@ -13,7 +13,7 @@ Discord Server: https://discord.gg/hPzDxgD
 - 100+ Fan Games, Tools and Consoles thumbnails [Detailed List](https://docs.google.com/spreadsheets/d/1WLxK1jtb8gW2laHxXiDjbLhLpJHaiawH1gl82zr5_2w/)
 
 <div align="center">
-    <p><img src="https://i.imgur.com/ZusHyMG.gif" alt="" /></p>
+    <p><img src="https://i.imgur.com/nIz4mPP.gif" alt="" /></p>
 </div>
 
 ### Credits
