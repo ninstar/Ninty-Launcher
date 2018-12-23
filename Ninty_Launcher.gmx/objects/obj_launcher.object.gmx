@@ -3034,6 +3034,7 @@ if(theme == 0)
     draw_set_colour(c_black);
 draw_text_shadow(124,38,_hour+":"+_min);
 draw_text(124,38,_hour+":"+_min);
+
 draw_set_font(fnt_default);
 draw_set_colour(c_white);
 
