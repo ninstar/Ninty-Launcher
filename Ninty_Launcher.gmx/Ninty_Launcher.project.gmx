@@ -133,6 +133,7 @@
     <sound>sound\snd_window_open</sound>
     <sound>sound\snd_window_close</sound>
     <sound>sound\snd_parentalcontrol</sound>
+    <sound>sound\snd_settings</sound>
     <sound>sound\snd_loading</sound>
     <sound>sound\snd_launcher_open</sound>
     <sound>sound\snd_launcher_close</sound>
@@ -154,24 +155,36 @@
     <sound>sound\snd_move_pick</sound>
   </sounds>
   <sprites name="sprites">
-    <sprite>sprites\spr_launcher_cursor</sprite>
-    <sprite>sprites\spr_launcher_line</sprite>
-    <sprite>sprites\spr_launcher_controller</sprite>
-    <sprite>sprites\spr_launcher_basicinfo</sprite>
-    <sprite>sprites\spr_launcher_ctrlmap</sprite>
-    <sprite>sprites\spr_launcher_options</sprite>
-    <sprite>sprites\spr_launcher_connection</sprite>
-    <sprite>sprites\spr_launcher_updating</sprite>
-    <sprite>sprites\spr_launcher_parental</sprite>
-    <sprite>sprites\spr_launcher_clock</sprite>
-    <sprite>sprites\spr_launcher_icons</sprite>
-    <sprite>sprites\spr_launcher_thumbnail</sprite>
-    <sprite>sprites\spr_launcher_thumbnail_shadow</sprite>
-    <sprite>sprites\spr_launcher_selector</sprite>
-    <sprite>sprites\spr_launcher_about</sprite>
-    <sprite>sprites\spr_launcher_information</sprite>
-    <sprite>sprites\spr_folderlistener_menu</sprite>
-    <sprite>sprites\spr_folderlistener_line</sprite>
+    <sprites name="Launcher">
+      <sprite>sprites\spr_launcher_cursor</sprite>
+      <sprite>sprites\spr_launcher_line</sprite>
+      <sprite>sprites\spr_launcher_controller</sprite>
+      <sprite>sprites\spr_launcher_ctrlmap</sprite>
+      <sprite>sprites\spr_launcher_options</sprite>
+      <sprite>sprites\spr_launcher_connection</sprite>
+      <sprite>sprites\spr_launcher_updating</sprite>
+      <sprite>sprites\spr_launcher_parental</sprite>
+      <sprite>sprites\spr_launcher_clock</sprite>
+      <sprite>sprites\spr_launcher_clock_ampm</sprite>
+      <sprite>sprites\spr_launcher_icons</sprite>
+      <sprite>sprites\spr_launcher_thumbnail</sprite>
+      <sprite>sprites\spr_launcher_thumbnail_shadow</sprite>
+      <sprite>sprites\spr_launcher_selector</sprite>
+      <sprite>sprites\spr_launcher_about</sprite>
+      <sprite>sprites\spr_launcher_information</sprite>
+    </sprites>
+    <sprites name="Submenu">
+      <sprite>sprites\spr_submenu_layout</sprite>
+      <sprite>sprites\spr_submenu_line</sprite>
+    </sprites>
+    <sprites name="Settings">
+      <sprite>sprites\spr_settings_icons</sprite>
+      <sprite>sprites\spr_settings_rpcselector</sprite>
+      <sprite>sprites\spr_settings_rpc</sprite>
+    </sprites>
+    <sprite>sprites\spr_assistant_a</sprite>
+    <sprite>sprites\spr_assistant_b</sprite>
+    <sprite>sprites\spr_assistant_c</sprite>
   </sprites>
   <backgrounds name="background">
     <background>background\bgr_dark</background>
@@ -228,6 +241,10 @@
   <help>
     <rtf>help.rtf</rtf>
   </help>
+  <audiogroups name="audiogroups">
+    <audiogroup name="audiogroup_default"/>
+    <audiogroup name="sound_effects"/>
+  </audiogroups>
   <TutorialState>
     <IsTutorial>0</IsTutorial>
     <TutorialName></TutorialName>
