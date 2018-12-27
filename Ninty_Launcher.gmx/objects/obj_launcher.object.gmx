@@ -740,7 +740,8 @@ version_url = ini_read_string("NINTY_UPDATE","url","https://");
 ini_close();
         
 //Se for nova versão...
-if(version &lt; version_new){
+if(version &lt; version_new)
+&amp;&amp;(!instance_exists(obj_helptour)){
         
     //Ninny avisa
     with(instance_create(0,0,obj_helptour)){
@@ -980,7 +981,7 @@ if(boot_wait != ""){
         if(boot_attach == "")
             discord_update_presence(emoji_playing+string(games_title[select_index]),emoji_games+string(games_total)+" Games in Library.","rpc_"+string(iconrpc),"");
         else
-            discord_update_presence(emoji_playing+string(ds_map_find_value(forwarder_list,string(select_index)+"_t")),emoji_forward+string(games_title[select_index]),"rpc_"+string(iconrpc),"");
+            discord_update_presence(emoji_playing+string(ds_map_find_value(forwarder_list,string(forwarder_select)+"_t")),emoji_forward+string(games_title[select_index]),"rpc_"+string(iconrpc),"");
     };
 };
     
@@ -1134,7 +1135,7 @@ if(forwarder_find == 1){
                 };
             };          
             else
-                forwarder_select = 1;
+                forwarder_select = 0;
             
             //Limpar
             cleanmem();
@@ -3769,7 +3770,7 @@ global.assets_dir = working_directory;
 launched = 0;
 
 //Versão
-version = 180;
+version = 181;
 version_new = 0; //&lt; Essa é apenas para comparação
 version_url = "https://";
 
