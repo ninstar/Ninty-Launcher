@@ -176,6 +176,7 @@
     <sprites name="Submenu">
       <sprite>sprites\spr_submenu_layout</sprite>
       <sprite>sprites\spr_submenu_line</sprite>
+      <sprite>sprites\spr_submneu_selector</sprite>
     </sprites>
     <sprites name="Settings">
       <sprite>sprites\spr_settings_icons</sprite>
@@ -233,6 +234,7 @@
   </fonts>
   <objects name="objects">
     <object>objects\obj_launcher</object>
+    <object>objects\obj_helptour</object>
     <object>objects\obj_musicplayer</object>
   </objects>
   <rooms name="rooms">
