@@ -2,7 +2,7 @@
 <sound>
   <kind>0</kind>
   <extension>.wav</extension>
-  <origname>sound\audio\snd_launcher_open.wav</origname>
+  <origname>sound\audio\snd_ninny.wav</origname>
   <effects>0</effects>
   <volume>
     <volume>1</volume>
@@ -21,9 +21,9 @@
     <bitDepth>16</bitDepth>
   </bitDepths>
   <preload>-1</preload>
-  <data>snd_launcher_open.wav</data>
+  <data>snd_ninny.wav</data>
   <compressed>0</compressed>
   <streamed>0</streamed>
   <uncompressOnLoad>0</uncompressOnLoad>
-  <audioGroup>0</audioGroup>
+  <audioGroup>1</audioGroup>
 </sound>

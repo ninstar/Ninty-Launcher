@@ -29,9 +29,6 @@
 image_speed = 0;
 image_index = 0;
 
-//SFX
-audio_play_sfx(snd_launcher_open);
-
 //Misc.
 debug = 0;
 is_playing = 0;
@@ -116,7 +113,7 @@ emoji_playing = "🎮 | ";
 emoji_forward = "⭐ | ";
 
 //Efeitos de blink
-alarm[5] = 60;
+blink_delay = 60;
 </string>
           </argument>
         </arguments>
@@ -734,26 +731,25 @@ else{
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>///Efeitos de blink
-if(dialog == 1){
+            <string>///Nova update?
 
-    if(string_length(dialog_return) &lt; 32){
-    
-        if(dialog_inputb == " ")
-            dialog_inputb = "_";
-        else
-            dialog_inputb = " ";
-    }
-    else
-         dialog_inputb = "";
-};
-
-if(clock_blink == " ")
-    clock_blink = ":";
-else
-    clock_blink = " ";
+//Ler informações
+ini_open(game_save_id+"network\updatelog.ini");
+version_new = real(ini_read_string("NINTY_UPDATE","version","0"));
+version_url = ini_read_string("NINTY_UPDATE","url","https://");
+ini_close();
         
-alarm[5] = 60;
+//Se for nova versão...
+if(version &lt; version_new){
+        
+    //Ninny avisa
+    with(instance_create(0,0,obj_helptour)){
+            
+        update = 1;
+        def_text = 30;
+        event_user(2);
+    };
+};
 </string>
           </argument>
         </arguments>
@@ -1033,10 +1029,6 @@ if(is_playing == 1)
 ||(alarm[10] != -1)
 ||(alarm[11] != -1)
     exit;
-    
-//Correção do efeito de blink
-if(alarm[5] == -1)
-    alarm[5] = 60;
 
 //Voltar música música
 if(window_has_focus()){
@@ -1384,6 +1376,33 @@ if(point_in_rectangle(mouse_x,mouse_y,77,41,77+34,41+34))
 };
 
 //------------- Dialogo -------------
+
+//Efeito blink (a cada 60 frames)
+if(blink_delay &gt; 0)
+    blink_delay--;
+else{
+
+    if(dialog == 1){
+    
+        if(string_length(dialog_return) &lt; 32){
+        
+            if(dialog_inputb == " ")
+                dialog_inputb = "_";
+            else
+                dialog_inputb = " ";
+        }
+        else
+             dialog_inputb = "";
+    };
+    
+    if(clock_blink == " ")
+        clock_blink = ":";
+    else
+        clock_blink = " ";
+        
+    //Próximo
+    blink_delay = 60;
+};
 
 //Inserir texto
 if(dialog == 1){
@@ -2202,23 +2221,10 @@ if(ds_map_find_value(async_load,"id") == async_update){
     //Se download finalizar...
     if(ds_map_find_value(async_load,"status") &gt;= 0){
     
-        //Ler informações
-        ini_open(game_save_id+"network\updatelog.ini");
-        version_new = real(ini_read_string("NINTY_CONFIG","version","0"));
-        version_url = ini_read_string("NINTY_CONFIG","url","https://");
-        ini_close();
-        
-        //Se for nova versão...
-        if(version &lt; version_new){
-        
-            //Ninny avisa
-            with(instance_create(0,0,obj_helptour)){
-            
-                update = 1;
-                def_text = 30;
-            };
-        };
         network = 0;
+        
+        //Prosseguir...
+        alarm[5] = 15;
     };
     else
         network = 0;
@@ -3166,7 +3172,8 @@ else
 draw_sprite_ext(spr_launcher_options,theme,1075,35,1,1,0,c_white,1);
 
 //Conexão
-if(os_is_network_connected()){
+if(os_is_network_connected())
+||(instance_exists(obj_helptour)){
 
     //Não baixando nada...
     draw_sprite_ext(spr_launcher_connection,theme,1060,36,1,1,0,c_white,1);
@@ -3186,7 +3193,8 @@ if(os_is_network_connected()){
 //Filtro
 if!(window_has_focus())
 &amp;&amp;!(window_get_fullscreen())
-&amp;&amp;(audio_exists(wallpaper_song)){
+&amp;&amp;(audio_exists(wallpaper_song))
+&amp;&amp;!(instance_exists(obj_helptour)){
 
     draw_set_colour(c_black);
     draw_set_alpha(0.7);
@@ -3309,6 +3317,9 @@ if(lang == 3){
     text_icon[3] = "Color de tema";
     text_icon[4] = "Fondo de pantalla";
     text_icon[5] = "Agregar nuevo juego";
+    
+    text_addgame[0] = "[ Use as a SHORTCUT? ]: This option is useful for applications that are not games, or softwares that use proprietary launchers (such as tools) | NOTE: When you start a shortcut through Ninty, the game time will not be recorded and the launcher will not be suspended.";
+    text_addgame[1] = "[ Use as a FORWARDER? ]: This option is useful for emulators, you can run one or more ROMs directly from Ninty. | NOTE: In the next step you must choose the destination folder that ROMs are located.";
     
     text_settings_title = "Ajustes";
     
@@ -3758,12 +3769,12 @@ global.assets_dir = working_directory;
 launched = 0;
 
 //Versão
-version = 170;
+version = 180;
 version_new = 0; //&lt; Essa é apenas para comparação
 version_url = "https://";
 
 //Procurar URL
-ini_open(game_save_id+"_thumbdb.ini");
+ini_open(game_save_id+"network\database.ini");
 default_dburl = ini_read_string("NINTY_TITLE_MASTER","url","https://raw.githubusercontent.com/MarioSilvaGH/Ninty-Launcher/master/assets/thumbnails/");
 ini_close();
 
@@ -3862,7 +3873,9 @@ if(os_is_network_connected())
     //Sinalizar que está baixando...
     network = 1;
 };
-
+else
+    async_database = noone;
+    
 //Checar se existem atualizações do launcher
 if(os_is_network_connected())
 &amp;&amp;(updateninty == 1){
@@ -3873,6 +3886,8 @@ if(os_is_network_connected())
     //Sinalizar que está baixando...
     network = 1;
 };
+else
+    async_update = noone;
 
 //Idioma
 event_user(3);
@@ -3884,6 +3899,10 @@ if(help_tour == 0){
     with(instance_create(0,0,obj_helptour))
         event_user(2);
 };
+
+//SFX
+if(soundeffects == 1)
+    audio_play_sfx(snd_launcher_open);
 </string>
           </argument>
         </arguments>
@@ -3936,34 +3955,6 @@ if(uirender == 1){
 if(uirender == 0){
     event_user(5);
 };
-</string>
-          </argument>
-        </arguments>
-      </action>
-    </event>
-    <event eventtype="9" enumb="112">
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string>///Debug
-//debug =! debug;
-    with(instance_create(0,0,obj_helptour)){
-        update = 1;
-        def_text = 30;
-    };
 </string>
           </argument>
         </arguments>

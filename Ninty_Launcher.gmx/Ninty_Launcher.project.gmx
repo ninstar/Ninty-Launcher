@@ -153,6 +153,7 @@
     <sound>sound\snd_keyboard</sound>
     <sound>sound\snd_move_set</sound>
     <sound>sound\snd_move_pick</sound>
+    <sound>sound\snd_ninny</sound>
   </sounds>
   <sprites name="sprites">
     <sprites name="Launcher">
