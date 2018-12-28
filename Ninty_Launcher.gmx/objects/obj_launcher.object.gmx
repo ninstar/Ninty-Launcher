@@ -3447,7 +3447,7 @@ else{
     text_settings[6] = "Update database";
     
     text_settings[7] = "Profile folder";
-    text_settings[8] = "Ninny guide";
+    text_settings[8] = "Guide";
     
     text_settings[9] = "Native Rich Presence";
 

@@ -14,7 +14,7 @@ if(file_exists_fmns(game_save_id+"network\database.ini"))
     ini_close();
     
     //Primeiro checar nome do caminho (evita confudir executaveis com nomes iguais)
-    for(t=1; t<_total; t+=1){
+    for(t=1; t<_total+1; t+=1){
         
         var _title, _tagA, _tagB, _tagC, _tagD, _tagE, _tagF, _forward, _shortcut;
 
@@ -48,7 +48,7 @@ if(file_exists_fmns(game_save_id+"network\database.ini"))
     };
 
     //Depois checar nome do arquivo
-    for(p=1; p<_total; p+=1){
+    for(p=1; p<_total+1; p+=1){
         
         var _title, _tagA, _tagB, _tagC, _tagD, _tagE, _tagF, _forward, _shortcut;
     
@@ -77,7 +77,7 @@ if(file_exists_fmns(game_save_id+"network\database.ini"))
             games_shortcut[argument1] = real(_shortcut);
             forwarder_openexplorer = _forward;
             async_thumbnail = games_total;
-            return _url+string(t)+".png";
+            return _url+string(p)+".png";
             break;
         };
     };
