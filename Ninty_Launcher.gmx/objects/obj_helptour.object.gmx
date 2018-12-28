@@ -72,6 +72,10 @@ with(obj_launcher){
     parental_fadeicons = 1;
 };
 
+//Update
+vold = string_copy(string(obj_launcher.version),1,1)+"."+string_copy(string(obj_launcher.version),2,1)+"."+string_copy(string(obj_launcher.version),3,1);
+vnew = string_copy(string(obj_launcher.version_new),1,1)+"."+string_copy(string(obj_launcher.version_new),2,1)+"."+string_copy(string(obj_launcher.version_new),3,1);
+
 //Textos
 event_user(1);
 </string>
@@ -770,8 +774,8 @@ no seu status de perfil enquanto você joga!";
  
 dialog[30] = "Há vários temas para você utilizar, aproveite.";
  
-dialog[31] = "Uma nova atualização esta disponível:  "+string(obj_launcher.version_new)+"
-a sua atual versão é: "+string(obj_launcher.version);
+dialog[31] = "Uma nova atualização esta disponível:  "+vnew+"
+a sua atual versão é: "+vold;
 
 dialog[32] = "Sem problemas!
 Irei te relembrar mais tarde.";
@@ -871,12 +875,15 @@ profile when you're playing!";
 
 dialog[30] = "There's various themes for you, enjoy!";
  
-dialog[31] = "A new update is available:  "+string(obj_launcher.version_new)+"
-your current version is: "+string(obj_launcher.version);
+dialog[31] = "A new update is available:  "+vnew+"
+your current version is: "+vod;
 
 dialog[32] = "No problem!
 I'll remember you later.";
 };
+
+
+
 </string>
           </argument>
         </arguments>

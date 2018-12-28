@@ -16,13 +16,12 @@ if(file_exists_fmns(game_save_id+"network\database.ini"))
     //Primeiro checar nome do caminho (evita confudir executaveis com nomes iguais)
     for(t=1; t<_total; t+=1){
         
-        var _title, _thumb, _tagA, _tagB, _tagC, _tagD, _tagE, _tagF, _forward, _shortcut;
+        var _title, _tagA, _tagB, _tagC, _tagD, _tagE, _tagF, _forward, _shortcut;
 
         ini_open(game_save_id+"network\database.ini");
         _forward = ini_read_real("NINTY_TITLE_"+string(t),"forward",0);
         _shortcut = ini_read_real("NINTY_TITLE_"+string(t),"shortcut",0);
         _title = ini_read_string("NINTY_TITLE_"+string(t),"title","");
-        _thumb = ini_read_string("NINTY_TITLE_"+string(t),"thumb","");
         _tagA = ini_read_string("NINTY_TITLE_"+string(t),"tagA","");
         _tagB = ini_read_string("NINTY_TITLE_"+string(t),"tagB","");
         _tagC = ini_read_string("NINTY_TITLE_"+string(t),"tagC","");
@@ -43,7 +42,7 @@ if(file_exists_fmns(game_save_id+"network\database.ini"))
             games_shortcut[argument1] = real(_shortcut);
             forwarder_openexplorer = _forward;
             async_thumbnail = games_total;
-            return _url+_thumb;
+            return _url+string(t)+".png";
             break;
         };
     };
@@ -51,13 +50,12 @@ if(file_exists_fmns(game_save_id+"network\database.ini"))
     //Depois checar nome do arquivo
     for(p=1; p<_total; p+=1){
         
-        var _title, _thumb, _tagA, _tagB, _tagC, _tagD, _tagE, _tagF, _forward, _shortcut;
+        var _title, _tagA, _tagB, _tagC, _tagD, _tagE, _tagF, _forward, _shortcut;
     
         ini_open(game_save_id+"network\database.ini");
         _forward = ini_read_real("NINTY_TITLE_"+string(p),"forward",0);
         _shortcut = ini_read_real("NINTY_TITLE_"+string(p),"shortcut",0);
         _title = ini_read_string("NINTY_TITLE_"+string(p),"title","");
-        _thumb = ini_read_string("NINTY_TITLE_"+string(p),"thumb","");
         _tagA = ini_read_string("NINTY_TITLE_"+string(p),"tagA","");
         _tagB = ini_read_string("NINTY_TITLE_"+string(p),"tagB","");
         _tagC = ini_read_string("NINTY_TITLE_"+string(p),"tagC","");
@@ -79,7 +77,7 @@ if(file_exists_fmns(game_save_id+"network\database.ini"))
             games_shortcut[argument1] = real(_shortcut);
             forwarder_openexplorer = _forward;
             async_thumbnail = games_total;
-            return _url+_thumb;
+            return _url+string(t)+".png";
             break;
         };
     };

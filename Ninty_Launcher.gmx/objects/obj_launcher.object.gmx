@@ -3333,7 +3333,7 @@ if(lang == 3){
     text_settings[6] = "Actualizar base de datos";
     
     text_settings[7] = "Carpeta de perfil";
-    text_settings[8] = "Guia interactiva";
+    text_settings[8] = "Guia";
     
     text_settings[9] = "Rich Presence nativa";
 
@@ -3390,7 +3390,7 @@ else if(lang == 2){
     text_settings[6] = "Atualizar base de dados";
     
     text_settings[7] = "Pasta de perfil";
-    text_settings[8] = "Guia interativo";
+    text_settings[8] = "Guia";
     
     text_settings[9] = "Rich Presence nativo";
 
@@ -3438,7 +3438,7 @@ else{
 
     text_settings_title = "Settings";
     
-    text_settings[0] = "Languague";
+    text_settings[0] = "Language";
     text_settings[1] = "Interface rendering";
     text_settings[2] = "Sound effects";
     text_settings[3] = "Game window";
@@ -3447,7 +3447,7 @@ else{
     text_settings[6] = "Update database";
     
     text_settings[7] = "Profile folder";
-    text_settings[8] = "Interactive guide";
+    text_settings[8] = "Ninny guide";
     
     text_settings[9] = "Native Rich Presence";
 
@@ -3770,7 +3770,7 @@ global.assets_dir = working_directory;
 launched = 0;
 
 //Versão
-version = 181;
+version = 182;
 version_new = 0; //&lt; Essa é apenas para comparação
 version_url = "https://";
 
@@ -3869,7 +3869,7 @@ if(os_is_network_connected())
 &amp;&amp;(updatedatabase == 1){
         
     //Baixar
-    async_database = http_get_file(default_dburl+"_thumbdb.ini",game_save_id+"network\database.ini");
+    async_database = http_get_file(default_dburl+"0.ini",game_save_id+"network\database.ini");
     
     //Sinalizar que está baixando...
     network = 1;
@@ -3956,6 +3956,35 @@ if(uirender == 1){
 if(uirender == 0){
     event_user(5);
 };
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="9" enumb="112">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>    //Ninny avisa
+    with(instance_create(0,0,obj_helptour)){
+            
+        update = 1;
+        def_text = 30;
+        event_user(2);
+    };
 </string>
           </argument>
         </arguments>
