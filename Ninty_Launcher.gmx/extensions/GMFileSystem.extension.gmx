@@ -57,7 +57,7 @@ Filesystem improvements</description>
   <IncludedResources/>
   <files>
     <file>
-      <filename>GMFile.dll</filename>
+      <filename>filesys.dll</filename>
       <origname>extensions/GMFile.dll</origname>
       <init></init>
       <final></final>

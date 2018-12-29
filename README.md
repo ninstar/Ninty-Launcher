@@ -1,4 +1,4 @@
-# Ninty-Launcher
+﻿# Ninty-Launcher
 <div align="center">
     <p><img src="https://i.imgur.com/io4WSgH.png" alt="" /></p>
 </div>
@@ -25,10 +25,10 @@ Discord Server: https://discord.gg/hPzDxgD
 *Biel98765*
 
 **Translations:**
-*GlitchyPSIX (Spanish)*
+*Biel98765, GlitchyPSI, Lake*
 
 **Extensions:**
-*Samuel Venable (FMNS), Aouab (DiscordRPC), Paul Weijtens (GMFile)*
+*Aouab (DiscordRPC), Samuel Venable (FMNS), Paul Weijtens (GMFile), YellowAfterlife (WinCMD)*
 
 **Thumbnails:**
-*AlphaFenix, Arklem, Braguetta, Bruno Gomes, Igorsales73, KakoSan, Luis Felipe, Xand*
+*AlphaFenix, Arklem, Biel98765, Braguetta, Bruno Gomes, Igorsales73, KakoSan, Luis Felipe, Mario Silva, Xand*

@@ -56,6 +56,7 @@ alarm[0] = 15;
             <string>///Tocar música
 if(audio_exists(obj_launcher.wallpaper_song))
     audio_play_sound(obj_launcher.wallpaper_song,0,1);
+instance_destroy();
 </string>
           </argument>
         </arguments>

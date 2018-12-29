@@ -126,6 +126,7 @@
   </datafiles>
   <NewExtensions>
     <extension index="0">extensions\GMFileSystem</extension>
+    <extension index="1">extensions\window_command_hook</extension>
   </NewExtensions>
   <sounds name="sound">
     <sound>sound\snd_alert</sound>

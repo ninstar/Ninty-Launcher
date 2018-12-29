@@ -664,15 +664,117 @@ if(alarm[0] == -1)
 var lang = 1;
 if(obj_launcher.language == 0){
 
- if(os_get_language() == "es") lang = 3;
- else if(os_get_language() == "pt") lang = 2;
- else lang = 1;
+    if(os_get_language() == "es") lang = 3;
+    else if(os_get_language() == "pt") lang = 2;
+    else lang = 1;
 };
 else
- lang = obj_launcher.language;
+    lang = obj_launcher.language;
  
 //Lista
-if(lang == 2){
+if(lang == 3){
+
+///ESPAÑOL
+dialog[0] = "¡Bienvenido a Ninty Launcher!
+Mi nombre es Ninny, y seré tu guía.";
+
+dialog[1] = "Ninty es un 'Launcher' basado en la
+interfaz de Nintendo Switch para iniciar tus juegos.";
+
+dialog[2] = "No sólo eso: Ninty soporta varios
+tipos de software además de juegos.";
+
+dialog[3] = "Pues vale, creo que podemos empezar.";
+
+dialog[4] = "Estos son los íconos de función, con ellos puedes 
+modificar un juego, agregar uno nuevo o cambiar el tema del Launcher.";
+
+dialog[5] = "Pero cuidado con el ícono de el cesto de basura, ¡es peligroso!
+No queremos que pierdas tus tiempos de juego...";
+
+dialog[6] = "Pero no te preocupes, para evitar situaciones como esta, 
+tenemos el botón de bloqueo de la interfaz.";
+
+dialog[7] = "Haz clic 3 veces en esta opción para esconder todas las 
+funciones principales, así se evita mover o eliminar juegos.";
+
+dialog[8] = "Para volver a mostrar estas opciones tendrás 
+que hacer clic 3 veces de nuevo.";
+
+dialog[9] = "Aquí puedes acceder a la información del Launcher,
+al igual que la versión del mismo y las personas que
+contribuyeron a su desarrollo.";
+
+dialog[10] = "Este otro da acceso a las opciones de Ninty.";
+
+dialog[11] = "El menú empieza aquí, esta opción te lleva a tu
+carpeta de perfil de Ninty.";
+
+dialog[12] = "Cada usuario en esta computadora tiene su propia carpeta 
+al igual que esta, por lo cual todos tienen su propia lista
+de juegos, temas y opciones.";
+
+dialog[13] = "Si planeas cambiar de cuenta o computador y quieres mantener
+tus récords, haz una copia de seguridad de esta carpeta.";
+
+dialog[14] = "Con esta opción, Ninty siempre revisará y descargará 
+la base de datos de juegos más reciente cada vez 
+que inicies el Launcher.";
+
+dialog[15] = "Una animación aparecerá cada vez que Launcher esté 
+descargando algo de la base de datos.";
+
+dialog[16] = "Si habilitas esta opción, ¡te avisaré cada vez
+que haya una nueva versión de Ninty!";
+
+dialog[17] = "Esta opción cambia la prioridad del proceso del juego.";
+
+dialog[18] = "No recomiendo cambiar esto ya que puede tener un impacto
+inmediato en el rendimiento de tu computador dependiendo en el
+juego que hayas iniciado... ¡DE VERAS!";
+
+dialog[19] = "Esta opción te permite ajustar el tamaño de ventana del juego 
+después de iniciado, pero no funciona con todos los juegos.";
+
+dialog[20] = "Algunos te forzarán a jugar en modo ventana, algo
+no muy bueno dependiendo en tus preferencias...";
+
+dialog[21] = "Esta opción apaga todos los efectos de sonido del Launcher,
+excepto la música de los temas (si aplica).";
+
+dialog[22] = "Esta opción te permite cambiar el modo de renderizado, y es 
+extremadamente importante ya que algunas computadoras muestran 
+errores gráficos.";
+
+dialog[23] = "El modo 'compatible' resuelve la mayoría de 
+los problemas, y es la opción por defecto";
+
+dialog[24] = "Pero recomiendo el modo 'moderno', 
+porque ofrece mejores efectos visuales y mejor rendimiento.";
+
+dialog[25] = "Y para finalizar, esta opción cambia el lenguaje del Launcher.";
+
+dialog[26] = "No te preocupes, ¡puedo hablar varios lenguajes!";
+
+dialog[27] = "Si quieres acceder a la guía otra vez, selecciona esta opción. 
+¡Siempre estaré aquí para ayudarte!";
+
+dialog[28] = "¡Oh! Por poco se me olvida...";
+
+dialog[29] = "Si usas Discord, te tengo buenas noticias.
+¡Ninty muestra el estado de tu librería de 
+juegos en tu perfil mientras juegas!";
+
+dialog[30] = "¡He aquí varios temas para ti, disfruta!";
+ 
+dialog[31] = "Nueva actualización disponible:  "+vnew+"
+tu versión actual es: "+vold;
+
+dialog[32] = "¡Vale!
+Te recordaré más tarde.";
+
+};
+else if(lang == 2){
 
 ///PORTUGUÊS 
 dialog[0] = "Bem-vindo ao Ninty Launcher!
@@ -880,6 +982,7 @@ your current version is: "+vod;
 
 dialog[32] = "No problem!
 I'll remember you later.";
+
 };
 
 
@@ -1115,6 +1218,9 @@ if(obj_launcher.uirender == 0){
           <argument>
             <kind>1</kind>
             <string>///Avançar
+if!(window_has_focus())
+    exit;
+
 if(def_text &lt; 31){
     event_user(2);
 };
