@@ -978,7 +978,7 @@ profile when you're playing!";
 dialog[30] = "There's various themes for you, enjoy!";
  
 dialog[31] = "A new update is available:  "+vnew+"
-your current version is: "+vod;
+your current version is: "+vold;
 
 dialog[32] = "No problem!
 I'll remember you later.";
