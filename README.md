@@ -3,22 +3,38 @@
     <p><img src="https://i.imgur.com/io4WSgH.png" alt="" /></p>
 </div>
 
-Programmed/written in GML, Ninty is a launcher based on the Nintendo Switch interface to run the main Fan Games (and several other softwares) out there.
+Written in GML, Ninty is a launcher based on the Nintendo Switch interface to run the main Fan Games (and several other softwares) out there.
 Discord Server: https://discord.gg/hPzDxgD
-## Features
-- Nintendo Swich based UI
-- Customizable themes, including animated wallpapers.
-- Forwarder compatibility.
-- Rich Presence support.
-- 100+ Fan Games, Tools and Consoles thumbnails [Detailed List](https://docs.google.com/spreadsheets/d/1WLxK1jtb8gW2laHxXiDjbLhLpJHaiawH1gl82zr5_2w/)
 
+## Features
+- Switch based UI supporting **customizable themes**, including animated wallpapers with songs.
 <div align="center">
-    <p><img src="https://i.imgur.com/nIz4mPP.gif" alt="" /></p>
-</div>
+    <p><img src="https://github.com/MarioSilvaGH/Ninty-Launcher/raw/master/assets/demo_themes.gif" alt="" /></p>
+</div><br/><br/>
+
+- **Works as a forwarder**, useful for emulators.
+<div align="center">
+    <p><img src="https://github.com/MarioSilvaGH/Ninty-Launcher/raw/master/assets/demo_forwarder.png" alt="" /></p>
+</div><br/><br/>
+
+- Discord **Rich Presence** support, including variated predefined icons.
+<div align="center">
+    <p><img src="https://github.com/MarioSilvaGH/Ninty-Launcher/raw/master/assets/demo_richpresence.png" alt="" /></p>
+</div><br/><br/>
+
+- **100+** Fan Games, Tools and Consoles **thumbnails** [Detailed List](https://docs.google.com/spreadsheets/d/1WLxK1jtb8gW2laHxXiDjbLhLpJHaiawH1gl82zr5_2w/)
+<div align="center">
+    <p><img src="https://github.com/MarioSilvaGH/Ninty-Launcher/raw/master/assets/demo_thumbnails.png" alt="" /></p>
+</div><br/><br/>
+
+- ~~Cute~~ User **guide**:
+<div align="center">
+    <p><img src="https://github.com/MarioSilvaGH/Ninty-Launcher/raw/master/assets/demo_guide.png" alt="" /></p>
+</div><br/>
 
 ### Credits
 
-**Program & Design:**
+**Program, Design & Character:**
 *Mario Silva (Nin★Gamer)*
 
 **Logo:**
