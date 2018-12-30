@@ -7,30 +7,34 @@ Written in GML, Ninty is a launcher based on the Nintendo Switch interface to ru
 Discord Server: https://discord.gg/hPzDxgD
 
 ## Features
-
 - Switch based UI supporting **customizable themes**, including animated wallpapers with songs.
 <div align="center">
     <p><img src="https://github.com/MarioSilvaGH/Ninty-Launcher/raw/master/assets/demo_themes.gif" alt="" /></p>
-</div>
+</div><br/><br/>
 
 - **Works as a forwarder**, useful for emulators.
 <div align="center">
     <p><img src="https://github.com/MarioSilvaGH/Ninty-Launcher/raw/master/assets/demo_forwarder.png" alt="" /></p>
-</div>
+</div><br/><br/>
 
 - Discord **Rich Presence** support, including variated predefined icons.
 <div align="center">
     <p><img src="https://github.com/MarioSilvaGH/Ninty-Launcher/raw/master/assets/demo_richpresence.png" alt="" /></p>
-</div>
+</div><br/><br/>
 
 - **100+** Fan Games, Tools and Consoles **thumbnails** [Detailed List](https://docs.google.com/spreadsheets/d/1WLxK1jtb8gW2laHxXiDjbLhLpJHaiawH1gl82zr5_2w/)
 <div align="center">
     <p><img src="https://github.com/MarioSilvaGH/Ninty-Launcher/raw/master/assets/demo_thumbnails.png" alt="" /></p>
-</div>
+</div><br/><br/>
+
+- ~~Cute~~ User **guide**:
+<div align="center">
+    <p><img src="https://github.com/MarioSilvaGH/Ninty-Launcher/raw/master/assets/demo_guide.png" alt="" /></p>
+</div><br/>
 
 ### Credits
 
-**Program & Design:**
+**Program, Design & Character:**
 *Mario Silva (Nin★Gamer)*
 
 **Logo:**
