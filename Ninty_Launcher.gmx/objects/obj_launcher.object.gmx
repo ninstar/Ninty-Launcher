@@ -3856,7 +3856,7 @@ global.assets_dir = working_directory;
 launched = 0;
 
 //Versão
-version = 183;
+version = 184;
 version_new = 0; //&lt; Essa é apenas para comparação
 version_url = "https://";
 
