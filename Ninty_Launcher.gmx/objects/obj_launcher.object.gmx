@@ -991,7 +991,7 @@ if(boot_wait != ""){
     if(nativerpc == 1){
     
         if(boot_attach == "")
-            discord_update_presence(emoji_playing+string(games_title[select_index]),emoji_games+string(games_total)+" Games in Library.","rpc_"+string(iconrpc),"");
+            discord_update_presence(emoji_playing+string(games_title[select_index]),emoji_games+string(games_total)+" "+text_rpc[1],"rpc_"+string(iconrpc),"");
         else
             discord_update_presence(emoji_playing+string(ds_map_find_value(forwarder_list,string(forwarder_select)+"_t")),emoji_forward+string(games_title[select_index]),"rpc_"+string(iconrpc),"");
     };
@@ -1785,17 +1785,17 @@ if(settingsmenu == 1)
             
             //Mudar idioma
             event_user(3);
+            
+            //Atualizar RPC
+            event_user(0);
         };
         //Renderização da Interface
         else if(settingsmenu_select == 1){
         
             uirender =! uirender;
           
-            //Metodo de renderização
-            if(uirender == 1)
-                display_set_windows_vertex_buffer_method(vbm_fast);
-            else
-                display_set_windows_vertex_buffer_method(vbm_most_compatible);  
+            //Definições de display
+            event_user(6);
         };
         //Efeitos Sonoros
         else if(settingsmenu_select == 2){
@@ -2200,7 +2200,7 @@ if(os_is_paused())
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>///Atualziar...
+            <string>///Atualizar...
 
 //Base de thumbnails automáticas (thumbdb.ini)
 if(ds_map_find_value(async_load,"id") == async_database){
@@ -2271,6 +2271,71 @@ if(ds_map_find_value(async_load,"id") == games_thumb[async_thumbnail]){
     else
         network = 0;
 };
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="7" enumb="16">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///Definições de Display
+
+//Metodo de renderização
+if(uirender == 1)
+    display_set_windows_vertex_buffer_method(vbm_fast);
+else{
+            
+    display_reset(0,0);
+    display_set_windows_vertex_buffer_method(vbm_most_compatible);  
+};
+
+//Menor que 1080p
+if(display_get_width() &lt; 1920-8){
+    
+    //Menor que 720p (Adequado para 4:3)
+    if(display_get_width() &lt; 1280-8){
+        
+        //Ainda menor... (WTf? alguém tem display menor que isso?)
+        if(display_get_width() &lt; 800-8){
+
+            if(uirender == 1) display_reset(0,1); //AA: x0
+            window_set_size(320,180);
+        };
+        else{
+
+            if(uirender == 1) display_reset(2,1); //AA: x2
+            window_set_size(640,360);
+        };
+    };
+    else{
+
+        if(uirender == 1) display_reset(6,1); //AA: x6
+        window_set_size(800,450);
+    };
+};
+else{
+
+    if(uirender == 1) display_reset(8,1); //AA: x8
+    window_set_size(1280,720);  
+};
+
+//Tamanho padrão da interface relativa ao display
+display_set_gui_size(1280,720);
 </string>
           </argument>
         </arguments>
@@ -3331,8 +3396,8 @@ if(lang == 3){
     text_icon[4] = "Fondo de pantalla";
     text_icon[5] = "Agregar nuevo juego";
     
-    text_addgame[0] = "[ Use as a SHORTCUT? ]: This option is useful for applications that are not games, or softwares that use proprietary launchers (such as tools) | NOTE: When you start a shortcut through Ninty, the game time will not be recorded and the launcher will not be suspended.";
-    text_addgame[1] = "[ Use as a FORWARDER? ]: This option is useful for emulators, you can run one or more ROMs directly from Ninty. | NOTE: In the next step you must choose the destination folder that ROMs are located.";
+    text_addgame[0] = "[ ¿Utilizar como ATAJO? ]: Esta opción es útil para aplicaciones que no son juegos, o softwares que utilizan lanzadores propietarios (como herramientas) | NOTA: Cuando inicias un atajo a través de Ninty, el tiempo del juego no se registrará y el lanzador no se suspenderá.";
+    text_addgame[1] = "[ ¿Utilizar como FORWARDER? ]: Esta opción es útil para los emuladores, Puede ejecutar una o más ROM directamente de Ninty. | NOTA: En el siguiente paso, debe elegir la carpeta de destino donde se encuentran las ROM.";
     
     text_settings_title = "Ajustes";
     
@@ -3364,6 +3429,9 @@ if(lang == 3){
     
     text_update[0] = "Ir a la página de descarga";
     text_update[1] = "Quizas mas tarde";
+    
+    text_rpc[0] = "Seleccionando un Juego...";
+    text_rpc[1] = "Juegos en la Biblioteca";
 };
 else if(lang == 2){
 
@@ -3388,8 +3456,8 @@ else if(lang == 2){
     text_icon[4] = "Alterar o plano de fundo";
     text_icon[5] = "Adicionar um novo jogo";
     
-    text_addgame[0] = "[ Usar como um ATALHO? ]: Essa opção é útil para aplicativos que não são jogos, ou softwares que usam launchers proprietários (como ferramentas) | OBS.: Ao iniciar um atalho pelo Ninty o tempo de jogo não sera registrado e o launcher não sera suspenso.";
-    text_addgame[1] = "[ Usar como um FORWARDER? ]: Essa opção é útil para emuladores, você pode iniciar uma ou várias ROMs direto do Ninty. | OBS.: Na próxima etapa, você deve escolher a pasta de destino em que as ROMs estão localizadas.";
+    text_addgame[0] = "[ Usar como ATALHO? ]: Essa opção é útil para aplicativos que não são jogos, ou softwares que usam launchers proprietários (como ferramentas) | OBS.: Ao iniciar um atalho pelo Ninty o tempo de jogo não sera registrado e o launcher não sera suspenso.";
+    text_addgame[1] = "[ Usar como FORWARDER? ]: Essa opção é útil para emuladores, você pode iniciar uma ou várias ROMs direto do Ninty. | OBS.: Na próxima etapa, você deve escolher a pasta de destino em que as ROMs estão localizadas.";
 
     text_settings_title = "Configurações";
     
@@ -3421,6 +3489,9 @@ else if(lang == 2){
     
     text_update[0] = "Ir até a página de download";
     text_update[1] = "Talvez depois";
+    
+    text_rpc[0] = "Selecionando um Jogo...";
+    text_rpc[1] = "Jogos na Biblioteca.";
 };
 else{
 
@@ -3463,8 +3534,8 @@ else{
     
     text_settings[9] = "Native Rich Presence";
 
-    text_settings_onoff[0] = "OFF";
-    text_settings_onoff[1] = "ON";
+    text_settings_onoff[0] = "Off";
+    text_settings_onoff[1] = "On";
     
     text_settings_language[0] = "Same as the system";  
     text_settings_uirender[0] = "Compatible";
@@ -3478,6 +3549,9 @@ else{
     
     text_update[0] = "Go to download page";
     text_update[1] = "Maybe later";
+    
+    text_rpc[0] = "Selecting a Game...";
+    text_rpc[1] = "Games in Library.";
 };
 </string>
           </argument>
@@ -3686,7 +3760,7 @@ else{
 };
 
 if(nativerpc == 1)
-    discord_update_presence(emoji_lib+"Selecting a Game...",emoji_games+string(games_total)+" Games in Library.","rpc_"+string(iconrpc),"");
+    discord_update_presence(emoji_lib+text_rpc[0],emoji_games+string(games_total)+" "+text_rpc[1],"rpc_"+string(iconrpc),"");
 </string>
           </argument>
         </arguments>
@@ -3800,27 +3874,6 @@ audio_group_load(sound_effects);
 //Clean Memory
 cleanmem_init(0);
 
-//Menor que 1080p
-if(display_get_width() &lt; 1920-8){
-    
-    //Menor que 720p (Adequado para 4:3)
-    if(display_get_width() &lt; 1280-8){
-        
-        //Ainda menor... (WTf? alguém tem display menor que isso?)
-        if(display_get_width() &lt; 800-8)
-            window_set_size(320,180);
-        else
-            window_set_size(640,360);
-    };
-    else
-        window_set_size(800,450);
-};
-else
-    window_set_size(1280,720);
-    
-//Tamanho padrão da interface relativa ao display
-display_set_gui_size(1280,720);
-
 //Centralizar janela
 alarm[3] = 2;
 
@@ -3841,11 +3894,11 @@ nativerpc = ini_read_real("NINTY_CONFIG","nativerpc",1);
 iconrpc = ini_read_real("NINTY_CONFIG","iconrpc",0);
 ini_close();
 
-//Metodo de renderização
-if(uirender == 1)
-    display_set_windows_vertex_buffer_method(vbm_fast);
-else
-    display_set_windows_vertex_buffer_method(vbm_most_compatible);
+//Idioma
+event_user(3);
+
+//Display
+event_user(6);
 
 //Definir fullscreen
 alarm[4] = 6;
@@ -3901,9 +3954,6 @@ if(os_is_network_connected())
 };
 else
     async_update = noone;
-
-//Idioma
-event_user(3);
 
 //Guia
 if(help_tour == 0){
