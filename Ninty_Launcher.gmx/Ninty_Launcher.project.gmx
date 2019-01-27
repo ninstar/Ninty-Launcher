@@ -173,6 +173,7 @@
       <sprite>sprites\spr_launcher_thumbnail_shadow</sprite>
       <sprite>sprites\spr_launcher_selector</sprite>
       <sprite>sprites\spr_launcher_about</sprite>
+      <sprite>sprites\spr_launcher_gameprefix</sprite>
       <sprite>sprites\spr_launcher_information</sprite>
     </sprites>
     <sprites name="Submenu">

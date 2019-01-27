@@ -35,6 +35,7 @@ is_playing = 0;
 nav_time = 60;
 icon_select = -1;
 network_anim = 0;
+outside_submenu = 0;
 
 //Animações
 wp_x = 0;
@@ -929,6 +930,9 @@ if(boot_wait != ""){
 
     //Descarregar assets (RAM)
     event_user(2);
+
+    //Minimizar janela
+    window_command_run(window_command_minimize);
     
     //Após jogo finalizado...
     alarm[2] = 5;
@@ -981,8 +985,8 @@ if(boot_wait != ""){
         audio_stop_sound(wallpaper_song);
         
     //Definir posição/tamanho
-    window_set_position(-4000,-4000);
-    window_set_size(16,16);
+    window_set_position(-9000,-9000);
+    //window_set_size(16,16);
     
     //Começar registro de tempo
     time_start = date_current_datetime();
@@ -997,9 +1001,6 @@ if(boot_wait != ""){
     };
 };
 
-//Minimizar janela
-window_command_run(window_command_minimize);
-    
 //Criar .BAT direcionado ao local do jogo (evita falhas)
 var test = file_text_open_write(game_save_id+"gameboot.bat")
 file_text_write_string(test,filename_drive(games_path[select_index]));
@@ -1044,6 +1045,17 @@ if(is_playing == 1)
 ||(alarm[10] != -1)
 ||(alarm[11] != -1)
     exit;
+
+//Checar região fora do submenu
+if(point_in_rectangle(mouse_x,mouse_y,0,0,320,720))
+||(point_in_rectangle(mouse_x,mouse_y,321,0,1042,37))
+||(point_in_rectangle(mouse_x,mouse_y,321,676,1042,720))
+||(point_in_rectangle(mouse_x,mouse_y,959,94,1280,675))
+||(point_in_rectangle(mouse_x,mouse_y,959,38,1042,93))
+||(point_in_rectangle(mouse_x,mouse_y,1233,0,1280,93))
+    outside_submenu = 1;
+else
+    outside_submenu = 0;
 
 //------------- Forwarder -------------
 
@@ -1165,106 +1177,6 @@ else{
         parental_offset -= 6;
     else
         parental_offset = 0;
-};
-
-//------------- Dialogo -------------
-
-//Efeito blink (a cada 60 frames)
-if(blink_delay &gt; 0)
-    blink_delay--;
-else{
-
-    if(dialog == 1){
-    
-        if(string_length(dialog_return) &lt; 32){
-        
-            if(dialog_inputb == " ")
-                dialog_inputb = "_";
-            else
-                dialog_inputb = " ";
-        }
-        else
-             dialog_inputb = "";
-    };
-    
-    if(clock_blink == " ")
-        clock_blink = ":";
-    else
-        clock_blink = " ";
-        
-    //Próximo
-    blink_delay = 60;
-};
-
-//Inserir texto
-if(dialog == 1){
-
-    //Animação de transição (Começo)
-    if(dialog_filterright &lt; 1280)
-        dialog_filterright += 128;
-    dialog_filterleft = -1;
-    
-    if(window_has_focus()){
-    
-        //Confirmar
-        if(keyboard_check_pressed(vk_enter))
-        &amp;&amp;(dialog_filterright &gt; 1279){
-        
-            audio_play_sfx(snd_addgame_step3);
-            dialog = 0;
-            exit;
-        };
-        
-        //Clipboard
-        if(keyboard_check(vk_control)){
-        
-            //Colar
-            if(keyboard_check_pressed(ord("V"))){
-            
-                audio_play_sfx(snd_keyboard);
-                keyboard_string = string_copy(clipboard_get_text(),0,32);
-                dialog_return = string_copy(clipboard_get_text(),0,32);
-            };
-            //Copiar
-            else if(keyboard_check_pressed(ord("C"))){
-            
-                audio_play_sfx(snd_keyboard);
-                clipboard_set_text(dialog_return);
-            };
-        };
-        else{
-        
-            //SFX de tecla
-            if(keyboard_check_pressed(vk_anykey))
-                audio_play_sfx(snd_keyboard);
-            
-            //Trocar caracteres inválidos
-            if(keyboard_check(vk_anykey)){
-            
-                var stg_a,stg_b,stg_c;
-                stg_a = string_copy(keyboard_string,0,32);
-                stg_b = string_replace(stg_a,'#',"");
-                stg_c = string_replace(stg_b,"'","");
-                keyboard_string = stg_c;
-                dialog_return = stg_c;
-            };
-        };
-    };
-    exit;
-};
-else{
-
-    //Animação de transição (Fim)
-    if(dialog_filterright &gt;= 1280){
-    
-        if(dialog_filterleft &lt; 1280)
-            dialog_filterleft += 128;
-        else{
-
-            dialog_filterright = -1;
-            dialog_filterleft = -1;
-        };
-    };
 };
 
 //------------- Janela -------------
@@ -1435,7 +1347,132 @@ if(window_has_focus())
 if(audio_is_paused(wallpaper_song))
     audio_resume_sound(wallpaper_song);
         
+//------------- Dialogo -------------
+
+//Efeito blink (a cada 60 frames)
+if(blink_delay &gt; 0)
+    blink_delay--;
+else{
+
+    if(dialog != 0){
+    
+        if(string_length(dialog_return) &lt; 32){
+        
+            if(dialog_inputb == " ")
+                dialog_inputb = "_";
+            else
+                dialog_inputb = " ";
+        }
+        else
+             dialog_inputb = "";
+    };
+    
+    if(clock_blink == " ")
+        clock_blink = ":";
+    else
+        clock_blink = " ";
+        
+    //Próximo
+    blink_delay = 60;
+};
+
+//Inserir texto
+if(dialog != 0){
+
+    //Animação de transição (Começo)
+    if(dialog_filterright &lt; 1280)
+        dialog_filterright += 128;
+    dialog_filterleft = -1;
+    
+    if(window_has_focus()){
+    
+        //Confirmar
+        if((keyboard_check_pressed(vk_enter))
+        ||(mouse_check_button_pressed(mb_left)))
+        &amp;&amp;(dialog_filterright &gt; 1279){
+        
+            audio_play_sfx(snd_addgame_step3);
+            dialog = 0;
+            exit;
+        };
+        
+        //Clipboard
+        if(keyboard_check(vk_control)){
+        
+            //Colar
+            if(keyboard_check_pressed(ord("V"))){
+            
+                audio_play_sfx(snd_keyboard);
+                keyboard_string = string_copy(clipboard_get_text(),0,32);
+                dialog_return = string_copy(clipboard_get_text(),0,32);
+            };
+            //Copiar
+            else if(keyboard_check_pressed(ord("C"))){
+            
+                audio_play_sfx(snd_keyboard);
+                clipboard_set_text(dialog_return);
+            };
+        };
+        else{
+        
+            //SFX de tecla
+            if(keyboard_check_pressed(vk_anykey))
+                audio_play_sfx(snd_keyboard);
+            
+            //Trocar caracteres inválidos
+            if(keyboard_check(vk_anykey)){
+            
+                var stg_a,stg_b,stg_c;
+                stg_a = string_copy(keyboard_string,0,32);
+                stg_b = string_replace(stg_a,'#',"");
+                stg_c = string_replace(stg_b,"'","");
+                keyboard_string = stg_c;
+                dialog_return = stg_c;
+            };
+        };
+        
+        //Pesquisar jogo
+        if(dialog == 2){
+        
+            var s;
+            for(s=0; s&lt;games_total; s+=1){
+                
+                //if(dialog_return == string_copy(games_title[s],1,string_count(dialog_return,dialog_return))){
+                if(string_lower(dialog_return) == string_lower(string_copy(games_title[s],1,string_length(dialog_return)))){
+                
+                    if(select_index != s){
+                    
+                        offset_v = 0;
+                        select_index = s;
+    
+                        //Checar arquivo
+                        if(file_exists_fmns(games_path[select_index])) select_exists = 1;
+                        else select_exists = 0;
+                        break;
+                    };
+                };
+            };
+        };
+    };
+    exit;
+};
+else{
+
+    //Animação de transição (Fim)
+    if(dialog_filterright &gt;= 1280){
+    
+        if(dialog_filterleft &lt; 1280)
+            dialog_filterleft += 128;
+        else{
+
+            dialog_filterright = -1;
+            dialog_filterleft = -1;
+        };
+    };
+};
+
 //------------- Cencelar ações -------------
+
 if((keyboard_check_pressed(vk_escape))
 ||(keyboard_check_pressed(vk_backspace))){
                   
@@ -1466,8 +1503,21 @@ if((keyboard_check_pressed(vk_escape))
         move_origin = -1;
     };
 };
+if(mouse_check_button_pressed(mb_left))
+&amp;&amp;(outside_submenu == 1){
+    
+     //Forwarder...      
+    if(forwarder == 1){ 
+    
+        //SFX
+        audio_play_sfx(snd_window_close);
+        forwarder = 0;
+        exit;
+    };   
+}
 
 //------------- Bloqueio da interface -------------
+
 if(point_in_rectangle(mouse_x,mouse_y,77,41,77+34,41+34)){
         
     if(mouse_check_button_pressed(mb_left)){
@@ -1485,6 +1535,7 @@ if(point_in_rectangle(mouse_x,mouse_y,77,41,77+34,41+34)){
 };
 
 //------------- Icones de opções -------------
+
 if(alarm[6] == -1)
 &amp;&amp;(alarm[7] == -1)
 &amp;&amp;(alarm[8] == -1)
@@ -1591,28 +1642,26 @@ if(alarm[6] == -1)
                 alarm[10] = 10;
             };
         };
-            
-        //Alterar nome do jogo
+          
+        //Alterar jogo
         if(icon_select == 1)
-        &amp;&amp;(games_total &gt; 0)
-        &amp;&amp;(dialog == 0){
-            
-            //Alterar nome
-            audio_play_sfx(snd_changetitle);
-            dialog_description = text_dialog[0];
-            keyboard_string = games_title[select_index];
-            dialog_return = games_title[select_index];
-            dialog = 1;
-            alarm[6] = 1;
-        };
-            
-        //Alterar thumbnail do jogo
-        if(icon_select == 2)
         &amp;&amp;(games_total &gt; 0){
         
             audio_play_sfx(snd_changethumbnail);
             window_set_fullscreen(0);
             alarm[9] = 4;
+        };
+          
+        //Pesquisar jogo
+        if(icon_select == 2)
+        &amp;&amp;(games_total &gt; 0)
+        &amp;&amp;(dialog == 0){
+        
+            audio_play_sfx(snd_changetitle);
+            dialog_description = text_icon[2]+":";
+            keyboard_string = "";
+            dialog_return = "";
+            dialog = 2;
         };
                
         //Tema (Branco/Preto)
@@ -1877,16 +1926,16 @@ if(settingsmenu == 1)
             event_user(0);
         };
         //Fechar
-        else{
+        if(outside_submenu == 1){
         
             //SFX
             audio_play_sfx(snd_updated);
             settingsmenu = 0;
             exit;
-        };       
-        
+        };  
         //SFX
-        audio_play_sfx(snd_window_open);
+        if(settingsmenu_select &gt; 0)   
+            audio_play_sfx(snd_window_open);
     };
 };
             
@@ -1901,6 +1950,12 @@ if(infopopup == 1)
         if(point_in_rectangle(mouse_x,mouse_y,411,82,411+441,82+140))
             url_open("https://github.com/MarioSilvaGH/Ninty-Launcher");
         else{
+        
+            if(mouse_check_button_pressed(mb_left)){
+            
+                if(outside_submenu == 0)
+                    exit;
+            };
         
             //SFX
             audio_play_sfx(snd_window_close);
@@ -1919,6 +1974,77 @@ if(games_total &gt; 0)
     //Bloquear navegação enquanto estiver em menu de forwarder...
     if(forwarder == 0){
     
+        //Navegação por Mouse
+        if(mouse_check_button_pressed(mb_left)){
+           
+            //Rolagem (de acordo com offset)
+            var q_offset;
+            if(select_index &gt; 1)
+                q_offset = 502+(-276*select_index);
+            else
+                q_offset = 98;
+                    
+            //Alterar nome
+            if(point_in_rectangle(mouse_x,mouse_y,q_offset+(276*select_index),125-offset_v+parental_offset,q_offset+256+(276*select_index),(125+52)-offset_v+parental_offset))
+            &amp;&amp;(parental_control == 0){
+                
+                audio_play_sfx(snd_changetitle);
+                dialog_description = text_dialog[0];
+                keyboard_string = games_title[select_index];
+                dialog_return = games_title[select_index];
+                dialog = 1;
+                alarm[6] = 1;       
+            };
+
+            //Lista de jogos (Mostrar apenas oque esta na tela)
+            var q, q_start, q_end;
+            if(select_index &gt; 1){
+            
+                q_start = select_index-2;
+                q_end = select_index+3;
+            };
+            else{
+            
+                q_start = 0;
+                q_end = select_index+5;
+            };
+            
+            for(q=q_start; q&lt;q_end; q+=1){
+        
+                
+                //Seleção
+                if(point_in_rectangle(mouse_x,mouse_y,q_offset+(276*q),194+parental_offset,q_offset+256+(276*q),(194+256)+parental_offset))
+                &amp;&amp;!(q &lt; 0)
+                &amp;&amp;!(q &gt; games_total-1){
+                    
+                    //Efeito
+                    if(q == select_index){
+                        
+                        keyboard_key_press(vk_enter);
+                        keyboard_key_release(vk_enter);
+                    };
+                    if(q &lt; select_index){
+                    
+                        offset_v = 0;
+                        select_index = q;
+                        audio_play_sfx(snd_select_previous);   
+                        exit;                     
+                    };
+                    if(q &gt; select_index){
+                    
+                        offset_v = 0;
+                        select_index = q;
+                        audio_play_sfx(snd_select_next);
+                        exit;
+                    };
+                    
+                    //Checar arquivo
+                    if(file_exists_fmns(games_path[select_index])) select_exists = 1;
+                    else select_exists = 0;
+                };
+            };
+        };
+        
         //Mover jogo
         if(keyboard_check_pressed(vk_shift))
         &amp;&amp;(move == 0)
@@ -2632,6 +2758,20 @@ if(icon_select &gt; -1){
 
 //------------- Lista de Jogos -------------
 
+//Fundo preto (Tela de pesquisa)
+if(dialog_description == text_icon[2]+":"){
+
+    if(theme == 0)
+        draw_set_colour(c_white);
+    else
+        draw_set_colour(c_black);
+    
+    draw_set_alpha(0.8);
+    draw_rectangle(dialog_filterleft,-2000,dialog_filterright,4000,0);
+    draw_set_colour(c_white);
+    draw_set_alpha(1);
+};
+
 //Rolagem (de acordo com offset)
 if(select_index &gt; 1)
     offset = 502+(-276*select_index);
@@ -2640,7 +2780,8 @@ else
 
 //Rolagem vertical
 if(games_total &gt; 0)
-&amp;&amp;(move == 0){
+&amp;&amp;(move == 0)
+&amp;&amp;(games_shortcut[select_index] == 0){
 
     if(offset_v &lt; 32-6)
         offset_v += 6;
@@ -2690,7 +2831,17 @@ for(i=i_start; i&lt;i_end; i+=1){
                 else
                     anim_games[i] = 0;
             };
+            
+            //Lista de pesquisa (Transparente)
+            if(dialog == 2){
+            
+                if(select_index == i)
+                    draw_set_alpha(1)
+                else
+                    draw_set_alpha(0.3);
+            };
             draw_sprite_stretched(games_thumb[i],anim_games[i],offset+(256+20)*i,194+parental_offset-vv,256,256);
+            draw_set_alpha(1);
         };
     };
 };
@@ -2698,9 +2849,9 @@ for(i=i_start; i&lt;i_end; i+=1){
 //Seletor de jogos
 if(select_index &lt; games_total+1)
 &amp;&amp;(games_total &gt; 0){
-
+        
     var _msg, _col1, _col2;
-    
+                    
     //Mover
     if(move == 1){
     
@@ -2713,14 +2864,7 @@ if(select_index &lt; games_total+1)
         //Padrão
         if(select_exists == 1){
         
-            //Prefixo
-            var nm_prefix = "";
-            if(games_forwarder[select_index] != "")
-                nm_prefix = "";
-            if(games_shortcut[select_index] == 1)
-                nm_prefix = "";
-            
-            _msg = nm_prefix+games_title[select_index];
+            _msg = games_title[select_index];
             _col1 = c_col_l;
             _col2 = c_col_d;
         };
@@ -2748,42 +2892,68 @@ if(select_index &lt; games_total+1)
     
     //Seletor
     col = merge_colour(_col1,_col2,col_numb);
-    draw_sprite_ext(spr_launcher_selector,0,(offset-10)+276*select_index,185+parental_offset-offset_v-move_offset,1,1,0,col,1);
+    draw_sprite_ext(spr_launcher_selector,0,(offset-10)+276*select_index,184+parental_offset-offset_v-move_offset,1,1,0,col,1);
 
     //Nome do jogo selecionado
     if(select_index == 0){
     
+        //Primeiro da lista
         draw_text_shadow(offset-16,123+parental_offset-offset_v-move_offset,_msg);    
-        draw_text_colour(offset-16,123+parental_offset-offset_v-move_offset,_msg,col,col,col,col,1);    
+        draw_text_colour(offset-16,123+parental_offset-offset_v-move_offset,_msg,col,col,col,col,1);
     };
     else{
     
+        //Todos outros
         draw_set_halign(fa_center);
         draw_text_shadow(offset+(276*select_index)+256/2,123+parental_offset-offset_v-move_offset,_msg);
         draw_text_colour(offset+(276*select_index)+256/2,123+parental_offset-offset_v-move_offset,_msg,col,col,col,col,1);
         draw_set_halign(fa_left);
     };
     
-    //Play Time
-    if(move == 0)
-    &amp;&amp;(games_shortcut[select_index] == 0){
+    //Prefixos
+    if(move == 0){
     
-        if(games_playtime[select_index,0] &lt; 1)
-        &amp;&amp;(games_playtime[select_index,1] &lt; 1){
+        //Play Time
+        if(games_shortcut[select_index] == 0){
         
-            var _pt_hour = "--";
-            var _pt_min = "--";
+            var _pt_offset = 0;
+            if(games_playtime[select_index,0] &lt; 1)
+            &amp;&amp;(games_playtime[select_index,1] &lt; 1){
+            
+                var _pt_hour = "--";
+                var _pt_min = "--";
+            };
+            else{
+            
+                //Offset caso passe de 100 horas
+                if(games_playtime[select_index,0] &gt; 99)
+                    _pt_offset = 20;
+                //Offset caso passe de 1.000 horas
+                if(games_playtime[select_index,0] &gt; 999)
+                    _pt_offset = 30;
+            
+                var _pt_hour = string_replace_all(string_format(real(games_playtime[select_index,0]),2,0)," ","0");
+                var _pt_min = string_replace_all(string_format(real(games_playtime[select_index,1]),2,0)," ","0");
+            };
+            
+            var _pt_icon = 0;
+            
+            //Icone de forwarder
+            if(games_forwarder[select_index] != "")
+                _pt_icon = 0;
+            else
+                _pt_icon = 1;
+            
+            draw_set_font(fnt_clock);
+            draw_text_shadow((offset+(276*select_index)+(256/2)-18)-_pt_offset,466+parental_offset-offset_v,_pt_hour+":"+_pt_min);
+            draw_text_colour((offset+(276*select_index)+(256/2)-18)-_pt_offset,466+parental_offset-offset_v,_pt_hour+":"+_pt_min,col,col,col,col,1);
+            draw_set_font(fnt_default);
+            draw_sprite_ext(spr_launcher_gameprefix,_pt_icon,(offset+(276*select_index)+(256/2)-48-18)-_pt_offset,466+parental_offset-offset_v,1,1,0,col,1);
         };
-        else{
         
-            var _pt_hour = string_replace_all(string_format(real(games_playtime[select_index,0]),2,0)," ","0");
-            var _pt_min = string_replace_all(string_format(real(games_playtime[select_index,1]),2,0)," ","0");
-        };
-        draw_set_font(fnt_clock);
-        draw_text_shadow(offset+(276*select_index)+(256/2)-18,466+parental_offset-offset_v,_pt_hour+":"+_pt_min);
-        draw_text_colour(offset+(276*select_index)+(256/2)-18,466+parental_offset-offset_v,_pt_hour+":"+_pt_min,col,col,col,col,1);
-        draw_set_font(fnt_default);
-        draw_sprite_ext(spr_launcher_clock,1,offset+(276*select_index)+(256/2)-48-18,466+parental_offset-offset_v,1,1,0,col,1);
+        //Atalho
+        if(games_shortcut[select_index] == 1)
+            draw_sprite_ext(spr_launcher_gameprefix,2,(offset+(276*select_index)+(256/2)-126),402+parental_offset-offset_v,1,1,0,col,1);
     };
 };
 
@@ -3133,6 +3303,7 @@ if(infopopup_fade &gt; 0){
     //Janela
     draw_sprite_ext(spr_submenu_layout,theme,1280/2,720/2-128+(128*infopopup_fade),1,1,0,theme_color,infopopup_fade);
     draw_sprite_ext(spr_launcher_information,1,1280/2,720/2-128+(128*infopopup_fade),1,1,0,c_white,infopopup_fade);
+    draw_set_alpha(1);
     if(theme == 0)
         draw_sprite_ext(spr_launcher_information,0,1280/2,720/2-128+(128*infopopup_fade),1,1,0,c_black,infopopup_fade);
     else
@@ -3141,30 +3312,41 @@ if(infopopup_fade &gt; 0){
 
 //------------- Dialogo -------------
 
-//Fundo
-if(theme == 0)
-    draw_set_colour(c_white);
-else
-    draw_set_colour(c_black);
 
-draw_set_alpha(0.9);
-draw_rectangle(dialog_filterleft,-2000,dialog_filterright,4000,0);
-draw_set_colour(c_white);
-draw_set_alpha(1);
+//Fundo
+if(dialog_description == text_dialog[0]){
+
+    if(theme == 0)
+        draw_set_colour(c_white);
+    else
+        draw_set_colour(c_black);
     
-if(dialog == 1){
-    
+    draw_set_alpha(0.9);
+    draw_rectangle(dialog_filterleft,-2000,dialog_filterright,4000,0);
+    draw_set_colour(c_white);
+    draw_set_alpha(1);
+};
+
+//Alterar titulo do jogo
+if(dialog != 0){
+
+    var dg_offset;
+    if(dialog == 1)
+        dg_offset = 0;
+    else
+        dg_offset = 194;
+         
     //Descrição
     draw_set_colour(merge_colour(c_col_l,c_col_d,col_numb));
     draw_set_halign(fa_center);
-    draw_text(1280/2,720/2-48,dialog_description+" ("+string(string_length(dialog_return))+"/32)");
+    draw_text(1280/2,(720/2-48)+dg_offset,dialog_description+" ("+string(string_length(dialog_return))+"/32)");
         
     //Texto
     if(theme == 1)
         draw_set_colour(c_white);
     else
         draw_set_colour(c_black);
-    draw_text(1280/2,720/2,dialog_return+dialog_inputb);
+    draw_text(1280/2,(720/2)+dg_offset,dialog_return+dialog_inputb);
     draw_set_halign(fa_left);
     draw_set_colour(c_white);
 };
@@ -3318,6 +3500,7 @@ if((mouse_check_button(mb_right))
             <kind>1</kind>
             <string>///Salvar configurações do Launcher
 ini_open(game_save_id+"config.ini")
+ini_write_real("NINTY_CONFIG","netcooldown",netcooldown);
 ini_write_real("NINTY_CONFIG","fullscreen",fullscreen);
 ini_write_real("NINTY_CONFIG","position",select_index);
 ini_write_real("NINTY_CONFIG","parental",parental_control);
@@ -3382,19 +3565,19 @@ if(lang == 3){
     text_forwarder[1] = "• No se han encontrado la carpeta de destino.";
     
     text_dialog[0] = "Establecer el título del juego:";
-    
+
     text_ctrl[0] = "Empezar";
     text_ctrl[1] = "Cerrar";
     text_ctrl[2] = "Mover";
     text_ctrl[3] = "Cancelar";
     text_ctrl[4] = "Confirmar";
     
-    text_icon[0] = "Remover juego";
-    text_icon[1] = "Renombrar juego";
-    text_icon[2] = "Cambiar dirección al juego";
-    text_icon[3] = "Color de tema";
-    text_icon[4] = "Fondo de pantalla";
-    text_icon[5] = "Agregar nuevo juego";
+    text_icon[0] = "Remover Juego";
+    text_icon[1] = "Cambiar Juego";
+    text_icon[2] = "Buscar un Juego";
+    text_icon[3] = "Color de Tema";
+    text_icon[4] = "Fondo de Pantalla";
+    text_icon[5] = "Agregar Nuevo Juego";
     
     text_addgame[0] = "[ ¿Utilizar como ATAJO? ]: Esta opción es útil para aplicaciones que no son juegos, o softwares que utilizan lanzadores propietarios (como herramientas) | NOTA: Cuando inicias un atajo a través de Ninty, el tiempo del juego no se registrará y el lanzador no se suspenderá.";
     text_addgame[1] = "[ ¿Utilizar como FORWARDER? ]: Esta opción es útil para los emuladores, Puede ejecutar una o más ROM directamente de Ninty. | NOTA: En el siguiente paso, debe elegir la carpeta de destino donde se encuentran las ROM.";
@@ -3449,12 +3632,12 @@ else if(lang == 2){
     text_ctrl[3] = "Cancelar";
     text_ctrl[4] = "Confirmar";
     
-    text_icon[0] = "Remover jogo";
-    text_icon[1] = "Renomear jogo";
-    text_icon[2] = "Alterar caminho do jogo";
-    text_icon[3] = "Cor de tema";
-    text_icon[4] = "Alterar o plano de fundo";
-    text_icon[5] = "Adicionar um novo jogo";
+    text_icon[0] = "Remover Jogo";
+    text_icon[1] = "Modificar Jogo";
+    text_icon[2] = "Procurar por um Jogo";
+    text_icon[3] = "Cor de Tema";
+    text_icon[4] = "Alterar o Plano de Fundo";
+    text_icon[5] = "Adicionar um Novo Jogo";
     
     text_addgame[0] = "[ Usar como ATALHO? ]: Essa opção é útil para aplicativos que não são jogos, ou softwares que usam launchers proprietários (como ferramentas) | OBS.: Ao iniciar um atalho pelo Ninty o tempo de jogo não sera registrado e o launcher não sera suspenso.";
     text_addgame[1] = "[ Usar como FORWARDER? ]: Essa opção é útil para emuladores, você pode iniciar uma ou várias ROMs direto do Ninty. | OBS.: Na próxima etapa, você deve escolher a pasta de destino em que as ROMs estão localizadas.";
@@ -3509,12 +3692,12 @@ else{
     text_ctrl[3] = "Cancel";
     text_ctrl[4] = "Confirm";
     
-    text_icon[0] = "Remove game";
-    text_icon[1] = "Rename game";
-    text_icon[2] = "Change game path";
-    text_icon[3] = "Theme color";
+    text_icon[0] = "Remove Game";
+    text_icon[1] = "Modify Game";
+    text_icon[2] = "Search for a Game";
+    text_icon[3] = "Theme Color";
     text_icon[4] = "Wallpaper";
-    text_icon[5] = "Add a new game";
+    text_icon[5] = "Add a Mew Game";
 
     text_addgame[0] = "[ Use as a SHORTCUT? ]: This option is useful for applications that are not games, or softwares that use proprietary launchers (such as tools) | NOTE: When you start a shortcut through Ninty, the game time will not be recorded and the launcher will not be suspended.";
     text_addgame[1] = "[ Use as a FORWARDER? ]: This option is useful for emulators, you can run one or more ROMs directly from Ninty. | NOTE: In the next step you must choose the destination folder that ROMs are located.";
@@ -3856,7 +4039,7 @@ global.assets_dir = working_directory;
 launched = 0;
 
 //Versão
-version = 184;
+version = 185;
 version_new = 0; //&lt; Essa é apenas para comparação
 version_url = "https://";
 
@@ -3879,6 +4062,7 @@ alarm[3] = 2;
 
 //Configurações do Launcher
 ini_open(game_save_id+"config.ini");
+netcooldown = ini_read_real("NINTY_CONFIG","netcooldown",0);
 fullscreen = ini_read_real("NINTY_CONFIG","fullscreen",0);
 select_index = ini_read_real("NINTY_CONFIG","position",0);
 parental_control = ini_read_real("NINTY_CONFIG","parental",0);
@@ -3931,7 +4115,8 @@ if(nativerpc == 1){
 
 //Checar se existem thumbnails (update automático)
 if(os_is_network_connected())
-&amp;&amp;(updatedatabase == 1){
+&amp;&amp;(updatedatabase == 1)
+&amp;&amp;(netcooldown == 0){
         
     //Baixar
     async_database = http_get_file(default_dburl+"0.ini",game_save_id+"network\database.ini");
@@ -3944,7 +4129,8 @@ else
     
 //Checar se existem atualizações do launcher
 if(os_is_network_connected())
-&amp;&amp;(updateninty == 1){
+&amp;&amp;(updateninty == 1)
+&amp;&amp;(netcooldown == 0){
         
     //Baixar
     async_update = http_get_file("https://raw.githubusercontent.com/MarioSilvaGH/Ninty-Launcher/master/assets/updatelog.ini",game_save_id+"network\updatelog.ini");
@@ -3954,6 +4140,12 @@ if(os_is_network_connected())
 };
 else
     async_update = noone;
+
+//Não fazer spam de pedidos (Checar updates a cada 3 vezes que iniciar)
+if(netcooldown &lt; 3)
+    netcooldown++;
+else
+    netcooldown = 0;
 
 //Guia
 if(help_tour == 0){
