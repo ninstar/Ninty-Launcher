@@ -1448,8 +1448,8 @@ if(dialog != 0){
                         //Checar arquivo
                         if(file_exists_fmns(games_path[select_index])) select_exists = 1;
                         else select_exists = 0;
-                        break;
                     };
+                    break;
                 };
             };
         };
