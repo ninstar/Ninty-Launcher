@@ -224,11 +224,11 @@
       <script>scripts\cleanmem.gml</script>
     </scripts>
     <script>scripts\find_game.gml</script>
-    <script>scripts\draw_text_shadow.gml</script>
     <script>scripts\ExecuteShell.gml</script>
     <script>scripts\get_anim_frames.gml</script>
     <script>scripts\get_anim_speed.gml</script>
     <script>scripts\audio_play_sfx.gml</script>
+    <script>scripts\draw_text_shadow.gml</script>
   </scripts>
   <fonts name="fonts">
     <font>fonts\fnt_default</font>
