@@ -71,13 +71,6 @@ with(obj_launcher){
     parental_fade = 3;
     parental_fadeicons = 1;
 };
-
-//Update
-vold = string_copy(string(obj_launcher.version),1,1)+"."+string_copy(string(obj_launcher.version),2,1)+"."+string_copy(string(obj_launcher.version),3,1);
-vnew = string_copy(string(obj_launcher.version_new),1,1)+"."+string_copy(string(obj_launcher.version_new),2,1)+"."+string_copy(string(obj_launcher.version_new),3,1);
-
-//Textos
-event_user(1);
 </string>
           </argument>
         </arguments>
@@ -233,7 +226,7 @@ else{
     scale = 1;
     
     //Texto ~ Fala
-    if(textanim &lt; string_length(dialog[show_text])){
+    if(textanim &lt; string_length(obj_launcher.guide[show_text])){
         
 
         //SFX
@@ -641,357 +634,6 @@ if(alarm[0] == -1)
         </arguments>
       </action>
     </event>
-    <event eventtype="7" enumb="11">
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string>///Textos
-
-//Automático
-var lang = 1;
-if(obj_launcher.language == 0){
-
-    if(os_get_language() == "es") lang = 3;
-    else if(os_get_language() == "pt") lang = 2;
-    else lang = 1;
-};
-else
-    lang = obj_launcher.language;
- 
-//Lista
-if(lang == 3){
-
-//ESPAÑOL
-dialog[0] = "¡Bienvenido a Ninty Launcher!
-Mi nombre es Ninny, y seré tu guía.";
-
-dialog[1] = "Ninty es un 'Launcher' basado en la
-interfaz de Nintendo Switch para iniciar tus juegos.";
-
-dialog[2] = "No sólo eso: Ninty soporta varios
-tipos de software además de juegos.";
-
-dialog[3] = "Pues vale, creo que podemos empezar.";
-
-dialog[4] = "Estos son los íconos de función, con ellos puedes 
-modificar un juego, agregar uno nuevo o cambiar el tema del Launcher.";
-
-dialog[5] = "Pero cuidado con el ícono de el cesto de basura, ¡es peligroso!
-No queremos que pierdas tus tiempos de juego...";
-
-dialog[6] = "Pero no te preocupes, para evitar situaciones como esta, 
-tenemos el botón de bloqueo de la interfaz.";
-
-dialog[7] = "Haz clic 3 veces en esta opción para esconder todas las 
-funciones principales, así se evita mover o eliminar juegos.";
-
-dialog[8] = "Para volver a mostrar estas opciones tendrás 
-que hacer clic 3 veces de nuevo.";
-
-dialog[9] = "Aquí puedes acceder a la información del Launcher,
-al igual que la versión del mismo y las personas que
-contribuyeron a su desarrollo.";
-
-dialog[10] = "Este otro da acceso a las opciones de Ninty.";
-
-dialog[11] = "El menú empieza aquí, esta opción te lleva a tu
-carpeta de perfil de Ninty.";
-
-dialog[12] = "Cada usuario en esta computadora tiene su propia carpeta 
-al igual que esta, por lo cual todos tienen su propia lista
-de juegos, temas y opciones.";
-
-dialog[13] = "Si planeas cambiar de cuenta o computador y quieres mantener
-tus récords, haz una copia de seguridad de esta carpeta.";
-
-dialog[14] = "Con esta opción, Ninty siempre revisará y descargará 
-la base de datos de juegos más reciente cada vez 
-que inicies el Launcher.";
-
-dialog[15] = "Una animación aparecerá cada vez que Launcher esté 
-descargando algo de la base de datos.";
-
-dialog[16] = "Si habilitas esta opción, ¡te avisaré cada vez
-que haya una nueva versión de Ninty!";
-
-dialog[17] = "Esta opción cambia la prioridad del proceso del juego.";
-
-dialog[18] = "No recomiendo cambiar esto ya que puede tener un impacto
-inmediato en el rendimiento de tu computador dependiendo en el
-juego que hayas iniciado... ¡DE VERAS!";
-
-dialog[19] = "Esta opción te permite ajustar el tamaño de ventana del juego 
-después de iniciado, pero no funciona con todos los juegos.";
-
-dialog[20] = "Algunos te forzarán a jugar en modo ventana, algo
-no muy bueno dependiendo en tus preferencias...";
-
-dialog[21] = "Esta opción apaga todos los efectos de sonido del Launcher,
-excepto la música de los temas (si aplica).";
-
-dialog[22] = "Esta opción te permite cambiar el modo de renderizado, y es 
-extremadamente importante ya que algunas computadoras muestran 
-errores gráficos.";
-
-dialog[23] = "El modo 'compatible' resuelve la mayoría de 
-los problemas, y es la opción por defecto";
-
-dialog[24] = "Pero recomiendo el modo 'moderno', 
-porque ofrece mejores efectos visuales y mejor rendimiento.";
-
-dialog[25] = "Y para finalizar, esta opción cambia el lenguaje del Launcher.";
-
-dialog[26] = "No te preocupes, ¡puedo hablar varios lenguajes!";
-
-dialog[27] = "Si quieres acceder a la guía otra vez, selecciona esta opción. 
-¡Siempre estaré aquí para ayudarte!";
-
-dialog[28] = "¡Oh! Por poco se me olvida...";
-
-dialog[29] = "Si usas Discord, te tengo buenas noticias.
-¡Ninty muestra el estado de tu librería de 
-juegos en tu perfil mientras juegas!";
-
-dialog[30] = "¡He aquí varios temas para ti, disfruta!";
- 
-dialog[31] = "Nueva actualización disponible:  "+vnew+"
-tu versión actual es: "+vold;
-
-dialog[32] = "¡Vale!
-Te recordaré más tarde.";
-
-};
-else if(lang == 2){
-
-//PORTUGUÊS 
-dialog[0] = "Bem-vindo ao Ninty Launcher!
-Meu nome é Ninny, eu irei ser sua guia.";
- 
-dialog[1] = "Ninty é um launcher baseado na interface do 
-Nintendo Switch para você iniciar seus jogos";
- 
-dialog[2] = "Mas não só isso: Ninty suporta vários outros
-tipos de softwares além de jogos.";
- 
-dialog[3] = "Sendo assim, acho que podemos começar.";
- 
-dialog[4] = "Estes sãos os ícones de funções, com eles você
-pode alterar um jogo, adicionar novos e também
-alterar o tema do launcher.";
- 
-dialog[5] = "Só tome cuidado com o ícone de lixeira, ele é 
-perigoso! Não queremos que você perca seu 
-registro de tempo nos jogos...";
- 
-dialog[6] = "Mas não se preocupe, para evitarmos situações como 
-essa temos a função de bloqueio da interface.";
-
-dialog[7] = "Clique 3 vezes nessa opção e todas funções de
-alteração serão ocultadas, isso também impede que 
-os jogos sejam  movidos.";
- 
-dialog[8] = "Para desbloquear a interface novamente você só 
-precisa clicar no mesmo local 3 vezes.";
- 
-dialog[9] = "Aqui você pode acessar as informações do Launcher,
-assim como a versão atual e as pessoas que contribuiram
-para o desenvolvimento dele.";
- 
-dialog[10] = "Essa outra opção lhe da acesso as configurações do Ninty.";
- 
-dialog[11] = "O menu começa por aqui, essa opção te leva para 
-a pasta do seu perfil no Ninty.";
- 
-dialog[12] = "Cada usuário no computador tem sua própria pasta de
-perfil como essa, sendo assim cada um deles tem sua 
-própria lista de jogos, temas e configurações";
- 
-dialog[13] = "Se você tiver planos de mudar de conta ou até mesmo
-de computador e quiser levar junto todos seus registros,
-faça um backup dessa pasta.";
- 
-dialog[14] = "Com essa opção o Ninty sempre vai checar e baixar a base de
-dados de jogos compatíveis mais recente ao incializa-lo.";
- 
-dialog[15] = "Uma animação vai aparecer sempre que o launcher 
-estiver baixando algo da base de dados de jogos.";
- 
-dialog[16] = "Se você ativar essa opção, eu sempre vou te avisar 
-quando houver uma nova versão do Ninty!";
- 
-dialog[17] = "Essa opção determina a prioridade do processo dos jogos.";
- 
-dialog[18] = "Eu não recomendo você alterar isso pois pode ter 
-impacto imediato no desempenho do seu computador
-dependendo do jogo iniciado... É SERIO!";
- 
-dialog[19] = "Com essa opção você pode definir o tamanho da 
-janela dos jogos ao inicia-los, mas não funciona com
-todos os jogos.";
- 
-dialog[20] = "Alguns vão te obrigar a jogar em modo janela, algo
-não muito bom dependendo da sua preferência...";
- 
-dialog[21] = "Com essa opção você pode desativar todos efeitos sonoros
-do launcher, com exceção de temas que incluam músicas.";
- 
-dialog[22] = "Essa opção define o método de renderização da interface, 
-é extremamente importante pois alguns computadores podem 
-ter problemas como bugs gráficos.";
- 
-dialog[23] = "O modo 'compatível' pode resolver grande parte desses 
-problemas, essa é a opção que vem por padrão.";
- 
-dialog[24] = "Mas eu aconselho você a utilizar o modo 'moderno', 
-pois oferece melhores efeitos visuais e um melhor 
-desempenho.";
- 
-dialog[25] = "E por fim, com essa opção você pode alterar o
-idioma do launcher.";
- 
-dialog[26] = "Mas não se preocupe, eu sei falar vários idiomas!";
- 
-dialog[27] = "Caso você queira acessar o guia novamente você pode
-selecionar essa opção, sempre estarei aqui para te
-ajudar!";
- 
-dialog[28] = "Ah! não poderia me esquecer...";
- 
-dialog[29] = "Caso você use Discord essa opção é ideal para você.
-Ela permite colocar os jogos da sua biblioteca Ninty
-no seu status de perfil enquanto você joga!";
- 
-dialog[30] = "Há vários temas para você utilizar, aproveite.";
- 
-dialog[31] = "Uma nova atualização esta disponível:  "+vnew+"
-a sua atual versão é: "+vold;
-
-dialog[32] = "Sem problemas!
-Irei te relembrar mais tarde.";
-};
-else{
-
-//ENGLISH
-dialog[0] = "Welcome to Ninty Launcher!
-My name is Ninny, and I'll be your guide.";
-
-dialog[1] = "Ninty is a launcher based on Nintendo Switch's
-interface to start your games.";
-
-dialog[2] = "But not only that: Ninty supports various
-types of softwares besides games.";
-
-dialog[3] = "Well then, I think we can start.";
-
-dialog[4] = "These are the function icons, with them you can change 
-a game, add a new one or change the launcher's theme.";
-
-dialog[5] = "But be careful with the trash can icon, it's dangerous!
-We don't want you losing your game's playtime...";
-
-dialog[6] = "But don't worry, to avoid situations like this, 
-we have the interface's lock function.";
-
-dialog[7] = "Click 3 times in this option to hide all main functions,
-that way preventing moving games and apps.";
-
-dialog[8] = "To unhide these functions again you will need to
-click the same place 3 times.";
-
-dialog[9] = "Here you can access the Launcher's informations,
-as well as the current version and the people who
-contributed to its development.";
-
-dialog[10] = "This other one gives access to Ninty's settings.";
-
-dialog[11] = "The menu starts here, this setting leads you to the
-folder of your profile on Ninty.";
-
-dialog[12] = "Every user on the computer has its own profile
-folder like this, thus everyone has its own games
-list, themes and settings.";
-
-dialog[13] = "If you're planning to change your account or computer 
-and want to have all records, do a backup of this folder.";
-
-dialog[14] = "With this setting, Ninty will always check and
-download the most recent game database every time 
-you start it.";
-
-dialog[15] = "An animation will appear whenever the Launcher is 
-downloading something of the database.";
-
-dialog[16] = "If you enable this setting, I'll alert you 
-everytime when there's a new version of Ninty!";
-
-dialog[17] = "This setting settles the game's process priority.";
-
-dialog[18] = "I don't recommend you to change this since it can have an
-immediate impact on your computer's performance depending
-of the game you started... FOR REAL!";
-
-dialog[19] = "This setting you can set the size of the game window 
-after start it, but it doesn't work with all games.";
-
-dialog[20] = "Some will force you to play in windowed mode, something
-not very good depending on your preference...";
-
-dialog[21] = "With this setting you can turn off all Launcher's sound
-effects, except of themes containing music.";
-
-dialog[22] = "This setting you set the interface render method, 
-and it's extremely important since some computers can 
-show some graphical bugs.";
-
-dialog[23] = "The 'compatible' mode can solve good portion of these 
-problems, this is the standard setting";
-
-dialog[24] = "But I do recommend you to use the 'modern' mode, 
-it offers better visual effects and a better performance.";
-
-dialog[25] = "And finally, this setting can change the launcher's language.";
-
-dialog[26] = "But don't worry, I can speak a lot of languages!";
-
-dialog[27] = "If you want to access the guide again you can select this 
-option I'll be always here to help you!";
-
-dialog[28] = "Oh! And I cannot forget...";
-
-dialog[29] = "If you use Discord, this is the best place to you.
-Ninty shows a status of your game library in your
-profile when you're playing!";
-
-dialog[30] = "There's various themes for you, enjoy!";
- 
-dialog[31] = "A new update is available:  "+vnew+"
-your current version is: "+vold;
-
-dialog[32] = "No problem!
-I'll remember you later.";
-
-};
-
-
-
-</string>
-          </argument>
-        </arguments>
-      </action>
-    </event>
     <event eventtype="7" enumb="10">
       <action>
         <libid>1</libid>
@@ -1016,10 +658,10 @@ if(def_highlight == 1){
 
     draw_set_alpha(0.7);
     draw_set_color(c_black);
-    draw_rectangle(0,0,def_highlight_x1-1,720,0); //Esquerda
-    draw_rectangle(def_highlight_x1,0,def_highlight_x2,def_highlight_y1,0); //Cima
-    draw_rectangle(def_highlight_x2+1,0,1280,720,0); //Direita
-    draw_rectangle(def_highlight_x1,def_highlight_y2,def_highlight_x2,720,0); //Baixa
+    draw_rectangle(0,-3000,def_highlight_x1-1,720+3000,0); //Esquerda
+    draw_rectangle(def_highlight_x1,-3000,def_highlight_x2,def_highlight_y1,0); //Cima
+    draw_rectangle(def_highlight_x2+1,-3000,1280,720+3000,0); //Direita
+    draw_rectangle(def_highlight_x1,def_highlight_y2,def_highlight_x2,720+3000,0); //Baixa
     draw_set_color(c_white);
     draw_set_alpha(1);
 };
@@ -1030,7 +672,7 @@ if(update == 1)
 
     draw_set_alpha(0.85);
     draw_set_color(c_black);
-    draw_rectangle(0,0,1280,720,0);
+    draw_rectangle(0,-3000,1280,720+3000,0);
     draw_set_color(c_white);
     draw_set_alpha(1);
 
@@ -1073,8 +715,8 @@ if(textanim &gt; 0){
     draw_set_alpha(0.7);
     
     var _width, _height;
-    _width = string_width(string_copy(dialog[show_text],0,textanim));
-    _height = string_height(string_copy(dialog[show_text],0,textanim));
+    _width = string_width(string_copy(obj_launcher.guide[show_text],0,textanim));
+    _height = string_height(string_copy(obj_launcher.guide[show_text],0,textanim));
     
     //Direita
     if(show_textmod == 1){
@@ -1107,7 +749,7 @@ if(textanim &gt; 0){
     
     draw_set_color(c_white);
     draw_set_alpha(1);
-    draw_text(show_textx,show_texty,string_copy(dialog[show_text],0,textanim));
+    draw_text(show_textx,show_texty,string_copy(obj_launcher.guide[show_text],0,textanim));
     draw_set_halign(fa_left);
     draw_set_valign(fa_top);
     draw_set_font(fnt_default);

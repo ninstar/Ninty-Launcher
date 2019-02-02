@@ -41,7 +41,7 @@ Discord Server: https://discord.gg/hPzDxgD
 *Biel98765*
 
 **Translations:**
-*Biel98765, GlitchyPSI, Lake*
+GlitchyPSI (Spanish), Biel98765 & Lake (English), Majora03 (French), Mario Silva (Portuguese), MasterXYZ (Italian), VECTORKNICKER (Polish)
 
 **Extensions:**
 *Aouab (DiscordRPC), Samuel Venable (FMNS), Paul Weijtens (GMFile), YellowAfterlife (WinCMD)*
