@@ -3824,35 +3824,35 @@ text_deleting = "Usuwanie...";
 text_moving = "Przesuwanie...";
 text_notfound = "[NIE ZNALEZIONO]";
 text_forwarder[0] = "• Rozpocznij bez gry";
-text_forwarder[1] = "• Nie znaleziono œcie¿ki pliku.";
+text_forwarder[1] = "• Nie znaleziono œcieżki pliku.";
 text_addforwarder = "Wybierz jakikolwiek plik";
-text_dialog[0] = "Ustaw nazwê gry:";
+text_dialog[0] = "Ustaw nazwę gry:";
 text_ctrl[0] = "Rozpocznij";
 text_ctrl[1] = "Zamknij";
-text_ctrl[2] = "Przesuñ";
+text_ctrl[2] = "Przesuń";
 text_ctrl[3] = "Anuluj";
 text_ctrl[4] = "PotwierdŸ";
-text_icon[0] = "Usuñ grê";
-text_icon[1] = "Zmodyfikuj grê";
+text_icon[0] = "Usuń grę";
+text_icon[1] = "Zmodyfikuj grę";
 text_icon[2] = "Szukaj gry";
 text_icon[3] = "Kolor Motywu";
 text_icon[4] = "Tapeta";
-text_icon[5] = "Dodaj grê";
-text_addgame[0] = "[ U¿yæ jako SKRÓT? ]: Ta opcja jest po¿yteczna dla aplikacji które nie s¹ grami, lub programów które u¿ywaj¹ w³asnych launcherów (jak przybory) | UWAGA: Kiedy w³¹czasz skrót przez Ninty, czas gry nie bêdzie licznony i launcher zostanie wstrzymany.";
-text_addgame[1] = "[ U¿yæ jako TRYB WYSY£AJ¥CY? ]: Ta opcja jest po¿yteczna dla emulatorów, mo¿esz w³¹czyæ jeden lub wiêcej ROMów bezpoœrednio z Ninty. | UWAGA: W nastêpnym kroku musisz wybraæ folder docelowy w którym znajduj¹ siê ROMy.";
+text_icon[5] = "Dodaj grę";
+text_addgame[0] = "[ Użyćjako SKRÓT? ]: Ta opcja jest pożyteczna dla aplikacji które nie są grami, lub programów które używają własnych launcherów (jak przybory) | UWAGA: Kiedy włączasz skrót przez Ninty, czas gry nie będzie licznony i launcher zostanie wstrzymany.";
+text_addgame[1] = "[ Użyćjako TRYB WYSY£AJ¥CY? ]: Ta opcja jest pożyteczna dla emulatorów, możesz włączyćjeden lub więcej ROMów bezpoœrednio z Ninty. | UWAGA: W następnym kroku musisz wybraćfolder docelowy w którym znajdują się ROMy.";
 text_settings_title = "Ustawienia";
-text_settings[0] = "Jêzyk";
+text_settings[0] = "Język";
 text_settings[1] = "Renderowanie Interfejsu";
-text_settings[2] = "Efekty Dzwiêkowe";
+text_settings[2] = "Efekty Dzwiękowe";
 text_settings[3] = "Okno Gry";
-text_settings[4] = "Pierwszeñstwo gry";
+text_settings[4] = "Pierwszeństwo gry";
 text_settings[5] = "Sprawdzanie Aktualizacji";
 text_settings[6] = "Baza Danych Aktualizacji";
 text_settings[7] = "Folder Profilu";
 text_settings[8] = "Poradnik";
 text_settings[9] = "Rich Presence";
-text_settings_onoff[0] = "Wy³¹czone";
-text_settings_onoff[1] = "W³¹czone"; 
+text_settings_onoff[0] = "Wyłączone";
+text_settings_onoff[1] = "Włączone"; 
 text_settings_language[0] = "Jak system";  
 text_settings_uirender[0] = "Kompatibilne";
 text_settings_uirender[1] = "Nowoczesne";
@@ -3860,111 +3860,111 @@ text_settings_windowmode[0] = "Takie Same jak Ninty";
 text_settings_windowmode[1] = "Domyœlne";
 text_settings_windowmode[2] = "Zmaksymalizowane";
 text_settings_gamepriority[0] = "Normalne (Rekomendowane)";
-text_settings_gamepriority[1] = "Du¿e";
-text_settings_gamepriority[2] = "Ma³e";
+text_settings_gamepriority[1] = "Duże";
+text_settings_gamepriority[2] = "Małe";
 text_update[0] = "PrzejdŸ do strony pobierania";
-text_update[1] = "Mo¿e pó¿niej";
+text_update[1] = "Może póżniej";
 text_rpc[0] = "Wybieranie gry...";
 text_rpc[1] = "Gry w bibliotece.";
 //Ninny ------------------------------------------------------------------
 guide[0] = "Witaj w Ninty Launcher!
-Nazywam siê Ninny, i bêde twoim przewodnikiem.";
+Nazywam się Ninny, i będe twoim przewodnikiem.";
 
 guide[1] = "Ninty to launcher bazowany na interfejsu Nintendo 
-Switch'a aby w³¹czaæ swoje gry.";
+Switch'a aby włączaćswoje gry.";
 
-guide[2] = "Lecz nie tylko to: Ninty obs³uguje ró¿ne
+guide[2] = "Lecz nie tylko to: Ninty obsługuje różne
 typy programów oprócz gier.";
 
-guide[3] = "Dobrze, myœlê ¿e mo¿emy zacz¹æ.";
+guide[3] = "Dobrze, myœlę że możemy zacząæ.";
 
-guide[4] = "To s¹ ikony funkcji. Z nimi mo¿esz zmieniæ
-grê, dodaæ inn¹ lub zmieniæ motyw launchera.";
+guide[4] = "To są ikony funkcji. Z nimi możesz zmieniæ
+grę, dodaćinną lub zmienićmotyw launchera.";
 
-guide[5] = "Ale b¹dŸ ostro¿ny z ikon¹ kosza na œmieci, jest niebezpieczna!
-Nie chcemy, abyœ straci³ swój czas gry...";
+guide[5] = "Ale bądŸ ostrożny z ikoną kosza na œmieci, jest niebezpieczna!
+Nie chcemy, abyœ stracił swój czas gry...";
 
-guide[6] = "Lecz siê nie martw. Aby zapobiec takim sytuacjom, 
+guide[6] = "Lecz się nie martw. Aby zapobiec takim sytuacjom, 
 mamy funkcje zablokowania funkcji interfejsu.";
 
-guide[7] = "Kliknij trzy razy na ikonê k³ódki aby ukryæ wszystkie g³ówne 
-funkcje, zapobiegaj¹æ usuwania lub przesuwania gier.";
+guide[7] = "Kliknij trzy razy na ikonę kłódki aby ukryćwszystkie główne 
+funkcje, zapobiegająćusuwania lub przesuwania gier.";
 
-guide[8] = "Aby te funkcje siê znowu pojawi³y, musisz
-klikn¹æ te same miejsce trzy razy.";
+guide[8] = "Aby te funkcje się znowu pojawiły, musisz
+kliknąćte same miejsce trzy razy.";
 
-guide[9] = "Tutaj mo¿esz zobaczyæ informacje o launcherze,
-aktualn¹ wersjê oraz ludzi, którzy
-przyczynili siê do produkcji Ninty.";
+guide[9] = "Tutaj możesz zobaczyćinformacje o launcherze,
+aktualną wersję oraz ludzi, którzy
+przyczynili się do produkcji Ninty.";
 
 guide[10] = "Ten przycisk pokazuje ci opcje Ninty.";
 
-guide[11] = "Menu zaczyna siê tutaj. Ta opcja prowadzi ciê
+guide[11] = "Menu zaczyna się tutaj. Ta opcja prowadzi cię
 do folderu twojego profilu Ninty.";
 
-guide[12] = "Ka¿da osoba na komputerze ma taki
-folder, wiêæ ka¿dy ma inn¹ listê gier,
+guide[12] = "Każda osoba na komputerze ma taki
+folder, więćkażdy ma inną listę gier,
 motywy i ustawienia.";
 
-guide[13] = "Jeœli planujesz zmieniæ swoje konto lub komputer i
-chcesz zachowaæ wszystkie rekordy, utwórz kopiê 
-zapasow¹ tego folderu.";
+guide[13] = "Jeœli planujesz zmienićswoje konto lub komputer i
+chcesz zachowaćwszystkie rekordy, utwórz kopię 
+zapasową tego folderu.";
 
-guide[14] = "Z t¹ opcj¹, Ninty zawsze bêdzie sprawdzaæ i
-pobieraæ najnowsz¹ baze danych gier za ka¿dym 
-razem kiedy w³¹czasz Ninty.";
+guide[14] = "Z tą opcją, Ninty zawsze będzie sprawdzaći
+pobieraćnajnowszą baze danych gier za każdym 
+razem kiedy włączasz Ninty.";
 
-guide[15] = "Pojawi siê animacja kiedy launcher
+guide[15] = "Pojawi się animacja kiedy launcher
 pobiera coœ z bazy danych.";
 
-guide[16] = "Jeœli w³¹czysz t¹ opcje, powiadomie ciê za 
-ka¿dym razem kiedy jest nowa wersja Ninty!";
+guide[16] = "Jeœli włączysz tą opcje, powiadomie cię za 
+każdym razem kiedy jest nowa wersja Ninty!";
 
-guide[17] = "Ta opcja zmienia pierwszeñstwo procesu gry.";
+guide[17] = "Ta opcja zmienia pierwszeństwo procesu gry.";
 
-guide[18] = "Nie polecam ci tego zmieniaæ, bo mo¿e mieæ natychmiastowy 
-wp³yw na wydajnoœæ komputera w zale¿noœci gry co zosta³a 
-w³¹czona... NAPRAWDÊ!";
+guide[18] = "Nie polecam ci tego zmieniaæ, bo może miećnatychmiastowy 
+wpływ na wydajnoœćkomputera w zależnoœci gry co została 
+włączona... NAPRAWDÊ!";
 
-guide[19] = "Ta opcja zmienia wielkoœæ okna gry po jej w³¹czeniu, 
-ale ta opcja nie dzia³a ze wszystkimi grami.";
+guide[19] = "Ta opcja zmienia wielkoœćokna gry po jej włączeniu, 
+ale ta opcja nie działa ze wszystkimi grami.";
 
-guide[20] ="Niektóre ciê zmusz¹ do grania w trybie okna, coœ
-niezbyt dobrego w zale¿noœci twoich preferencji...";
+guide[20] ="Niektóre cię zmuszą do grania w trybie okna, coœ
+niezbyt dobrego w zależnoœci twoich preferencji...";
 
-guide[21] = "Z tym ustawieniem mo¿esz wy³¹czyæ wszystkie efekty
-dzwiêkowe launchera, oprócz motywów zawieraj¹cych muzykê.";
+guide[21] = "Z tym ustawieniem możesz wyłączyćwszystkie efekty
+dzwiękowe launchera, oprócz motywów zawierających muzykę.";
 
-guide[22] = "Ta opcja zmienia metodê renderowania interfejsu
-i ona jest bardzo wa¿na bo niektóre komputery mog¹
-pokazywaæ b³êdy graficzne.";
+guide[22] = "Ta opcja zmienia metodę renderowania interfejsu
+i ona jest bardzo ważna bo niektóre komputery mogą
+pokazywaćbłędy graficzne.";
 
-guide[23] = "Tryb 'Kompatibilny' mo¿e rozwi¹zaæ du¿¹ iloœæ tych
+guide[23] = "Tryb 'Kompatibilny' może rozwiązaćdużą iloœćtych
 problemów, to domyœlne ustawienie.";
 
-guide[24] = "Lecz polecam ci u¿ywaæ tryb 'Nowoczesny', ten tryb 
-daje lepsze efekty wizualne oraz lepsz¹ wydajnoœæ.";
+guide[24] = "Lecz polecam ci używaćtryb 'Nowoczesny', ten tryb 
+daje lepsze efekty wizualne oraz lepszą wydajnoœæ.";
 
-guide[25] = "I wreszczie, ta opcja mo¿e zmieniæ jêzyk launchera.";
+guide[25] = "I wreszczie, ta opcja może zmienićjęzyk launchera.";
 
-guide[26] = "Lecz siê nie martw, umiem mówiæ wieloma jêzykami!";
+guide[26] = "Lecz się nie martw, umiem mówićwieloma językami!";
 
-guide[27] = "Jeœli chcesz ponownie uzyskaæ dostêp do przewodnika 
-mo¿esz wybraæ t¹ opcje. Zawsze tutaj bêdê ci pomóc!";
+guide[27] = "Jeœli chcesz ponownie uzyskaćdostęp do przewodnika 
+możesz wybraćtą opcje. Zawsze tutaj będę ci pomóc!";
 
-guide[28] = "O tak! I nie mogê zapomnieæ...";
+guide[28] = "O tak! I nie mogę zapomnieæ...";
 
-guide[29] = "Jesli u¿ywasz Discord'a, to dla ciebie najlepsze miejsce.
+guide[29] = "Jesli używasz Discord'a, to dla ciebie najlepsze miejsce.
 Ninty pokazuje status twojej biblioteki gry w twoim
 profilu kiedy grasz!";
 
-guide[30] = "S¹ dla ciebie ró¿ne motywy, baw siê dobrze!";
+guide[30] = "Są dla ciebie różne motywy, baw się dobrze!";
  
-guide[31] = "Nowa aktualizacja jest dostêpna:  "+vnew+"
+guide[31] = "Nowa aktualizacja jest dostępna:  "+vnew+"
 twoja wersja to: "+vold;
 
 guide[32] = "Nie ma problemu!
-Przypomnê ci póŸniej.";
+Przypomnę ci póŸniej.";
 };
 //FRENCH (Français) ======================================================
 else if(lang == 4){
