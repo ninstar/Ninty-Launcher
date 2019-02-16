@@ -1685,7 +1685,6 @@ if(keyboard_check_pressed(vk_space)){
     &amp;&amp;(infopopup == 0)
     &amp;&amp;(move == 0)
     &amp;&amp;(async_thumbnail == -1)
-    &amp;&amp;(parental_control == 0)
     &amp;&amp;(games_total &gt; 0){
     
         audio_play_sfx(snd_changetitle);
