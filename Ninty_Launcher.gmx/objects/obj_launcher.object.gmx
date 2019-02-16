@@ -31,6 +31,7 @@ image_index = 0;
 
 //Misc.
 debug = 0;
+delay = 0;
 is_playing = 0;
 mov_time = 0;
 nav_time = 60;
@@ -85,7 +86,8 @@ dialog_filterright = 1280;
 //Criar lista de arquivos de pasta
 forwarder = 0;
 forwarder_fade = 0;
-forwarder_path = working_directory;
+forwarder_subfolder = "";
+forwarder_subfolder_path = "";
 forwarder_select = 0;
 forwarder_find = 0;
 forwarder_total = 0;
@@ -322,7 +324,10 @@ if(directory_exists(filename_dir(games_path[select_index])))
 else
     mod_file_path = program_directory+"\";
 var mod_file = get_open_filename_ext("APP/Game (.exe, .url, .swf)|*.exe;*.url;*.swf",filename_name(games_path[select_index]),filename_dir(games_path[select_index]),"Ninty Launcher");
-if(mod_file != ""){
+if(mod_file != "")
+&amp;&amp;(mod_file != "Ninty_Launcher.exe")
+&amp;&amp;(mod_file != "Ninty Launcher.exe")
+&amp;&amp;(mod_file != "Ninty.exe"){
 
     //SFX
     audio_play_sfx(snd_addgame_step1);
@@ -398,7 +403,11 @@ if(mod_file != ""){
         
     //Limpar
     cleanmem();
-                
+
+    //Limpar inputs
+    io_clear();
+    delay = 5;
+                    
     //Atualizar RPC
     event_user(0);
     
@@ -408,6 +417,10 @@ if(mod_file != ""){
 //Voltar fullscreen... (Se tiver sido definido antes)    
 else{
 
+    //Limpar inputs
+    io_clear();
+    delay = 5;
+    
     audio_play_sfx(snd_alert);
     window_set_fullscreen(fullscreen);
 };
@@ -505,6 +518,10 @@ instance_create(0,0,obj_musicplayer);
 //Limpar
 cleanmem();
     
+//Limpar inputs
+io_clear();
+delay = 5;
+    
 //Voltar fullscreen... (Se tiver sido definido antes)    
 window_set_fullscreen(fullscreen);
 </string>
@@ -533,7 +550,10 @@ window_set_fullscreen(fullscreen);
 
 //Buscar caminho...
 var file = get_open_filename("APP/Game (.exe, .url, .swf)|*.exe;*.url;*.swf","");
-if(file != ""){
+if(file != "")
+&amp;&amp;(file != "Ninty_Launcher.exe")
+&amp;&amp;(file != "Ninty Launcher.exe")
+&amp;&amp;(file != "Ninty.exe"){
 
     var thumb = find_game(file,games_total);
     
@@ -582,7 +602,7 @@ if(file != ""){
             var fwarder = show_question(text_addgame[1]);
             if(fwarder == 1){
             
-                var fward = get_open_filename("FILE/ROM Path (Forward)|*","");
+                var fward = get_open_filename(""+text_addforwarder+" (Forwarder)|*","");
                 if(fward != "")
                     games_forwarder[games_total] = filename_path(fward);
                 else
@@ -613,7 +633,7 @@ if(file != ""){
             audio_play_sfx(snd_addgame_step2);
              
             //Buscar pasta de referencia
-            var fward = get_open_filename(""+text_addforwarder+"|*","");
+            var fward = get_open_filename(""+text_addforwarder+" (Forwarder)|*","");
             if(fward != "")
                 games_forwarder[games_total] = filename_path(fward);
             else
@@ -663,6 +683,10 @@ if(file != ""){
     //Limpar
     cleanmem();
     
+    //Limpar inputs
+    io_clear();
+    delay = 5;
+    
     //Atualizar RPC
     event_user(0);
     
@@ -671,6 +695,10 @@ if(file != ""){
 };
 //Voltar fullscreen... (Se tiver sido definido antes)    
 else{
+
+    //Limpar inputs
+    io_clear();
+    delay = 5;
 
     audio_play_sfx(snd_alert);
     window_set_fullscreen(fullscreen);
@@ -705,10 +733,14 @@ else{
     //Adicionar jogo
     games_title[select_index] = dialog_return;
 
-    //Salvara alteração
+    //Salvar alteração
     ini_open(game_save_id+"collection\game_"+string(select_index)+".ini");
     ini_write_string("NINTY_ENTRY","title",string(dialog_return));
     ini_close();
+    
+    //Limpar inputs
+    io_clear();
+    delay = 5;
 };
 </string>
           </argument>
@@ -902,6 +934,10 @@ file_delete_fmns(game_save_id+"\gameboot.bat");
 //Re-carregar assets (Lista, Thumbnails e Wallpaper)
 event_user(1);
 
+//Limpar inputs
+io_clear();
+delay = 15;
+
 //Atualizar RPC
 event_user(0);
 </string>
@@ -934,14 +970,14 @@ if(boot_wait != ""){
 
     //Descarregar assets (RAM)
     event_user(2);
-
-    //Minimizar janela
-    window_command_run(window_command_minimize);
     
     //Após jogo finalizado...
     alarm[2] = 5;
 };
 
+//Minimizar janela
+window_command_run(window_command_minimize);
+    
 //Executar .BAT (E aguardar execução ser finalizada...)
 ExecuteShell('"'+game_save_id+'gameboot.bat"',1,1);
 </string>
@@ -1000,8 +1036,13 @@ if(boot_wait != ""){
     
         if(boot_attach == "")
             discord_update_presence(emoji_playing+string(games_title[select_index]),emoji_games+string(games_total)+" "+text_rpc[1],"rpc_"+string(iconrpc),"");
-        else
-            discord_update_presence(emoji_playing+string(ds_map_find_value(forwarder_list,string(forwarder_select)+"_t")),emoji_forward+string(games_title[select_index]),"rpc_"+string(iconrpc),"");
+        else{
+        
+            //Remover tags
+            var stg;
+            stg = string(ds_map_find_value(forwarder_list,string(forwarder_select)+"_t"));
+            discord_update_presence(emoji_playing+string_copy(stg,1,string_pos("(",stg)-1),emoji_forward+string(games_title[select_index]),"rpc_"+string(iconrpc),"");
+        };
     };
 };
 
@@ -1043,9 +1084,15 @@ alarm[1] = 5;
           <argument>
             <kind>1</kind>
             <string>///Controladores
+if(delay &gt; 0)
+    delay--;
 
 //Ignorar quando suspenso
 if(is_playing == 1)
+||(delay &gt; 0)
+||(alarm[7] != -1)
+||(alarm[8] != -1)
+||(alarm[9] != -1)
 ||(alarm[10] != -1)
 ||(alarm[11] != -1)
     exit;
@@ -1081,7 +1128,8 @@ if(forwarder_find == 1){
             forwarder_total--;
             
             //Posicionar seletor
-            if(forwarder_total &gt; 0){
+            if(forwarder_total &gt; 0)
+            &amp;&amp;(forwarder_subfolder == ""){
             
                 if(games_subselect[select_index] &gt; forwarder_total){
             
@@ -1119,11 +1167,11 @@ if(forwarder_find == 1){
          //Incluir NOME do arquivo a lista
          ds_map_add(forwarder_list,string(forwarder_total)+"_t",string_copy(string_replace(filename_name(forwarder_file),filename_ext(forwarder_file),""),0,32));
 
+         //Incluir NOME REAL (Com extensão) do arquivo a lista
+         ds_map_add(forwarder_list,string(forwarder_total)+"_r",filename_name(forwarder_file));
+
          //Incluir EXTENSÃO do arquivo a lista
          ds_map_add(forwarder_list,string(forwarder_total)+"_e",string_upper(string_replace(filename_ext(forwarder_file),".","")));
-
-         //Incluir CAMINHO do arquivo a lista
-         ds_map_add(forwarder_list,string(forwarder_total)+"_p",games_forwarder[select_index]+forwarder_file);
                   
          //Incrementar total de aquivos
          forwarder_total++;
@@ -1452,6 +1500,7 @@ if(dialog != 0){
         &amp;&amp;(dialog_filterright &gt; 1279)
         &amp;&amp;!(point_in_rectangle(mouse_x,mouse_y,1063,41,1170+34,41+34)){
         
+            delay = 5;
             audio_play_sfx(snd_addgame_step3);
             dialog = 0;
             exit;
@@ -1532,30 +1581,55 @@ else{
     };
 };
 
-//------------- Cencelar ações -------------
+//------------- Cancelar ações -------------
 
 if((keyboard_check_pressed(vk_escape))
 ||(keyboard_check_pressed(vk_backspace))){
                   
     //Configurações...
     if(settingsmenu == 1){
-    
+        
         //SFX
         audio_play_sfx(snd_updated);
         settingsmenu = 0;
     };
     
     //Forwarder...      
-    if(forwarder == 1){ 
-    
+    if(forwarder == 1){
+        
         //SFX
         audio_play_sfx(snd_window_close);
-        forwarder = 0;
+        
+        //Sair de subpasta
+        if(forwarder_subfolder != "")
+        &amp;&amp;(forwarder_find == 0){
+                            
+            //Limpar lista anterior
+            ds_map_clear(forwarder_list);
+                            
+            //Reiniciar posição e total
+            forwarder_select = 0;
+            forwarder_subfolder = "";
+            forwarder_subfolder_path = "";
+            forwarder_total = 0;
+            forwarder_listoffset = 0;
+
+            //Procurar primeiro arquivo...
+            forwarder_file = FS_file_find_first(filename_path(games_forwarder[select_index])+"*",fa_directory);
+                            
+            //Permitir procurar próximos
+            forwarder_find = 1;
+        };
+        //Fechar
+        else
+            forwarder = 0;
     };
     
     //Movimento dos jogos...
     if(move == 1){
     
+        delay = 5;
+        
         //SFX
         audio_play_sfx(snd_window_close);
                             
@@ -1568,8 +1642,8 @@ if(mouse_check_button_released(mb_left))
 &amp;&amp;(outside_submenu == 1){
     
      //Forwarder...      
-    if(forwarder == 1){ 
-    
+    if(forwarder == 1){
+
         //SFX
         audio_play_sfx(snd_window_close);
         forwarder = 0;
@@ -1597,6 +1671,31 @@ if(point_in_rectangle(mouse_x,mouse_y,77,41,77+34,41+34)){
 
 //------------- Icones de opções -------------
 
+
+//Pesquisar jogo
+if(keyboard_check_pressed(vk_space)){
+
+    if(alarm[6] == -1)
+    &amp;&amp;(alarm[7] == -1)
+    &amp;&amp;(alarm[8] == -1)
+    &amp;&amp;(alarm[9] == -1)
+    &amp;&amp;(dialog == 0)
+    &amp;&amp;(forwarder == 0)
+    &amp;&amp;(settingsmenu == 0)
+    &amp;&amp;(infopopup == 0)
+    &amp;&amp;(move == 0)
+    &amp;&amp;(async_thumbnail == -1)
+    &amp;&amp;(parental_control == 0)
+    &amp;&amp;(games_total &gt; 0){
+    
+        audio_play_sfx(snd_changetitle);
+        dialog_description = text_icon[2]+":";
+        keyboard_string = "";
+        dialog_return = "";
+        dialog = 2;
+    };
+};
+
 if(alarm[6] == -1)
 &amp;&amp;(alarm[7] == -1)
 &amp;&amp;(alarm[8] == -1)
@@ -1609,6 +1708,7 @@ if(alarm[6] == -1)
 &amp;&amp;(async_thumbnail == -1)
 &amp;&amp;(parental_control == 0){
 
+    
     //Seletor de icones
     if(point_in_rectangle(mouse_x,mouse_y,328,504,328+86,504+86)) icon_select = 0;
     else if(point_in_rectangle(mouse_x,mouse_y,436,504,436+86,504+86)) icon_select = 1;
@@ -1617,8 +1717,7 @@ if(alarm[6] == -1)
     else if(point_in_rectangle(mouse_x,mouse_y,761-parental_offset,504,(761+86)-parental_offset,504+86)) icon_select = 4;
     else if(point_in_rectangle(mouse_x,mouse_y,869-parental_offset,504,(869+86)+parental_offset,504+86)) icon_select = 5;
     else icon_select = -1;
-        
-    
+       
     //Icones
     if(mouse_check_button_released(mb_left)){
             
@@ -1627,6 +1726,7 @@ if(alarm[6] == -1)
         
             if(settingsmenu == 0)
             &amp;&amp;(settingsmenu_fade == 0){
+            
                 settingsmenu = 1;
                 
                 //SFXsnd_settings
@@ -1651,57 +1751,14 @@ if(alarm[6] == -1)
         //Deletar jogo
         if(icon_select == 0)
         &amp;&amp;(games_total &gt; 0){
-            
-            //Deletar sprite
-            sprite_delete(games_thumb[select_index]);
-            
-            //Nulo
-            games_title[select_index] = text_deleting;
-            games_playtime[select_index,0] = "0";
-            games_playtime[select_index,1] = "0";
-      
-            //Deletar arquivos
-            file_delete_fmns(game_save_id+"collection\game_"+string(select_index)+".png");
-            file_delete_fmns(game_save_id+"collection\game_"+string(select_index)+".ini");
-                          
-            //Deletar ultimo (sendo o ultimo selecionado)
-            if(select_index == games_total-1)
-            &amp;&amp;(select_index &gt; 0){
-    
-                //Apagar apenas esse
-                games_path[select_index] = "";
-                games_forwarder[select_index] = "";
-                games_subselect[select_index] = 0;
-                games_shortcut[select_index] = 0;
-                games_animframes[select_index] = 1;
-                games_animspeed[select_index] = 0
-                
-                //Decrementar
-                audio_play_sfx(snd_alert);
-                games_total--;            
-                select_index--;
-                
-                //Salvar total de jogos
-                ini_open(game_save_id+"collection\_total.ini");
-                ini_write_string("NINTY_ENTRY","total",string(games_total));
-                ini_close();
-    
-                //Checar arquivo
-                if(file_exists_fmns(games_path[select_index])) select_exists = 1;
-                else select_exists = 0;
-                            
-                //Limpar
-                cleanmem();
-    
-                //Atualizar RPC
-                event_user(0);
-            };
-            //Mover tudo
-            else{
-            
-                audio_play_sound(snd_loading,0,1);
-                move_rest = select_index;
-                alarm[10] = 10;
+        
+            //Chamar Ninny
+            with(instance_create(0,0,obj_helptour)){
+                    
+                update = 2;
+                update_select = 1;
+                def_text = 32;
+                event_user(2);
             };
         };
           
@@ -1757,6 +1814,18 @@ else
     icon_select = -1;
 
 //------------- Menu de Forwarder -------------
+if(forwarder == 1)
+&amp;&amp;(forwarder_fade &gt; 0.1){
+
+    //Abri pasta
+    if(point_in_rectangle(mouse_x,mouse_y,347,67,931,105)){
+        
+        if(mouse_check_button_released(mb_left)){
+        
+            ExecuteShell('"'+games_forwarder[select_index]+'"',0,0);
+        };
+    };
+};
 if(forwarder == 1)
 &amp;&amp;(forwarder_fade &gt; 0.1)
 &amp;&amp;(forwarder_total &gt; 0){
@@ -2414,7 +2483,47 @@ if(games_total &gt; 0)
                     //Forwarder
                     if(forwarder != 0)
                     &amp;&amp;(forwarder_select &gt; 0)
-                        boot_attach = '"'+string(ds_map_find_value(forwarder_list,string(forwarder_select)+"_p"))+'"';
+                    &amp;&amp;(forwarder_find == 0){
+                    
+                        //Abrir subpasta
+                        if(filename_ext(string(ds_map_find_value(forwarder_list,string(forwarder_select)+"_e"))) == "")
+                        &amp;&amp;(forwarder_subfolder == ""){
+                            
+                            var _f_path = string(ds_map_find_value(forwarder_list,string(forwarder_select)+"_r"));
+                            var _f_name = string(ds_map_find_value(forwarder_list,string(forwarder_select)+"_t"));
+                            
+                            //Salvar posição
+                            games_subselect[select_index] = forwarder_select;
+                            ini_open(game_save_id+"collection\game_"+string(select_index)+".ini");
+                            ini_write_string("NINTY_ENTRY","subselect",string(forwarder_select));
+                            ini_close();
+                            
+                            //Limpar lista anterior
+                            ds_map_clear(forwarder_list);
+                            
+                            //SFX
+                            audio_play_sfx(snd_window_open);
+                            
+                            //Reiniciar posição e total
+                            forwarder_select = 0;
+                            forwarder_total = 0;
+                            forwarder_listoffset = 0;
+                            
+                            //Lembrar que subpasta foi aberta
+                            forwarder_subfolder = " &gt; "+string_copy(_f_name,0,12)+"...";
+                            
+                            //Procurar primeiro arquivo dentro da subpasta de destino...
+                            forwarder_subfolder_path = filename_name(_f_path)+"\";
+                            forwarder_file = FS_file_find_first(games_forwarder[select_index]+_f_path+"\*",fa_directory);
+                                
+                            //Permitir procurar próximos
+                            forwarder_find = 1;
+                            
+                            exit;
+                        };
+                        else
+                            boot_attach = '"'+games_forwarder[select_index]+forwarder_subfolder_path+string(ds_map_find_value(forwarder_list,string(forwarder_select)+"_r"))+'"';
+                    };
                     else
                         boot_attach = "";
                                 
@@ -2535,6 +2644,85 @@ if(ds_map_find_value(async_load,"id") == games_thumb[async_thumbnail]){
     else
         network = 0;
 };
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="7" enumb="17">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///Remover jogo
+
+//Deletar sprite
+sprite_delete(games_thumb[select_index]);
+            
+//Nulo
+games_title[select_index] = text_deleting;
+games_playtime[select_index,0] = "0";
+games_playtime[select_index,1] = "0";
+      
+//Deletar arquivos
+file_delete_fmns(game_save_id+"collection\game_"+string(select_index)+".png");
+file_delete_fmns(game_save_id+"collection\game_"+string(select_index)+".ini");
+                          
+//Deletar ultimo (sendo o ultimo selecionado)
+if(select_index == games_total-1)
+&amp;&amp;(select_index &gt; 0){
+    
+    //Apagar apenas esse
+    games_path[select_index] = "";
+    games_forwarder[select_index] = "";
+    games_subselect[select_index] = 0;
+    games_shortcut[select_index] = 0;
+    games_animframes[select_index] = 1;
+    games_animspeed[select_index] = 0
+                    
+    //Decrementar
+    audio_play_sfx(snd_alert);
+    games_total--;            
+    select_index--;
+                    
+    //Salvar total de jogos
+    ini_open(game_save_id+"collection\_total.ini");
+    ini_write_string("NINTY_ENTRY","total",string(games_total));
+    ini_close();
+        
+    //Checar arquivo
+    if(file_exists_fmns(games_path[select_index])) select_exists = 1;
+    else select_exists = 0;
+                                
+    //Limpar
+    cleanmem();
+        
+    //Atualizar RPC
+    event_user(0);
+};
+//Mover tudo
+else{
+            
+    audio_play_sound(snd_loading,0,1);
+    move_rest = select_index;
+    alarm[10] = 10;
+};
+
+//Limpar inputs
+keyboard_clear(keyboard_lastkey);
+mouse_clear(mouse_lastbutton);
 </string>
           </argument>
         </arguments>
@@ -3073,13 +3261,18 @@ else{
             ds_map_clear(forwarder_list);
             
             //Salvar posição
-            games_subselect[select_index] = forwarder_select;
-            ini_open(game_save_id+"collection\game_"+string(select_index)+".ini");
-            ini_write_string("NINTY_ENTRY","subselect",string(forwarder_select));
-            ini_close();
+            if(forwarder_subfolder == ""){
             
+                games_subselect[select_index] = forwarder_select;
+                ini_open(game_save_id+"collection\game_"+string(select_index)+".ini");
+                ini_write_string("NINTY_ENTRY","subselect",string(forwarder_select));
+                ini_close();
+            };
+                        
             //Reiniciar posição e total
             forwarder_select = 0;
+            forwarder_subfolder = "";
+            forwarder_subfolder_path = "";
             forwarder_total = 0;
             forwarder_listoffset = 0;
             
@@ -3118,7 +3311,7 @@ if(forwarder_fade &gt; 0){
     else
         draw_set_color(c_white);
     draw_set_halign(fa_center);
-    draw_text(1280/2,64-128+(128*forwarder_fade)-3,games_title[select_index]);
+    draw_text(1280/2,64-128+(128*forwarder_fade)-3,games_title[select_index]+forwarder_subfolder);
     draw_set_halign(fa_left);
     
     //Total
@@ -3176,8 +3369,16 @@ if(forwarder_fade &gt; 0){
                 //Extensão
                 if(l &gt; 0){
                 
-                    draw_set_halign(fa_right);
-                    draw_text(350+584,125+((l*32)-(forwarder_listoffset*32))-128+(128*forwarder_fade),ds_map_find_value(forwarder_list,string(l)+"_e"));
+                    //Pasta
+                    if(forwarder_subfolder == "")
+                    &amp;&amp;(ds_map_find_value(forwarder_list,string(l)+"_e") == "")
+                        draw_sprite_ext(spr_settings_icons,0,902,132+((l*32)-(forwarder_listoffset*32))-128+(128*forwarder_fade),1,1,0,merge_colour(c_col_l,c_col_d,col_numb),forwarder_fade);                        
+                    else{
+                    
+                        //Extensão normal
+                        draw_set_halign(fa_right);
+                        draw_text(350+584,125+((l*32)-(forwarder_listoffset*32))-128+(128*forwarder_fade),ds_map_find_value(forwarder_list,string(l)+"_e"));
+                    };
                     draw_set_halign(fa_left);
                 };
             };
@@ -3710,6 +3911,8 @@ text_settings_gamepriority[1] = "Alta";
 text_settings_gamepriority[2] = "Bassa";
 text_update[0] = "Vai alla pagina del Download";
 text_update[1] = "Magari dopo";
+text_remove[0] = "Sì";
+text_remove[1] = "No";
 text_rpc[0] = "Selezionando un Gioco...";
 text_rpc[1] = "Giochi in libreria.";
 //Ninny ------------------------------------------------------------------
@@ -3814,6 +4017,9 @@ la tua versione corrente è: "+vold;
 
 guide[32] = "Nessun problema!
 Te lo ricorderò più tardi.";
+
+guide[33] = "Vuoi davvero rimuovere questo 
+gioco dalla tua libreria?";
 };
 //POLISH (Polski) ========================================================
 else if(lang == 5){
@@ -3864,6 +4070,8 @@ text_settings_gamepriority[1] = "Duże";
 text_settings_gamepriority[2] = "Małe";
 text_update[0] = "PrzejdŸ do strony pobierania";
 text_update[1] = "Może póżniej";
+text_remove[0] = "Tak";
+text_remove[1] = "Nie";
 text_rpc[0] = "Wybieranie gry...";
 text_rpc[1] = "Gry w bibliotece.";
 //Ninny ------------------------------------------------------------------
@@ -3965,6 +4173,9 @@ twoja wersja to: "+vold;
 
 guide[32] = "Nie ma problemu!
 Przypomnę ci póŸniej.";
+
+guide[33] = "Czy na pewno chcesz usunąć 
+tę grę ze swojej biblioteki?";
 };
 //FRENCH (Français) ======================================================
 else if(lang == 4){
@@ -4015,6 +4226,8 @@ text_settings_gamepriority[1] = "Faible";
 text_settings_gamepriority[2] = "Elevé";
 text_update[0] = "Aller à la page de téléchargement";
 text_update[1] = "Plus tard";
+text_remove[0] = "Oui";
+text_remove[1] = "Non";
 text_rpc[0] = "Sélection d'un jeu...";
 text_rpc[1] = "Jeux dans la bibliothèque.";
 //Ninny ------------------------------------------------------------------
@@ -4121,6 +4334,9 @@ votre version actuelle est: "+vold;
 
 guide[32] = "Pas de problème! 
 Je vous en rappellerais un peu plus tard.";
+
+guide[33] = "Voulez-vous vraiment supprimer 
+ce jeu de votre bibliothèque?";
 };
 //SPANISH (Español) ======================================================
 else if(lang == 3){
@@ -4171,6 +4387,8 @@ text_settings_gamepriority[1] = "Alta";
 text_settings_gamepriority[2] = "Baja";
 text_update[0] = "Ir a la página de descarga";
 text_update[1] = "Quizas mas tarde";
+text_remove[0] = "Sí";
+text_remove[1] = "No";
 text_rpc[0] = "Seleccionando un Juego...";
 text_rpc[1] = "Juegos en la Biblioteca";
 //Ninny ------------------------------------------------------------------
@@ -4271,6 +4489,9 @@ tu versión actual es: "+vold;
 
 guide[32] = "¡Vale!
 Te recordaré más tarde.";
+
+guide[33] = "¿Realmente quieres eliminar
+este juego de tu biblioteca?";
 };
 //PORTUGUESE (Português) =================================================
 else if(lang == 2){
@@ -4321,6 +4542,8 @@ text_settings_gamepriority[1] = "Alta";
 text_settings_gamepriority[2] = "Baixa";
 text_update[0] = "Ir até a página de download";
 text_update[1] = "Talvez depois";
+text_remove[0] = "Sim";
+text_remove[1] = "Não";
 text_rpc[0] = "Selecionando um Jogo...";
 text_rpc[1] = "Jogos na Biblioteca.";
 //Ninny ------------------------------------------------------------------
@@ -4428,6 +4651,9 @@ a sua atual versão é: "+vold;
 
 guide[32] = "Sem problemas!
 Irei te relembrar mais tarde.";
+
+guide[33] = "Você realmente quer remover 
+este jogo da sua biblioteca?";
 };
 //ENGLISH [Default] ======================================================
 else{
@@ -4482,6 +4708,8 @@ text_settings_gamepriority[1] = "High";
 text_settings_gamepriority[2] = "Low";
 text_update[0] = "Go to download page";
 text_update[1] = "Maybe later";
+text_remove[0] = "Yes";
+text_remove[1] = "No";
 text_rpc[0] = "Selecting a Game...";
 text_rpc[1] = "Games in Library.";
 //Ninny ------------------------------------------------------------------
@@ -4582,6 +4810,9 @@ your current version is: "+vold;
 
 guide[32] = "No problem!
 I'll remember you later.";
+
+guide[33] = "Do you really want to remove 
+this game from your library?";
 };
 </string>
           </argument>
@@ -4886,7 +5117,7 @@ global.assets_dir = working_directory;
 launched = 0;
 
 //Versão
-version = 187;
+version = 188;
 version_new = 0; //&lt; Essa é apenas para comparação
 version_url = "https://";
 
