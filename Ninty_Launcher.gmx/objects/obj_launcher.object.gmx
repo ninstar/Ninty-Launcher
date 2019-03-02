@@ -4173,8 +4173,8 @@ twoja wersja to: "+vold;
 guide[32] = "Nie ma problemu!
 Przypomnę ci póŸniej.";
 
-guide[33] = "Czy na pewno chcesz usunąć 
-tę grę ze swojej biblioteki?";
+guide[33] = "Czy jesteś absolutnie pewien że
+chcesz usunąć tą grę z biblioteki?";
 };
 //FRENCH (Français) ======================================================
 else if(lang == 4){
