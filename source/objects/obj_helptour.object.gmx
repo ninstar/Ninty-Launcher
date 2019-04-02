@@ -456,16 +456,16 @@ if(alarm[0] == -1)
             
         //Highlight    
         def_highlight = 1;
-        def_highlight_x1 = 1057;
-        def_highlight_y1 = 30;
-        def_highlight_x2 = 1111;
-        def_highlight_y2 = 84;
+        def_highlight_x1 = 71;
+        def_highlight_y1 = 29;
+        def_highlight_x2 = 119;
+        def_highlight_y2 = 85;
         
         def_sprite = spr_assistant_a;    
-        def_posx = 1086;
-        def_posy = 144;
+        def_posx = 92;
+        def_posy = 152;
         def_continuous = 0;
-        def_textmod = 1; //Direita
+        def_textmod = 0; //Esquerda
     }; 
    
     else if(def_text == 16){

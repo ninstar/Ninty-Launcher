@@ -1039,9 +1039,13 @@ if(boot_wait != ""){
         else{
         
             //Remover tags
-            var stg;
-            stg = string(ds_map_find_value(forwarder_list,string(forwarder_select)+"_t"));
-            discord_update_presence(emoji_playing+string_copy(stg,1,string_pos("(",stg)-1),emoji_forward+string(games_title[select_index]),"rpc_"+string(iconrpc),"");
+            var stg,stp;
+            stg =  string_copy(string_replace(ds_map_find_value(forwarder_list,string(forwarder_select)+"_r"),"."+ds_map_find_value(forwarder_list,string(forwarder_select)+"_e"),""),1,32);
+            if(string_pos("(",stg) &gt; 0)
+                stp = string_pos("(",stg)-1;
+            else
+                stp = string_length(stg);
+            discord_update_presence(emoji_playing+string_copy(stg,1,stp),emoji_forward+string(games_title[select_index]),"rpc_"+string(iconrpc),"");
         };
     };
 };
@@ -1116,7 +1120,7 @@ if(forwarder_find == 1){
     //Enquanto existir algum arquivo durante busca...
     while(forwarder_file != undefined){
    
-         //Se não tiver nenhum arquivo...   
+        //Se não tiver nenhum arquivo...   
         if(forwarder_file == undefined)
         ||(forwarder_file == ""){
             
@@ -1159,22 +1163,19 @@ if(forwarder_find == 1){
             //Parar loop
             break;
             exit;
-         };
+        };
                
-         //Buscar pelo próximo
-         forwarder_file = FS_file_find_next();
+        //Buscar pelo próximo
+        forwarder_file = FS_file_find_next();
+        
+        //Incluir NOME REAL (Com extensão) do arquivo a lista
+        ds_map_add(forwarder_list,string(forwarder_total)+"_r",filename_name(forwarder_file));
          
-         //Incluir NOME do arquivo a lista
-         ds_map_add(forwarder_list,string(forwarder_total)+"_t",string_copy(string_replace(filename_name(forwarder_file),filename_ext(forwarder_file),""),0,32));
+        //Incluir EXTENSÃO do arquivo a lista
+        ds_map_add(forwarder_list,string(forwarder_total)+"_e",string_replace(filename_ext(forwarder_file),".",""));
 
-         //Incluir NOME REAL (Com extensão) do arquivo a lista
-         ds_map_add(forwarder_list,string(forwarder_total)+"_r",filename_name(forwarder_file));
-
-         //Incluir EXTENSÃO do arquivo a lista
-         ds_map_add(forwarder_list,string(forwarder_total)+"_e",string_upper(string_replace(filename_ext(forwarder_file),".","")));
-                  
-         //Incrementar total de aquivos
-         forwarder_total++;
+        //Incrementar total de aquivos
+        forwarder_total++;
     };
 };
 
@@ -1383,7 +1384,7 @@ for(gp_count = 0; gp_count &lt; 5; gp_count += 1){
             else if(gamepad_button_check_released(gp_count,gp_face3))
                 keyboard_key_release(vk_escape);
         };    
-        //XBOX (XInput)
+        //Joy-Cons / Nintendo Switch Pro Controller (XInput) [também XBOX]
         else{
         
             //X, Y e Select - Mover
@@ -1403,9 +1404,9 @@ for(gp_count = 0; gp_count &lt; 5; gp_count += 1){
                 keyboard_key_release(vk_shift);
                                 
             //A e Start - Iniciar
-            if(gamepad_button_check_pressed(gp_count,gp_face1))
+            if(gamepad_button_check_pressed(gp_count,gp_face2))
                 keyboard_key_press(vk_enter);
-            else if(gamepad_button_check_released(gp_count,gp_face1))
+            else if(gamepad_button_check_released(gp_count,gp_face2))
                 keyboard_key_release(vk_enter);
                 
             if(gamepad_button_check_pressed(gp_count,gp_start))
@@ -1414,9 +1415,9 @@ for(gp_count = 0; gp_count &lt; 5; gp_count += 1){
                 keyboard_key_release(vk_enter);
             
             //B - Cancelar
-            if(gamepad_button_check_pressed(gp_count,gp_face2))
+            if(gamepad_button_check_pressed(gp_count,gp_face1))
                 keyboard_key_press(vk_escape);
-            else if(gamepad_button_check_released(gp_count,gp_face2))
+            else if(gamepad_button_check_released(gp_count,gp_face1))
                 keyboard_key_release(vk_escape);
         };
     };
@@ -1830,11 +1831,11 @@ if(forwarder == 1)
 &amp;&amp;(forwarder_total &gt; 0){
     
     //Navegação com mouse
-    if(mouse_x &gt; 350) 
+    /*if(mouse_x &gt; 350) 
     if(mouse_y &gt; 110)
     if(mouse_x &lt; 350+575)
     if(mouse_y &lt; 110+496){
-    
+        
         //Selecionar
         var f;
         for(f=0; f&lt;15; f+=1){
@@ -1853,7 +1854,7 @@ if(forwarder == 1)
             keyboard_key_press(vk_enter);
             keyboard_key_release(vk_enter);
         };        
-    };
+    };*/
     
     //Navegação rápida (Loop)
     if(keyboard_check(vk_down)){
@@ -2485,11 +2486,11 @@ if(games_total &gt; 0)
                     &amp;&amp;(forwarder_find == 0){
                     
                         //Abrir subpasta
-                        if(filename_ext(string(ds_map_find_value(forwarder_list,string(forwarder_select)+"_e"))) == "")
+                        if(FS_file_attributes(games_forwarder[select_index]+ds_map_find_value(forwarder_list,string(forwarder_select)+"_r")) == fa_directory)
                         &amp;&amp;(forwarder_subfolder == ""){
                             
                             var _f_path = string(ds_map_find_value(forwarder_list,string(forwarder_select)+"_r"));
-                            var _f_name = string(ds_map_find_value(forwarder_list,string(forwarder_select)+"_t"));
+                            var _f_name = string(ds_map_find_value(forwarder_list,string(forwarder_select)+"_r"));
                             
                             //Salvar posição
                             games_subselect[select_index] = forwarder_select;
@@ -2509,7 +2510,7 @@ if(games_total &gt; 0)
                             forwarder_listoffset = 0;
                             
                             //Lembrar que subpasta foi aberta
-                            forwarder_subfolder = " &gt; "+string_copy(_f_name,0,12)+"...";
+                            forwarder_subfolder = string_copy(_f_name,0,32)+"*";
                             
                             //Procurar primeiro arquivo dentro da subpasta de destino...
                             forwarder_subfolder_path = filename_name(_f_path)+"\";
@@ -3293,7 +3294,7 @@ if(forwarder_fade &gt; 0){
     else
         draw_set_colour(c_black);
     draw_set_alpha(forwarder_fade-0.3);
-    draw_rectangle(0,-3000,1280,720+3000,0);
+    draw_rectangle(-3000,-3000,1280+3000,720+3000,0);
     draw_set_colour(c_white);
     draw_sprite_ext(spr_submenu_layout,theme,1280/2,720/2-128+(128*forwarder_fade),1,1,0,theme_color,forwarder_fade);
     draw_sprite_ext(spr_submenu_line,theme,348,109-128+(128*forwarder_fade),1,1,0,c_white,forwarder_fade);
@@ -3310,7 +3311,10 @@ if(forwarder_fade &gt; 0){
     else
         draw_set_color(c_white);
     draw_set_halign(fa_center);
-    draw_text(1280/2,64-128+(128*forwarder_fade)-3,games_title[select_index]+forwarder_subfolder);
+    if(forwarder_subfolder == "")
+        draw_text(1280/2,64-128+(128*forwarder_fade)-3,games_title[select_index]);
+    else
+        draw_text(1280/2,64-128+(128*forwarder_fade)-3,forwarder_subfolder);        
     draw_set_halign(fa_left);
     
     //Total
@@ -3356,7 +3360,7 @@ if(forwarder_fade &gt; 0){
     for(l=forwarder_listoffset; l&lt;l_end; l+=1){
     
         //Se não for um arquivo inválido
-        if!(is_undefined(ds_map_find_value(forwarder_list,string(l)+"_t"))){
+        if!(is_undefined(ds_map_find_value(forwarder_list,string(l)+"_r"))){
            
             //Seletor
             if(forwarder_select == l){
@@ -3370,13 +3374,13 @@ if(forwarder_fade &gt; 0){
                 
                     //Pasta
                     if(forwarder_subfolder == "")
-                    &amp;&amp;(ds_map_find_value(forwarder_list,string(l)+"_e") == "")
+                    &amp;&amp;(FS_file_attributes(games_forwarder[select_index]+ds_map_find_value(forwarder_list,string(l)+"_r")) == fa_directory)
                         draw_sprite_ext(spr_settings_icons,0,902,132+((l*32)-(forwarder_listoffset*32))-128+(128*forwarder_fade),1,1,0,merge_colour(c_col_l,c_col_d,col_numb),forwarder_fade);                        
                     else{
                     
                         //Extensão normal
                         draw_set_halign(fa_right);
-                        draw_text(350+584,125+((l*32)-(forwarder_listoffset*32))-128+(128*forwarder_fade),ds_map_find_value(forwarder_list,string(l)+"_e"));
+                        draw_text(350+584,125+((l*32)-(forwarder_listoffset*32))-128+(128*forwarder_fade),string_upper(ds_map_find_value(forwarder_list,string(l)+"_e")));
                     };
                     draw_set_halign(fa_left);
                 };
@@ -3396,7 +3400,10 @@ if(forwarder_fade &gt; 0){
             else{
                 
                 //Arquivo
-                draw_text(350,125+((l*32)-(forwarder_listoffset*32))-128+(128*forwarder_fade),ds_map_find_value(forwarder_list,string(l)+"_t"))     
+                if(FS_file_attributes(games_forwarder[select_index]+ds_map_find_value(forwarder_list,string(l)+"_r")) == fa_directory)
+                    draw_text(350,125+((l*32)-(forwarder_listoffset*32))-128+(128*forwarder_fade),string_copy(ds_map_find_value(forwarder_list,string(l)+"_r"),1,32));
+                else
+                    draw_text(350,125+((l*32)-(forwarder_listoffset*32))-128+(128*forwarder_fade),string_copy(string_replace(ds_map_find_value(forwarder_list,string(l)+"_r"),"."+ds_map_find_value(forwarder_list,string(l)+"_e"),""),1,32));
                 draw_set_color(c_white);
             };
         };
@@ -3447,7 +3454,7 @@ if(settingsmenu_fade &gt; 0){
     else
         draw_set_colour(c_black);
     draw_set_alpha(settingsmenu_fade-0.3);
-    draw_rectangle(0,-3000,1280,720+3000,0);
+    draw_rectangle(-3000,-3000,1280+3000,720+3000,0);
     draw_set_colour(c_white);
     draw_sprite_ext(spr_submenu_layout,theme,1280/2,720/2-128+(128*settingsmenu_fade),1,1,0,theme_color,settingsmenu_fade);
     draw_sprite_ext(spr_submenu_line,theme,348,109-128+(128*settingsmenu_fade),1,1,0,c_white,settingsmenu_fade);
@@ -3592,7 +3599,7 @@ if(infopopup_fade &gt; 0){
     else
         draw_set_colour(c_black);
     draw_set_alpha(infopopup_fade-0.3);
-    draw_rectangle(0,-3000,1280,720+3000,0);
+    draw_rectangle(-3000,-3000,1280+3000,720+3000,0);
     draw_set_colour(c_white);
     
     //Janela
@@ -3655,7 +3662,7 @@ if(alarm[10] != -1){
     else
         draw_set_colour(c_black);
     draw_set_alpha(0.7);
-    draw_rectangle(0,-3000,1280,720+3000,0);
+    draw_rectangle(-3000,-3000,1280+3000,720+3000,0);
     draw_set_alpha(1);
     draw_set_colour(c_white);
     
@@ -3710,40 +3717,44 @@ draw_text(124+38,38,+clock_blink);
 draw_set_font(fnt_default);
 draw_set_colour(c_white);
 
-//Parental Control
-if(parental_control == 1){
-
-    if(parental_fade &gt; 0){
-    
-        parental_fade -= 0.05;
-        draw_sprite_ext(spr_launcher_parental,theme+2,71,35,1,1,0,c_white,parental_fade);
-    };
-    else
-        draw_sprite_ext(spr_launcher_clock,theme,71,35,1,1,0,c_white,1);
-    
-};
-else
-    draw_sprite_ext(spr_launcher_parental,theme,71,35,1,1,0,c_white,parental_fade);
-
 //Conexão
 if(network == 1){
 
-    //Opções de Janela
-    draw_sprite_ext(spr_launcher_options,theme+2,1075,35,1,1,0,c_white,1);
-    
-    //Base
-    draw_sprite_ext(spr_launcher_connection,theme,1060,36,1,1,0,c_white,1);
-       
     //Animação
     if(network_anim &lt; 3)
         network_anim += 0.15;
     else
         network_anim = 0;
-               
-    draw_sprite_ext(spr_launcher_updating,network_anim,1060,36,1,1,0,c_white,1);    
+        
+    draw_sprite_ext(spr_launcher_connection,theme,71,37,1,1,0,c_white,1);               
+    draw_sprite_ext(spr_launcher_updating,network_anim,71,37,1,1,0,c_white,1);    
 };
-else
-    draw_sprite_ext(spr_launcher_options,theme,1075,35,1,1,0,c_white,1);
+else{
+
+    //Parental Control
+    if(parental_control == 1){
+    
+        if(parental_fade &gt; 0){
+        
+            parental_fade -= 0.05;
+            draw_sprite_ext(spr_launcher_parental,theme+2,71,35,1,1,0,c_white,parental_fade);
+        };
+        else
+            draw_sprite_ext(spr_launcher_clock,theme,71,35,1,1,0,c_white,1);
+        
+    };
+    else{
+    
+        if(point_in_rectangle(mouse_x,mouse_y,71,35,71+46,35+46))
+        ||(instance_exists(obj_helptour))
+            draw_sprite_ext(spr_launcher_parental,theme,71,35,1,1,0,c_white,parental_fade);
+        else
+            draw_sprite_ext(spr_launcher_clock,theme,71,35,1,1,0,c_white,parental_fade);        
+    };
+};
+
+//Opções de Janela
+draw_sprite_ext(spr_launcher_options,theme,1075,35,1,1,0,c_white,1);
 
 //Filtro
 if!(window_has_focus())
@@ -3753,7 +3764,7 @@ if!(window_has_focus())
 
     draw_set_colour(c_black);
     draw_set_alpha(0.7);
-    draw_rectangle(0,0,1280,720,0);
+    draw_rectangle(-3000,-3000,1280+3000,720+3000,0);
     draw_set_alpha(1);
     draw_set_colour(c_white);
 };
@@ -5116,7 +5127,7 @@ global.assets_dir = working_directory;
 launched = 0;
 
 //Versão
-version = 188;
+version = 189;
 version_new = 0; //&lt; Essa é apenas para comparação
 version_url = "https://";
 
@@ -5224,9 +5235,9 @@ else{
     alarm[5] = 15;
 };
 
-//Não fazer spam de pedidos (Checar updates a cada 3 vezes que iniciar)
-if(netcooldown &lt; 2)
-    netcooldown++;
+//Não fazer spam de pedidos (Checar updates a cada 2 vezes que iniciar)
+if(netcooldown == 0)
+    netcooldown = 1;
 else
     netcooldown = 0;
 
