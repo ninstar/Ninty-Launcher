@@ -1054,12 +1054,12 @@ if(boot_wait != ""){
 var test = file_text_open_write(game_save_id+"gameboot.bat")
 file_text_write_string(test,filename_drive(games_path[select_index]));
 file_text_writeln(test);
-file_text_write_string(test,"cd "+filename_path(games_path[select_index])+"");
+file_text_write_string(test,'cd "'+filename_path(games_path[select_index])+'"');
 file_text_writeln(test);
 if(boot_attach == "")
-    file_text_write_string(test,'start "Ninty_Game_Boot" '+boot_res+''+boot_priority+''+boot_wait+'"'+filename_name(games_path[select_index])+'"');
+    file_text_write_string(test,'start "Ninty_Software" '+boot_res+''+boot_priority+''+boot_wait+'"'+filename_name(games_path[select_index])+'"');
 else
-    file_text_write_string(test,'start "Ninty_Game_Boot" '+boot_res+''+boot_priority+''+boot_wait+'"'+filename_name(games_path[select_index])+'" '+boot_attach);
+    file_text_write_string(test,'start "Ninty_Software" '+boot_res+''+boot_priority+''+boot_wait+'"'+filename_name(games_path[select_index])+'" '+boot_attach);
 file_text_writeln(test);
 file_text_close(test);
     
