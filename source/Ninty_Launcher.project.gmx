@@ -3,7 +3,7 @@
   <Configs name="configs">
     <Config>Configs\Default</Config>
   </Configs>
-  <datafiles number="123" name="datafiles">
+  <datafiles number="126" name="datafiles">
     <datafile>
       <name>filemng.dll</name>
       <exists>-1</exists>
@@ -123,6 +123,57 @@
       </ConfigOptions>
       <filename>dummy.aud</filename>
     </datafile>
+    <datafile>
+      <name>7za.dll</name>
+      <exists>-1</exists>
+      <size>269312</size>
+      <exportAction>2</exportAction>
+      <exportDir></exportDir>
+      <overwrite>0</overwrite>
+      <freeData>-1</freeData>
+      <removeEnd>0</removeEnd>
+      <store>0</store>
+      <ConfigOptions>
+        <Config name="Default">
+          <CopyToMask>9223372036854775807</CopyToMask>
+        </Config>
+      </ConfigOptions>
+      <filename>7za.dll</filename>
+    </datafile>
+    <datafile>
+      <name>7za.exe</name>
+      <exists>-1</exists>
+      <size>739840</size>
+      <exportAction>2</exportAction>
+      <exportDir></exportDir>
+      <overwrite>0</overwrite>
+      <freeData>-1</freeData>
+      <removeEnd>0</removeEnd>
+      <store>0</store>
+      <ConfigOptions>
+        <Config name="Default">
+          <CopyToMask>9223372036854775807</CopyToMask>
+        </Config>
+      </ConfigOptions>
+      <filename>7za.exe</filename>
+    </datafile>
+    <datafile>
+      <name>7zxa.dll</name>
+      <exists>-1</exists>
+      <size>158720</size>
+      <exportAction>2</exportAction>
+      <exportDir></exportDir>
+      <overwrite>0</overwrite>
+      <freeData>-1</freeData>
+      <removeEnd>0</removeEnd>
+      <store>0</store>
+      <ConfigOptions>
+        <Config name="Default">
+          <CopyToMask>9223372036854775807</CopyToMask>
+        </Config>
+      </ConfigOptions>
+      <filename>7zxa.dll</filename>
+    </datafile>
   </datafiles>
   <NewExtensions>
     <extension index="0">extensions\GMFileSystem</extension>
@@ -222,6 +273,10 @@
       <script>scripts\cleanmem_init.gml</script>
       <script>scripts\cleanmem_get_mem.gml</script>
       <script>scripts\cleanmem.gml</script>
+    </scripts>
+    <scripts name="7zip Command Line">
+      <script>scripts\szip_directory.gml</script>
+      <script>scripts\szip_extract.gml</script>
     </scripts>
     <script>scripts\find_game.gml</script>
     <script>scripts\ExecuteShell.gml</script>
