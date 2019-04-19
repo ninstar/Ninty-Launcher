@@ -35,16 +35,25 @@ Discord Server: https://discord.gg/hPzDxgD
 ### Credits
 
 **Program, Design & Character:**
-*Mario Silva (Nin★Gamer)*
+Mario Silva (Nin★Gamer)
 
 **Logo:**
-*Biel98765*
+Biel98765
 
 **Translations:**
-GlitchyPSI (Spanish), Biel98765 & Lake (English), Majora03 (French), Mario Silva (Portuguese), MasterXYZ (Italian), VECTORKNICKER (Polish)
+GlitchyPSI (Spanish)
+Biel98765 & Lake (English)
+Majora03 (French)
+Mario Silva (Portuguese)
+MasterXYZ (Italian)
+VECTORKNICKER (Polish)
+MaxNox (Russian)
 
 **Extensions:**
-*Aouab (DiscordRPC), Samuel Venable (FMNS), Paul Weijtens (GMFile), YellowAfterlife (WinCMD)*
+Aouab (DiscordRPC)
+Samuel Venable (FMNS)
+Paul Weijtens (GMFile)
+YellowAfterlife (WinCMD)
 
 **Thumbnails:**
-*AlphaFenix, Arklem, Biel98765, Braguetta, Bruno Gomes, Igorsales73, KakoSan, Luis Felipe, Mario Silva, Xand*
+[List](https://docs.google.com/spreadsheets/d/1WLxK1jtb8gW2laHxXiDjbLhLpJHaiawH1gl82zr5_2w/)
