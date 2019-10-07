@@ -22,7 +22,7 @@ Discord Server: https://discord.gg/hPzDxgD
     <p><img src="https://github.com/MarioSilvaGH/Ninty-Launcher/raw/master/assets/demo_richpresence.png" alt="" /></p>
 </div><br/><br/>
 
-- **100+** Fan Games, Tools and Consoles **thumbnails** [Detailed List](https://docs.google.com/spreadsheets/d/1WLxK1jtb8gW2laHxXiDjbLhLpJHaiawH1gl82zr5_2w/)
+- **100+** Fan Games, Tools and Consoles **thumbnails** [Detailed List](https://drive.google.com/open?id=1De2fetYIGIpMm-Ki0c9DQCAV4i93UTLO)
 <div align="center">
     <p><img src="https://github.com/MarioSilvaGH/Ninty-Launcher/raw/master/assets/demo_thumbnails.png" alt="" /></p>
 </div><br/><br/>
@@ -54,6 +54,3 @@ Aouab (DiscordRPC)
 Samuel Venable (FMNS)
 Paul Weijtens (GMFile)
 YellowAfterlife (WinCMD)
-
-**Thumbnails:**
-[List](https://docs.google.com/spreadsheets/d/1WLxK1jtb8gW2laHxXiDjbLhLpJHaiawH1gl82zr5_2w/)
