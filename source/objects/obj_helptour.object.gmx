@@ -905,7 +905,7 @@ else{
             if(update_select == 0){
             
                 //Atualizar Launcher
-                if(update == 0){
+                if(update == 1){
                 
                     //Abrir browser (todo boladão)
                     url_open(obj_launcher.version_url);

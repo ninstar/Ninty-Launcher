@@ -45,7 +45,7 @@ Discord Server: https://discord.gg/hPzDxgD
 ### Credits
 
 **Program, Design & Character:**
-Mario Silva (Nin★Gamer)
+Mario Silva (Nin★)
 
 **Logo:**
 Biel98765

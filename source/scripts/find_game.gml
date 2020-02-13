@@ -12,7 +12,7 @@ if(file_exists_fmns(game_save_id+"network\database.ini"))
     
     //Váriavel de retorno
     ini_open(game_save_id+"network\database.ini");
-    _url = ini_read_string("NINTY_TITLE_MASTER","url",default_dburl);
+    _url = ini_read_string("NINTY_TITLE_MASTER","url",global.redirect_thumbnails);
     _total = real(ini_read_string("NINTY_TITLE_MASTER","total","0"));
     ini_close();
     
