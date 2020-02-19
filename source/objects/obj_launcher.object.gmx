@@ -2768,36 +2768,48 @@ else{
 //Fator de escala automático
 var _screen_size = display_get_width();
 
-//+4K : 2560x1440
-window_scale = 4;
+//+4K 
+window_scale = 2;
 if(uirender == 1) display_reset(8,1); else display_reset(8,0); //AA: x8
 
-//-4K : 1920x1080
+//-4K 
 if(_screen_size &lt; 3840){
     window_scale = 1.5;
     if(uirender == 1) display_reset(2,1); else display_reset(2,0); //AA: x2
 }
 
-//-2K : 41280x720
+//-2K
 if(_screen_size &lt; 2560){
     window_scale = 1;
     if(uirender == 1) display_reset(0,1); else display_reset(0,0); //AA: x0
 }
 
-//-1080p : 1152x648
+//-1080p
 if(_screen_size &lt; 1920)
     window_scale = 0.9;
 
-//-900p : 1024x576
+//-900p
 if(_screen_size &lt; 1600)
     window_scale = 0.8;
 
-//-768p : 896x504
+//-768p
 if(_screen_size &lt; 1366)
     window_scale = 0.7;
 
-//-720p : 320x180 (Legacy Displays)
+//-720p
 if(_screen_size &lt; 1280)
+    window_scale = 0.6;
+
+//-4:3 768p
+if(_screen_size &lt; 1024)
+    window_scale = 0.5;
+
+//-4:3 600p
+if(_screen_size &lt; 800)
+    window_scale = 0.4;
+
+//-4:3 480p (Legacy Displays)
+if(_screen_size &lt; 640)
     window_scale = 0.25;
 
 //Definir escala
@@ -5300,7 +5312,7 @@ global.assets_dir = working_directory;//program_directory+"\";
 launched = 0;
 
 //Versão
-version = 191;
+version = 192;
 version_new = 0; //&lt; Essa é apenas para comparação
 version_url = "https://";
 
