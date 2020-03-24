@@ -1,12 +1,13 @@
-# Ninty Launcher [![Patreon][badge-patreon]][link-patreon] [![Discord][badge-discord]][link-discord] [![Size][badge-reposize]]() [![Release][badge-release]][link-release]
+# Ninty Launcher ![badge-size] [![Blog][badge-blog]][link-blog] [![Discord][badge-discord]][link-discord] [![Patreon][badge-patreon]][link-patreon]
 
+[badge-size]: https://img.shields.io/github/repo-size/MarioSilvaGH/Ninty-Launcher?color=black&label=Size&logo=github&logoColor=white&style=flat-square
+[badge-blog]: https://img.shields.io/static/v1?color=E87700&label=Blog&logo=blogger&logoColor=white&message=Nin%E2%98%85Blog&style=flat-square
+[badge-discord]: https://img.shields.io/discord/574569573458771968?color=7289da&label=Discord&logo=discord&logoColor=white&style=flat-square
 [badge-patreon]: https://img.shields.io/endpoint.svg?url=https%3A%2F%2Fshieldsio-patreon.herokuapp.com%2FNingamer&label=Patreon&logoColor=white&style=flat-square
-[badge-discord]: https://img.shields.io/discord/574569573458771968?color=7289da&label=Discord%20Server&logo=discord&logoColor=white&style=flat-square
-[badge-reposize]: https://img.shields.io/github/repo-size/MarioSilvaGH/Ninty-Launcher?color=black&label=Repo%20Size&logo=github&logoColor=white&style=flat-square
-[badge-release]: https://img.shields.io/github/v/release/MarioSilvaGH/Ninty-Launcher?color=499678&include_prereleases&label=Latest%20Release&logoColor=white&style=flat-square
-[link-patreon]: https://www.patreon.com/ningamer
+
+[link-blog]: https://ninstars.blogspot.com/
 [link-discord]: https://discord.gg/wZGW8DZ
-[link-release]: https://github.com/MarioSilvaGH/Ninty-Launcher/releases
+[link-patreon]: https://www.patreon.com/ningamer
 
 <p align="center"><img alt="Logo" src="https://github.com/MarioSilvaGH/Ninty-Launcher/raw/master/Assets/logo_monod.png" width="60%"></p>
 
