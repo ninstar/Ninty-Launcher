@@ -8,7 +8,7 @@
 [link-discord]: https://discord.gg/wZGW8DZ
 [link-release]: https://github.com/MarioSilvaGH/Ninty-Launcher/releases
 
-<div align="center"><img alt="Logo" src="https://github.com/MarioSilvaGH/Ninty-Launcher/raw/master/Assets/logo_monod.png" width="90%"></div>
+<p align="center"><img alt="Logo" src="https://github.com/MarioSilvaGH/Ninty-Launcher/raw/master/Assets/logo_monod.png" width="90%"></p>
 
 Written in GML, Ninty is a launcher based on the Nintendo Switch interface to run the main Fan Games (and several other softwares) out there.
 
@@ -20,19 +20,19 @@ Written in GML, Ninty is a launcher based on the Nintendo Switch interface to ru
 
 - **Works as a forwarder**, useful for emulators.
 
-<div align="center"><img alt="Demo" src="https://github.com/MarioSilvaGH/Ninty-Launcher/raw/master/Assets/demo_forwarder.png" width="90%"></div>
+<p align="center"><img alt="Demo" src="https://github.com/MarioSilvaGH/Ninty-Launcher/raw/master/Assets/demo_forwarder.png" width="90%"></p>
 
 - Discord **Rich Presence** support, including variated predefined icons.
 
-<div align="center"><img alt="Demo" src="https://github.com/MarioSilvaGH/Ninty-Launcher/raw/master/Assets/demo_richpresence.png" width="90%"></div>
+<p align="center"><img alt="Demo" src="https://github.com/MarioSilvaGH/Ninty-Launcher/raw/master/Assets/demo_richpresence.png" width="90%"></p>
 
 - **100+** Fan Games, Tools and Consoles **thumbnails** [Detailed List](https://drive.google.com/open?id=1De2fetYIGIpMm-Ki0c9DQCAV4i93UTLO)
 
-<div align="center"><img alt="Demo" src="https://github.com/MarioSilvaGH/Ninty-Launcher/raw/master/Assets/demo_thumbnails.png" width="90%"></div>
+<p align="center"><img alt="Demo" src="https://github.com/MarioSilvaGH/Ninty-Launcher/raw/master/Assets/demo_thumbnails.png" width="90%"></p>
 
 - ~~Cute~~ User **guide**:
 
-<div align="center"><img alt="Demo" src="https://github.com/MarioSilvaGH/Ninty-Launcher/raw/master/Assets/demo_guide.png" width="90%"></div>
+<p align="center"><img alt="Demo" src="https://github.com/MarioSilvaGH/Ninty-Launcher/raw/master/Assets/demo_guide.png" width="90%"></p>
 
 ## <div align="center">Links</div>
 
