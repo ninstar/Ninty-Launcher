@@ -8,7 +8,7 @@
 [link-discord]: https://discord.gg/wZGW8DZ
 [link-release]: https://github.com/MarioSilvaGH/Ninty-Launcher/releases
 
-<p align="center"><img alt="Logo" src="https://github.com/MarioSilvaGH/Ninty-Launcher/raw/master/Assets/logo_monod.png" width="90%"></p>
+<p align="center"><img alt="Logo" src="https://github.com/MarioSilvaGH/Ninty-Launcher/raw/master/Assets/logo_monod.png" width="60%"></p>
 
 Written in GML, Ninty is a launcher based on the Nintendo Switch interface to run the main Fan Games (and several other softwares) out there.
 
