@@ -1,3 +1,4 @@
+
 # Ninty Launcher [![Patreon][badge-patreon]][link-patreon] [![Discord][badge-discord]][link-discord] [![Size][badge-reposize]]() [![Release][badge-release]][link-release]
 
 [badge-patreon]: https://img.shields.io/endpoint.svg?url=https%3A%2F%2Fshieldsio-patreon.herokuapp.com%2FNingamer&label=Patreon&logoColor=white&style=flat-square
@@ -16,7 +17,7 @@ Written in GML, Ninty is a launcher based on the Nintendo Switch interface to ru
 
 - Switch based UI supporting **customizable themes**, including animated wallpapers with songs.
 
-<div align="center"><img alt="Demo" src="https://github.com/MarioSilvaGH/Ninty-Launcher/raw/master/Assets/demo_themes.gif" width="90%"></div>
+<p align="center"><img alt="Demo" src="https://github.com/MarioSilvaGH/Ninty-Launcher/raw/master/Assets/demo_themes.gif" width="90%"></p>
 
 - **Works as a forwarder**, useful for emulators.
 
