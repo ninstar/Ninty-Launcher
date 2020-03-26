@@ -5,14 +5,14 @@ games_shortcut[argument1] = 0;
 games_animframes[argument1] = 0;
 games_animspeed[argument1] = 0;
             
-if(file_exists_fmns(game_save_id+"network\database.ini"))
+if(file_exists_fmns(game_save_id+"network\appdb.ini"))
 &&(os_is_network_connected()){
 
     var t, p, _url, _total;
     
     //Váriavel de retorno
-    ini_open(game_save_id+"network\database.ini");
-    _url = ini_read_string("NINTY_TITLE_MASTER","url",global.redirect_thumbnails);
+    ini_open(game_save_id+"network\appdb.ini");
+    _url = ini_read_string("NINTY_TITLE_MASTER","url","https://");
     _total = real(ini_read_string("NINTY_TITLE_MASTER","total","0"));
     ini_close();
     
@@ -21,7 +21,7 @@ if(file_exists_fmns(game_save_id+"network\database.ini"))
         
         var _title, _tagA, _tagB, _tagC, _tagD, _tagE, _tagF, _forward, _shortcut, _animframes, _animspeed;
 
-        ini_open(game_save_id+"network\database.ini");
+        ini_open(game_save_id+"network\appdb.ini");
         _forward = ini_read_real("NINTY_TITLE_"+string(t),"forward",0);
         _shortcut = ini_read_real("NINTY_TITLE_"+string(t),"shortcut",0);
         _animframes = ini_read_real("NINTY_TITLE_"+string(t),"animframes",0);
@@ -67,7 +67,7 @@ if(file_exists_fmns(game_save_id+"network\database.ini"))
         
         var _title, _tagA, _tagB, _tagC, _tagD, _tagE, _tagF, _forward, _shortcut, _animframes, _animspeed;
     
-        ini_open(game_save_id+"network\database.ini");
+        ini_open(game_save_id+"network\appdb.ini");
         _forward = ini_read_real("NINTY_TITLE_"+string(p),"forward",0);
         _shortcut = ini_read_real("NINTY_TITLE_"+string(p),"shortcut",0);
         _animframes = ini_read_real("NINTY_TITLE_"+string(p),"animframes",0);

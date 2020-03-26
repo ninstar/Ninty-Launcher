@@ -40,13 +40,13 @@ Written in GML, Ninty is a launcher based on the Nintendo Switch interface to ru
 ### <div align="center">Downloads</div>
 
 #### Ninty Launcher
-Version: **1.9.2** | ``19/02/2020``
+Version: **1.9.3** | ``25/03/2020``
 
 - :ballot_box_with_check:  Ninty Launcher (32bit)
 - :ballot_box_with_check:  Sample themes
 - :ballot_box_with_check:  Changelog
 
-[:arrow_down: **Download**](https://github.com/MarioSilvaGH/Ninty-Launcher/releases/download/v1.9.2/NintyLauncher_192.zip)
+[:arrow_down: **Download**](https://github.com/MarioSilvaGH/Ninty-Launcher/raw/master/Current/Ninty_Launcher.zip)
 
 ### <div align="center">References</div>
 

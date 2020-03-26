@@ -126,7 +126,7 @@ for(_gp = 0; _gp &lt; 5; _gp += 1){
     gp_stick[_gp,0] = 0;
     gp_stick[_gp,1] = 0;
     gp_stick[_gp,2] = 0;
-    gp_stick[_gp,3] = 0;    
+    gp_stick[_gp,3] = 0;
 };
 </string>
           </argument>
@@ -621,7 +621,8 @@ if(file != "")
     else{
     
         //Sinalizar que está baixando...
-        network = 1;
+        with(obj_downloader)
+            downloading = 1;
     
         //NOTA: Evento "Image Load" esta ativo esperando baixar a imagem...
         games_thumb[games_total] = sprite_add(thumb,games_animframes[games_total],0,1,0,0);
@@ -2443,7 +2444,7 @@ if(games_total &gt; 0)
 
                 //Checar se software existe
                 if(select_exists == 1)
-                &amp;&amp;(network == 0){
+                &amp;&amp;(obj_downloader.downloading == 0){
                 
                     //SE for um forwarder...    
                     if(games_forwarder[select_index] != "")
@@ -2565,61 +2566,6 @@ if(os_is_paused())
         </arguments>
       </action>
     </event>
-    <event eventtype="7" enumb="62">
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string>///Atualizar...
-
-//Base de thumbnails automáticas (thumbdb.ini)
-if(ds_map_find_value(async_load,"id") == async_database){
-
-    //Sinalizar que está baixando...
-    network = 1;
-    
-    //Se download finalizar...
-    if(ds_map_find_value(async_load,"status") &gt;= 0)
-        network = 0;
-    else
-        network = 0;
-};
-
-//Aviso de update do launcher
-if(ds_map_find_value(async_load,"id") == async_update){
-
-    //Sinalizar que está baixando...
-    network = 1;
-    
-    //Se download finalizar...
-    if(ds_map_find_value(async_load,"status") &gt;= 0){
-    
-        network = 0;
-        
-        //Prosseguir...
-        alarm[5] = 15;
-    };
-    else
-        network = 0;
-};
-
-</string>
-          </argument>
-        </arguments>
-      </action>
-    </event>
     <event eventtype="7" enumb="60">
       <action>
         <libid>1</libid>
@@ -2641,17 +2587,21 @@ if(ds_map_find_value(async_load,"id") == async_update){
 if(ds_map_find_value(async_load,"id") == games_thumb[async_thumbnail]){
     
     //Se download finalizar...
-    if(ds_map_find_value(async_load,"status") &gt;= 0){
+    if(ds_map_find_value(async_load,"status") &lt; 1){
     
         //Salvar thumbnail na pasta
         sprite_save_strip(games_thumb[async_thumbnail],game_save_id+"collection\game_"+string(async_thumbnail)+".png");
         
         //Finalizado
         async_thumbnail = -1;
-        network = 0;
+        with(obj_downloader)
+            downloading = 0;
     };
-    else
-        network = 0;
+    else{
+    
+        with(obj_downloader)
+            downloading = 1;
+    }
 };
 </string>
           </argument>
@@ -3641,7 +3591,6 @@ if(infopopup_fade &gt; 0){
     
     //Janela
     draw_sprite_ext(spr_submenu_layout,theme,1280/2,720/2-128+(128*infopopup_fade),1,1,0,theme_color,infopopup_fade);
-    draw_sprite_ext(spr_launcher_information,1,1280/2,720/2-128+(128*infopopup_fade),1,1,0,c_white,infopopup_fade);
     draw_set_alpha(1);
     if(theme == 0)
         draw_sprite_ext(spr_launcher_information,0,1280/2,720/2-128+(128*infopopup_fade),1,1,0,c_black,infopopup_fade);
@@ -3755,7 +3704,7 @@ draw_set_font(fnt_default);
 draw_set_colour(c_white);
 
 //Conexão
-if(network == 1){
+if(obj_downloader.downloading == 1){
 
     //Animação
     if(network_anim &lt; 3)
@@ -3843,7 +3792,6 @@ if((mouse_check_button(mb_right))
             <kind>1</kind>
             <string>///Salvar configurações do Launcher
 ini_open(game_save_id+"config.ini")
-ini_write_real("NINTY_CONFIG","netcooldown",netcooldown);
 ini_write_real("NINTY_CONFIG","fullscreen",fullscreen);
 ini_write_real("NINTY_CONFIG","position",select_index);
 ini_write_real("NINTY_CONFIG","parental",parental_control);
@@ -5004,7 +4952,7 @@ guide[31] = "A new update is available:  "+vnew+"
 your current version is: "+vold;
 
 guide[32] = "No problem!
-I'll remember you later.";
+I'll remind you later.";
 
 guide[33] = "Do you really want to remove 
 this game from your library?";
@@ -5307,30 +5255,19 @@ audio_group_unload(sound_effects);
             <kind>1</kind>
             <string>///Carregar definições
 gml_release_mode(1);
-
-global.assets_dir = working_directory;//program_directory+"\";
 launched = 0;
+async_thumbnail = -1; //&lt;[Número do icone na base de dados]
 
 //Versão
-version = 192;
+version = 193;
 version_new = 0; //&lt; Essa é apenas para comparação
 version_url = "https://";
 
-//Versões em texto para Ninny
+//Versões em texto para dialogo da Ninny
 vold = "0.0.0";
 vnew = "0.0.0";
 
-//URLs base para redirecionamento
-ini_open(global.assets_dir+"db_redirect.ini");
-global.redirect_thumbnails = ini_read_string("NINTY_REDIRECT","thumbnails","");
-global.redirect_updates = ini_read_string("NINTY_REDIRECT","updateslog","");
-global.redirect_about = ini_read_string("NINTY_REDIRECT","about","");
-ini_close()
-
-//Async
-async_thumbnail = -1;
-async_database = 0;
-network = 0;
+//SFXs
 audio_group_load(sound_effects);
 
 //Clean Memory
@@ -5341,7 +5278,6 @@ alarm[3] = 2;
 
 //Configurações do Launcher
 ini_open(game_save_id+"config.ini");
-netcooldown = ini_read_real("NINTY_CONFIG","netcooldown",0);
 fullscreen = ini_read_real("NINTY_CONFIG","fullscreen",0);
 select_index = ini_read_real("NINTY_CONFIG","position",0);
 parental_control = ini_read_real("NINTY_CONFIG","parental",0);
@@ -5392,42 +5328,6 @@ if(nativerpc == 1){
     //Atualizar RPC
     event_user(0);
 };
-
-//Checar se existem thumbnails (update automático)
-if(os_is_network_connected())
-&amp;&amp;(updatedatabase == 1)
-&amp;&amp;(netcooldown == 0){
-        
-    //Baixar
-    async_database = http_get_file(global.redirect_thumbnails,game_save_id+"network\database.ini");
-    
-    //Sinalizar que está baixando...
-    network = 1;
-};
-else
-    async_database = noone;
-    
-//Checar se existem atualizações do launcher
-if(os_is_network_connected())
-&amp;&amp;(updateninty == 1)
-&amp;&amp;(netcooldown == 0){
-        
-    //Baixar
-    async_update = http_get_file(global.redirect_updates,game_save_id+"network\updatelog.ini");
-    
-    //Sinalizar que está baixando...
-    network = 1;
-};
-else{
-    async_update = noone;
-    alarm[5] = 15;
-};
-
-//Não fazer spam de pedidos (Checar updates a cada 3 vezes que for iiniciar)
-if(netcooldown &gt; 0)
-    netcooldown--;
-else
-    netcooldown = 3;
 
 //Guia
 if(help_tour == 0){

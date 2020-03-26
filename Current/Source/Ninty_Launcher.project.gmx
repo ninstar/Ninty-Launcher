@@ -107,23 +107,6 @@
       <filename>dummy.aud</filename>
     </datafile>
     <datafile>
-      <name>db_redirect.ini</name>
-      <exists>-1</exists>
-      <size>283</size>
-      <exportAction>2</exportAction>
-      <exportDir></exportDir>
-      <overwrite>0</overwrite>
-      <freeData>-1</freeData>
-      <removeEnd>0</removeEnd>
-      <store>0</store>
-      <ConfigOptions>
-        <Config name="Default">
-          <CopyToMask>9223372036854775807</CopyToMask>
-        </Config>
-      </ConfigOptions>
-      <filename>db_redirect.ini</filename>
-    </datafile>
-    <datafile>
       <name>default.tbn</name>
       <exists>-1</exists>
       <size>4063</size>
@@ -255,6 +238,7 @@
     <font>fonts\fnt_clock</font>
   </fonts>
   <objects name="objects">
+    <object>objects\obj_downloader</object>
     <object>objects\obj_launcher</object>
     <object>objects\obj_helptour</object>
     <object>objects\obj_musicplayer</object>
