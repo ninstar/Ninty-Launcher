@@ -5,75 +5,79 @@
 [badge-discord]: https://img.shields.io/discord/574569573458771968?color=7289da&label=Discord&logo=discord&logoColor=white&style=flat-square
 [badge-patreon]: https://img.shields.io/endpoint.svg?url=https%3A%2F%2Fshieldsio-patreon.herokuapp.com%2FNingamer&label=Patreon&logoColor=white&style=flat-square
 
-[link-blog]: https://ninstars.blogspot.com/
+[link-blog]: https://ninstars.blogspot.com/p/ninty-launcher.html
 [link-discord]: https://discord.gg/wZGW8DZ
 [link-patreon]: https://www.patreon.com/ningamer
 
 <p align="center"><img alt="Logo" src="https://github.com/MarioSilvaGH/Ninty-Launcher/raw/master/Assets/logo_monod.png" width="60%"></p>
 
-Written in GML, Ninty is a launcher based on the Nintendo Switch interface to run the main Fan Games (and several other softwares) out there.
+Written in GML, Ninty is a launcher based on the Nintendo Switch interface mainly designed for launching emulators and fan games, but it also can be used with a wide variety of applications.
 
 ## <div align="center">Features</div>
 
-- Switch based UI supporting **customizable themes**, including animated wallpapers with songs.
-
 <p align="center"><img alt="Demo" src="https://github.com/MarioSilvaGH/Ninty-Launcher/raw/master/Assets/demo_themes.gif" width="90%"></p>
 
-- **Works as a forwarder**, useful for emulators.
-
+> Support for **custom themes** with animated wallpapers and songs.
 <p align="center"><img alt="Demo" src="https://github.com/MarioSilvaGH/Ninty-Launcher/raw/master/Assets/demo_forwarder.png" width="90%"></p>
 
-- Discord **Rich Presence** support, including variated predefined icons.
+> Launch applications with a **forwarder embed**, useful for emulators.
+> 
 
 <p align="center"><img alt="Demo" src="https://github.com/MarioSilvaGH/Ninty-Launcher/raw/master/Assets/demo_richpresence.png" width="90%"></p>
 
-- **100+** Fan Games, Tools and Consoles **thumbnails** [Detailed List](https://drive.google.com/open?id=1De2fetYIGIpMm-Ki0c9DQCAV4i93UTLO)
+> Support for **Discord Rich Presence**, including alternative icons.
 
 <p align="center"><img alt="Demo" src="https://github.com/MarioSilvaGH/Ninty-Launcher/raw/master/Assets/demo_thumbnails.png" width="90%"></p>
 
-- ~~Cute~~ User **guide**:
+> **Over 100 icons** for emulators, fan games, modding tools and more.
 
 <p align="center"><img alt="Demo" src="https://github.com/MarioSilvaGH/Ninty-Launcher/raw/master/Assets/demo_guide.png" width="90%"></p>
 
-## <div align="center">Links</div>
+> An interactive ~~and cute~~ **user guide**
 
-### <div align="center">Downloads</div>
+## <div align="center">Content</div>
+
+### Releases
 
 #### Ninty Launcher
-Version: **1.9.3** | ``25/03/2020``
 
-- :ballot_box_with_check:  Ninty Launcher (32bit)
-- :ballot_box_with_check:  Sample themes
-- :ballot_box_with_check:  Changelog
+- [x] Ninty Launcher ``[Windows, 32/64-bit]``
+- [x] Sample themes
+- [x] Animated thumbnail example
+- [x] Changelog
 
-[:arrow_down: **Download**](https://github.com/MarioSilvaGH/Ninty-Launcher/raw/master/Current/Ninty_Launcher.zip)
+> [**DOWNLOAD**](https://github.com/MarioSilvaGH/Ninty-Launcher/releases/download/v1.9.3) -  Version: ``1.9.3``
 
-### <div align="center">References</div>
+### Links
 
--   [__Source Code__](https://github.com/MarioSilvaGH/Ninty-Launcher/tree/master/Current) (Master)
-- [__App/Game List:__](https://drive.google.com/file/d/1De2fetYIGIpMm-Ki0c9DQCAV4i93UTLO) (Google Docs)
--  [__Ninty Community__](https://discord.gg/DAGBtS7) for sharing themes and icons (Discord)
--  [__Ninty FreeShop__](https://discord.gg/SgbZPpv) project by **Seph** (Discord)
+-  [**Source Code** (Master)](https://github.com/MarioSilvaGH/Ninty-Launcher/tree/master)
+- [**App / Game List** (Google Docs)](https://drive.google.com/file/d/1De2fetYIGIpMm-Ki0c9DQCAV4i93UTLO)
+-  [**Ninty Launcher** (Discord)](https://discord.gg/DAGBtS7) - For sharing themes and icons.
+-  [**Ninty FreeShop** (Discord)](https://discord.gg/SgbZPpv) - Project by **Seph**.
 
 ## <div align="center">Credits</div>
 
-**Program, Design & Character**  
-Mario Silva (Nin★)  
+**Design, Character & Program**  
+* Mario Silva (Nin★)  
 
-**Original Logo**  
-Biel98765  
+**Original Logo Design**  
+* Biel98765  
 
 **Translations**  
-GlitchyPSI (Spanish)  
-Biel98765 & Lake (English)  
-Majora03 (French)  
-Mario Silva (Portuguese)  
-MasterXYZ (Italian)  
-VECTORKNICKER (Polish)  
-MaxNox (Russian)  
+* GlitchyPSI ``Spanish``
+* Biel98765 & Lake ``English``
+* Majora03 ``French``
+* Mario Silva (Nin★) ``Portuguese``
+* MasterXYZ ``Italian``
+* VECTORKNICKER ``Polish``
+* MaxNox ``Russian``
 
 **Extensions**  
-Aouab (DiscordRPC)  
-Samuel Venable (FMNS)  
-Paul Weijtens (GMFile)  
-YellowAfterlife (WinCMD)  
+* Aouab ``DiscordRPC``
+* Samuel Venable ``FMNS``
+* Paul Weijtens ``GMFile``
+* YellowAfterlife ``WinCMD``
+
+## <div align="center">License</div>
+
+This project is licensed under the ***MIT License***, refer to ``LICENSE.md`` (alternatively this [link](https://github.com/MarioSilvaGH/Ninty-Launcher/blob/master/LICENSE.md)) for more information.
