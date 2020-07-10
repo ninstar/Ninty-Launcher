@@ -31,7 +31,7 @@ Written in GML, Ninty is a launcher based on the Nintendo Switch interface mainl
 
 > **Over 100 icons** for emulators, fan games, modding tools and more.
 
-<p align="center"><img alt="Demo" src="https://github.com/MarioSilvaGH/Ninty-Launcher/raw/master/Assets/demo_guide.png" width="90%"></p>
+<p align="center"><img alt="Demo" src="https://github.com/MarioSilvaGH/Ninty-Launcher/raw/master/Assets/demo_eguide.png" width="90%"></p>
 
 > An interactive ~~and cute~~ **user guide**
 
