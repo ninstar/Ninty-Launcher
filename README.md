@@ -11,7 +11,7 @@
 
 <p align="center"><img alt="Logo" src="https://github.com/MarioSilvaGH/Ninty-Launcher/raw/master/Assets/logo_monod.png" width="60%"></p>
 
-Written in GML, Ninty is a launcher based on the Nintendo Switch interface mainly designed for launching emulators and fan games, but it also can be used with a wide variety of applications.
+Written in GML, Ninty is a launcher based on the Nintendo Switch interface mainly designed for launching emulators and fan games, but it can also be used with a wide variety of applications.
 
 ## <div align="center">Features</div>
 
@@ -20,7 +20,7 @@ Written in GML, Ninty is a launcher based on the Nintendo Switch interface mainl
 > Support for **custom themes** with animated wallpapers and songs.
 <p align="center"><img alt="Demo" src="https://github.com/MarioSilvaGH/Ninty-Launcher/raw/master/Assets/demo_forwarder.png" width="90%"></p>
 
-> Launch applications with a **forwarder embed**, useful for emulators.
+> Launch applications alongside files via **forwarder embed**, useful for emulators.
 > 
 
 <p align="center"><img alt="Demo" src="https://github.com/MarioSilvaGH/Ninty-Launcher/raw/master/Assets/demo_richpresence.png" width="90%"></p>
