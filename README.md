@@ -9,29 +9,28 @@
 [link-discord]: https://discord.gg/wZGW8DZ
 [link-patreon]: https://www.patreon.com/ningamer
 
-<p align="center"><img alt="Logo" src="https://github.com/MarioSilvaGH/Ninty-Launcher/raw/master/Assets/logo_monod.png" width="60%"></p>
+<p align="center"><img alt="Logo" src="https://i.imgur.com/9frmyNP.png" width="60%"></p>
 
 Written in GML, Ninty is a launcher based on the Nintendo Switch interface mainly designed for launching emulators and fan games, but it can also be used with a wide variety of applications.
 
 ## <div align="center">Features</div>
 
-<p align="center"><img alt="Demo" src="https://github.com/MarioSilvaGH/Ninty-Launcher/raw/master/Assets/demo_themes.gif" width="90%"></p>
+<p align="center"><img alt="Demo" src="https://i.imgur.com/HgPCL3L.gif" width="90%"></p>
 
 > Support for **custom themes** with animated wallpapers and songs.
-<p align="center"><img alt="Demo" src="https://github.com/MarioSilvaGH/Ninty-Launcher/raw/master/Assets/demo_forwarder.png" width="90%"></p>
+<p align="center"><img alt="Demo" src="https://i.imgur.com/q5un5wN.png" width="90%"></p>
 
 > Launch applications alongside files via **forwarder embed**, useful for emulators.
-> 
 
-<p align="center"><img alt="Demo" src="https://github.com/MarioSilvaGH/Ninty-Launcher/raw/master/Assets/demo_richpresence.png" width="90%"></p>
+<p align="center"><img alt="Demo" src="https://i.imgur.com/AUNi1GX.png" width="90%"></p>
 
 > Support for **Discord Rich Presence**, including alternative icons.
 
-<p align="center"><img alt="Demo" src="https://github.com/MarioSilvaGH/Ninty-Launcher/raw/master/Assets/demo_thumbnails.png" width="90%"></p>
+<p align="center"><img alt="Demo" src="https://i.imgur.com/Y1jzeWz.png" width="90%"></p>
 
 > **Over 100 icons** for emulators, fan games, modding tools and more.
 
-<p align="center"><img alt="Demo" src="https://github.com/MarioSilvaGH/Ninty-Launcher/raw/master/Assets/demo_eguide.png" width="90%"></p>
+<p align="center"><img alt="Demo" src="https://i.imgur.com/R5Qo1ek.png" width="90%"></p>
 
 > An interactive ~~and cute~~ **user guide**
 
@@ -46,7 +45,7 @@ Written in GML, Ninty is a launcher based on the Nintendo Switch interface mainl
 - [x] Animated thumbnail example
 - [x] Changelog
 
-> [**DOWNLOAD**](https://github.com/MarioSilvaGH/Ninty-Launcher/releases/download/v1.9.3) -  Version: ``1.9.3``
+> [**DOWNLOAD**](https://github.com/MarioSilvaGH/Ninty-Launcher/releases/tag/v1.9.3) -  Version: ``1.9.3``
 
 ### Links
 
