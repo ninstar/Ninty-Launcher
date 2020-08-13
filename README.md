@@ -1,60 +1,51 @@
-# Ninty Launcher ![badge-size] [![Blog][badge-blog]][link-blog] [![Discord][badge-discord]][link-discord] [![Patreon][badge-patreon]][link-patreon]
+![badge-size]  [![Patreon][badge-patreon]][link-patreon] [![Discord][badge-discord]][link-discord] [![Blog][badge-blog]][link-blog]  
+<img alt="Card" src="https://i.imgur.com/c5FPXjP.png" width="100%">
 
-[badge-size]: https://img.shields.io/github/repo-size/MarioSilvaGH/Ninty-Launcher?color=black&label=Size&logo=github&logoColor=white&style=flat-square
-[badge-blog]: https://img.shields.io/static/v1?color=E87700&label=Blog&logo=blogger&logoColor=white&message=Nin%E2%98%85Blog&style=flat-square
-[badge-discord]: https://img.shields.io/discord/574569573458771968?color=7289da&label=Discord&logo=discord&logoColor=white&style=flat-square
-[badge-patreon]: https://img.shields.io/endpoint.svg?url=https%3A%2F%2Fshieldsio-patreon.herokuapp.com%2Fninstar&label=Patreon&logoColor=white&style=flat-square
+Written in GML, Ninty is a launcher based on the *Nintendo Switch* interface mainly designed for launching **emulators** and **fan games**, but it can also be used with a wide variety of applications.
 
-[link-blog]: https://ninstars.blogspot.com/p/ninty-launcher.html
-[link-discord]: https://invite.gg/ninstar
-[link-patreon]: https://www.patreon.com/ninstar
+## Features
 
-<p align="center"><img alt="Logo" src="https://i.imgur.com/9frmyNP.png" width="60%"></p>
++ Support for **custom themes** with animated wallpapers and songs.
 
-Written in GML, Ninty is a launcher based on the Nintendo Switch interface mainly designed for launching emulators and fan games, but it can also be used with a wide variety of applications.
+<img alt="Themes" src="https://i.imgur.com/vsGZh3o.png" width="100%">
 
-## <div align="center">Features</div>
++ Ninty can launch applications alongside files via **forwarder embeds**, useful for emulators.
 
-<p align="center"><img alt="Demo" src="https://i.imgur.com/HgPCL3L.gif" width="90%"></p>
+<img alt="Forwarding" src="https://i.imgur.com/CLHLbXa.png" width="100%">
 
-> Support for **custom themes** with animated wallpapers and songs.
-<p align="center"><img alt="Demo" src="https://i.imgur.com/q5un5wN.png" width="90%"></p>
 
-> Launch applications alongside files via **forwarder embed**, useful for emulators.
++ **Rich Presence** for applications and games that don't have one by default.
 
-<p align="center"><img alt="Demo" src="https://i.imgur.com/AUNi1GX.png" width="90%"></p>
+<img alt="Demo" src="https://i.imgur.com/DtRNq4v.png" width="100%">
 
-> Support for **Discord Rich Presence**, including alternative icons.
 
-<p align="center"><img alt="Demo" src="https://i.imgur.com/Y1jzeWz.png" width="90%"></p>
++ **Over 100 predefined icons** for emulators, fan games, modding tools and more.
 
-> **Over 100 icons** for emulators, fan games, modding tools and more.
+<img alt="Icons" src="https://i.imgur.com/1nziOlf.png" width="100%">
 
-<p align="center"><img alt="Demo" src="https://i.imgur.com/R5Qo1ek.png" width="90%"></p>
++ An interactive **user guide**.
 
-> An interactive ~~and cute~~ **user guide**
+<img alt="User Guide" src="https://i.imgur.com/fZP1Vmi.png" width="100%">
 
-## <div align="center">Content</div>
+## Content
 
 ### Releases
 
 #### Ninty Launcher
 
-- [x] Ninty Launcher ``[Windows, 32/64-bit]``
-- [x] Sample themes
-- [x] Animated thumbnail example
-- [x] Changelog
-
-> [**DOWNLOAD**](https://github.com/MarioSilvaGH/Ninty-Launcher/releases/tag/v1.9.3) -  Version: ``1.9.3``
+- [**⬇ DOWNLOAD**](https://github.com/MarioSilvaGH/Ninty-Launcher/releases/tag/v1.9.3) -  Version: ``1.9.3``
+	- [x] Ninty Launcher ``[Windows, 32/64-bit]``
+	- [x] Sample themes
+	- [x] Animated thumbnail example
+	- [x] [Changelog](https://github.com/MarioSilvaGH/Ninty-Launcher/blob/master/CHANGELOG.txt)
 
 ### Links
 
 -  [**Source Code** (Master)](https://github.com/MarioSilvaGH/Ninty-Launcher/tree/master)
-- [**App / Game List** (Google Docs)](https://drive.google.com/file/d/1De2fetYIGIpMm-Ki0c9DQCAV4i93UTLO)
--  [**Ninty Launcher** (Discord)](https://discord.gg/DAGBtS7) - For sharing themes and icons.
--  [**Ninty FreeShop** (Discord)](https://discord.gg/SgbZPpv) - Project by **Seph**.
+- [**Icon List** (Google Docs)](https://drive.google.com/file/d/1De2fetYIGIpMm-Ki0c9DQCAV4i93UTLO)
+-  [**★/ Ninty Launcher** (Discord)](https://discord.gg/DAGBtS7) - For sharing themes, icons and more.
 
-## <div align="center">Credits</div>
+## Credits
 
 **Design, Character & Program**  
 * Mario Silva (Nin★)  
@@ -73,10 +64,19 @@ Written in GML, Ninty is a launcher based on the Nintendo Switch interface mainl
 
 **Extensions**  
 * Aouab ``DiscordRPC``
-* Samuel Venable ``FMNS``
+* [Samuel Venable](https://github.com/time-killer-games/DialogModule/) ``FMNS``
 * Paul Weijtens ``GMFile``
-* YellowAfterlife ``WinCMD``
+* [YellowAfterlife](https://bitbucket.org/yal_cc/window_commands/) ``WinCMD``
 
-## <div align="center">License</div>
+## License
 
 This project is licensed under the ***MIT License***, refer to ``LICENSE.md`` (alternatively this [link](https://github.com/MarioSilvaGH/Ninty-Launcher/blob/master/LICENSE.md)) for more information.
+
+[badge-size]: https://img.shields.io/github/repo-size/MarioSilvaGH/Ninty-Launcher?color=black&label=Size&logo=github&logoColor=white&style=flat-square
+[badge-patreon]: https://img.shields.io/endpoint.svg?url=https%3A%2F%2Fshieldsio-patreon.herokuapp.com%2Fninstar&label=Patreon&logoColor=white&style=flat-square
+[badge-discord]: https://img.shields.io/discord/574569573458771968?color=7289da&label=Discord&logo=discord&logoColor=white&style=flat-square
+[badge-blog]: https://img.shields.io/static/v1?color=E87700&label=Blog&logo=blogger&logoColor=white&message=Ninty+Launcher&style=flat-square
+
+[link-patreon]: https://www.patreon.com/ninstar
+[link-discord]: https://invite.gg/ninstar
+[link-blog]: https://ninstars.blogspot.com/p/ninty-launcher.html
