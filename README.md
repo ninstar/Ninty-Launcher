@@ -34,16 +34,23 @@ Written in GML, Ninty is a launcher based on the *Nintendo Switch* interface mai
 #### Ninty Launcher
 
 - [**⬇ DOWNLOAD**](https://github.com/MarioSilvaGH/Ninty-Launcher/releases/tag/v1.9.3) -  Version: ``1.9.3``
-	- [x] Ninty Launcher ``[Windows, 32/64-bit]``
-	- [x] Sample themes
+	- [x] Executable ``Windows, 32/64 bit``
+	- [x] 6 Sample themes / wallpapers
 	- [x] Animated thumbnail example
 	- [x] [Changelog](https://github.com/MarioSilvaGH/Ninty-Launcher/blob/master/CHANGELOG.txt)
 
 ### Links
 
--  [**Source Code** (Master)](https://github.com/MarioSilvaGH/Ninty-Launcher/tree/master)
+-  [**★/ Ninty Launcher** (Discord)](https://discord.gg/DAGBtS7) - For sharing icons and themes.
 - [**Icon List** (Google Docs)](https://drive.google.com/file/d/1De2fetYIGIpMm-Ki0c9DQCAV4i93UTLO)
--  [**★/ Ninty Launcher** (Discord)](https://discord.gg/DAGBtS7) - For sharing themes, icons and more.
+-   [**Source Code** (Main Branch)](https://github.com/MarioSilvaGH/Ninty-Launcher/tree/master)
+
+## Compiling
+
+In order to compile you will need:  
+• *GameMaker Studio 1.4.9999* or newer.
+
+>  The source code is currently commented only in Portuguese.
 
 ## Credits
 
@@ -60,13 +67,15 @@ Written in GML, Ninty is a launcher based on the *Nintendo Switch* interface mai
 * Mario Silva (Nin★) ``Portuguese``
 * MasterXYZ ``Italian``
 * VECTORKNICKER ``Polish``
-* MaxNox ``Russian``
+* MaxNox ``Russian``  
+
+**Sample Themes**  
+* Mario Silva (Nin★)  
 
 **Extensions**  
-* Aouab ``DiscordRPC``
-* [Samuel Venable](https://github.com/time-killer-games/DialogModule/) ``FMNS``
-* Paul Weijtens ``GMFile``
-* [YellowAfterlife](https://bitbucket.org/yal_cc/window_commands/) ``WinCMD``
+* [Aouab](https://discord.gg/Kvt4av6) ``Discord RPC Wrapper``
+* [Samuel Venable](https://github.com/time-killer-games/DialogModule/) ``Dialog Module``
+* [YellowAfterlife](https://bitbucket.org/yal_cc/window_commands/) ``Windows Commands``  
 
 ## License
 
