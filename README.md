@@ -42,15 +42,9 @@ Written in GML, Ninty is a launcher based on the *Nintendo Switch* interface mai
 ### Links
 
 -  [**★/ Ninty Launcher** (Discord)](https://discord.gg/DAGBtS7) - For sharing icons and themes.
-- [**Icon List** (Google Docs)](https://drive.google.com/file/d/1De2fetYIGIpMm-Ki0c9DQCAV4i93UTLO)
+- [**Ninty Launcher Manual** (Wiki)](https://github.com/MarioSilvaGH/Ninty-Launcher/wiki) - User guide, troubleshooting and instructions on how to compile the project.
+- [**Predefined Thumbnails List** (Google Docs)](https://drive.google.com/file/d/1De2fetYIGIpMm-Ki0c9DQCAV4i93UTLO)
 -   [**Source Code** (Main Branch)](https://github.com/MarioSilvaGH/Ninty-Launcher/tree/master)
-
-## Compiling
-
-In order to compile you will need:  
-• *GameMaker Studio 1.4.9999* or newer.
-
->  The source code is currently commented only in Portuguese.
 
 ## Credits
 
