@@ -33,23 +33,23 @@ Written in GML, Ninty is a launcher based on the *Nintendo Switch* interface mai
 
 #### Ninty Launcher
 
-- [**⬇ DOWNLOAD**](https://github.com/MarioSilvaGH/Ninty-Launcher/releases/tag/v1.9.3) -  Version: ``1.9.3``
+- [**⬇ DOWNLOAD**](https://github.com/ninstar/Ninty-Launcher/releases/tag/v1.9.4) -  Version: ``1.9.4``
 	- [x] Executable ``Windows, 32/64 bit``
 	- [x] 6 Sample themes / wallpapers
 	- [x] Animated thumbnail example
-	- [x] [Changelog](https://github.com/MarioSilvaGH/Ninty-Launcher/blob/master/CHANGELOG.txt)
+	- [x] [Changelog](https://github.com/ninstar/Ninty-Launcher/blob/master/CHANGELOG.txt)
 
 ### Links
 
 -  [**★/ Ninty Launcher** (Discord)](https://discord.gg/DAGBtS7) - For sharing icons and themes.
-- [**Ninty Launcher Manual** (Wiki)](https://github.com/MarioSilvaGH/Ninty-Launcher/wiki) - User guide, troubleshooting and instructions on how to compile the project.
-- [**Predefined Thumbnails List** (Google Docs)](https://drive.google.com/file/d/1De2fetYIGIpMm-Ki0c9DQCAV4i93UTLO)
--   [**Source Code** (Main Branch)](https://github.com/MarioSilvaGH/Ninty-Launcher/tree/master)
+- [**Ninty Launcher Manual** (Wiki)](https://github.com/ninstar/Ninty-Launcher/wiki) - User guide, troubleshooting and instructions on how to compile the project.
+- [**Ninty Launcher - Database** (Main Branch)](https://github.com/ninstar/NL-TitleDB/tree/main)
+-   [**Source Code** (Main Branch)](https://github.com/ninstar/Ninty-Launcher/tree/master)
 
 ## Credits
 
 **Design, Character & Program**  
-* Mario Silva (Nin★)  
+* Nin★ (NinStar)  
 
 **Original Logo Design**  
 * Biel98765  
@@ -58,13 +58,13 @@ Written in GML, Ninty is a launcher based on the *Nintendo Switch* interface mai
 * GlitchyPSI ``Spanish``
 * Biel98765 & Lake ``English``
 * Majora03 ``French``
-* Mario Silva (Nin★) ``Portuguese``
+* Nin★ (NinStar) ``Portuguese``
 * MasterXYZ ``Italian``
 * VECTORKNICKER ``Polish``
 * MaxNox ``Russian``  
 
 **Sample Themes**  
-* Mario Silva (Nin★)  
+* Nin★ (NinStar) 
 
 **Extensions**  
 * [Aouab](https://discord.gg/Kvt4av6) ``Discord RPC Wrapper``
@@ -73,10 +73,10 @@ Written in GML, Ninty is a launcher based on the *Nintendo Switch* interface mai
 
 ## License
 
-This project is licensed under the ***MIT License***, refer to ``LICENSE.md`` (alternatively this [link](https://github.com/MarioSilvaGH/Ninty-Launcher/blob/master/LICENSE.md)) for more information.
+This project is licensed under the ***MIT License***, refer to ``LICENSE.md`` (alternatively this [link](https://github.com/ninstar/Ninty-Launcher/blob/master/LICENSE.md)) for more information.
 
-[badge-size]: https://img.shields.io/github/repo-size/MarioSilvaGH/Ninty-Launcher?color=black&label=Size&logo=github&logoColor=white&style=flat-square
-[badge-patreon]: https://img.shields.io/endpoint.svg?url=https%3A%2F%2Fshieldsio-patreon.herokuapp.com%2Fninstar&label=Patreon&logoColor=white&style=flat-square
+[badge-size]: https://img.shields.io/github/repo-size/ninstar/Ninty-Launcher?color=black&label=Size&logo=github&logoColor=white&style=flat-square
+[badge-patreon]: https://img.shields.io/badge/dynamic/json?query=data.attributes.patron_count&suffix=%20patrons&url=https%3A%2F%2Fwww.patreon.com%2Fapi%2Fcampaigns%2F2890526&label=Patreon&logo=patreon&logoColor=white&color=%23e85b46&style=flat-square
 [badge-discord]: https://img.shields.io/discord/574569573458771968?color=7289da&label=Discord&logo=discord&logoColor=white&style=flat-square
 [badge-blog]: https://img.shields.io/static/v1?color=E87700&label=Blog&logo=blogger&logoColor=white&message=Ninty+Launcher&style=flat-square
 
