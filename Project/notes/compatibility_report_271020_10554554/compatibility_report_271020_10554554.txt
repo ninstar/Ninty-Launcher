@@ -1,0 +1,284 @@
+Converting GML script: ${project_dir}\scripts\discord_init_app\discord_init_app.gml
+Converted description /// @description discord_init_app(ClientID)
+/// @param ClientID
+
+Converting GML script: ${project_dir}\scripts\discord_update_presence\discord_update_presence.gml
+Converted description /// @description discord_update_presence(details,status,large_image_key,small_image_key)
+/// @param details
+/// @param status
+/// @param large_image_key
+/// @param small_image_key
+
+Converting GML script: ${project_dir}\scripts\find_game\find_game.gml
+Converted description /// @description find_predefined_game(name,index)
+/// @param name
+/// @param index
+Converted string - line 10: "network\appdb.ini" -> "network\\appdb.ini"
+Converted string - line 16: "network\appdb.ini" -> "network\\appdb.ini"
+Converted string - line 26: "network\appdb.ini" -> "network\\appdb.ini"
+Converted string - line 72: "network\appdb.ini" -> "network\\appdb.ini"
+
+macOS icon ${options_dir}\mac\icons\icon512.png written out as 32-bit
+Windows NSIS Installer Script has been set to default due to changes in GameMaker Studio 2
+Converting GML script: ${project_dir}\scripts\ExecuteShell\ExecuteShell.gml
+Converted description /// @description ExecuteShell(fname,wait,hidden)
+/// @param fname
+/// @param wait
+/// @param hidden
+
+Converting GML script: ${project_dir}\scripts\get_anim_frames\get_anim_frames.gml
+Converted description /// @description get_anim_frames(filename,index)
+/// @param filename
+/// @param index
+
+Converting GML script: ${project_dir}\scripts\get_anim_speed\get_anim_speed.gml
+Converted description /// @description get_anim_speed(filename,index)
+/// @param filename
+/// @param index
+
+Converting GML script: ${project_dir}\scripts\audio_play_sfx\audio_play_sfx.gml
+Converted description /// @description audio_play_sfx(sound)
+/// @param sound
+
+Converting GML script: ${project_dir}\scripts\draw_text_shadow\draw_text_shadow.gml
+Converted description /// @description draw_text_shadow(x,y,string)
+/// @param x
+/// @param y
+/// @param string
+
+Font fnt_default has been converted to font family Inter UI (Regular)
+GameMaker Studio 1 font texture has been backed up at ${project_dir}\fonts\fnt_default\fnt_default.gms1.png
+Font fnt_small has been converted to font family Inter UI (Regular)
+GameMaker Studio 1 font texture has been backed up at ${project_dir}\fonts\fnt_small\fnt_small.gms1.png
+Font fnt_clock has been converted to font family Inter UI (Regular)
+GameMaker Studio 1 font texture has been backed up at ${project_dir}\fonts\fnt_clock\fnt_clock.gms1.png
+Converting GML script: ${project_dir}\objects\oDownloader\Other_62.gml
+Converted description /// @description Baixar...
+Converted string - line 13: "network\NETWORK.cfg" -> "network\\NETWORK.cfg"
+Converted string - line 23: "network\appdb.ini" -> "network\\appdb.ini"
+
+Converting GML script: ${project_dir}\objects\oDownloader\Other_2.gml
+Converted string - line 18: "network\NETWORK.cfg" -> "network\\NETWORK.cfg"
+Converted string - line 31: "network\NETWORK.cfg" -> "network\\NETWORK.cfg"
+
+Converting GML script: ${project_dir}\objects\oLauncher\Create_0.gml
+Converted description /// @description NNITY LAUNCHER
+
+Converting GML script: ${project_dir}\objects\oLauncher\Alarm_11.gml
+Converted description /// @description Mover arquivos
+Converted string - line 4: "collection\game_" -> "collection\\game_"
+Converted string - line 22: "collection\game_" -> "collection\\game_"
+Converted string - line 22: "collection\game_" -> "collection\\game_"
+Converted string - line 23: "collection\game_" -> "collection\\game_"
+Converted string - line 23: "collection\game_" -> "collection\\game_"
+Converted string - line 45: "collection\game_" -> "collection\\game_"
+Converted string - line 53: "collection\game_TMP.png" -> "collection\\game_TMP.png"
+Converted string - line 53: "collection\game_" -> "collection\\game_"
+Converted string - line 54: "collection\game_TMP.ini" -> "collection\\game_TMP.ini"
+Converted string - line 54: "collection\game_" -> "collection\\game_"
+
+Converting GML script: ${project_dir}\objects\oLauncher\Alarm_10.gml
+Converted description /// @description Organizar arquivos
+Converted string - line 17: "collection\game_" -> "collection\\game_"
+Converted string - line 17: "collection\game_" -> "collection\\game_"
+Converted string - line 18: "collection\game_" -> "collection\\game_"
+Converted string - line 18: "collection\game_" -> "collection\\game_"
+Converted string - line 32: "collection\_total.ini" -> "collection\\_total.ini"
+
+Converting GML script: ${project_dir}\objects\oLauncher\Alarm_9.gml
+Converted description /// @description Modificar Jogo
+Converted string - line 5: "collection\game_" -> "collection\\game_"
+Converted string - line 5: "thumbnail\original_anim" -> "thumbnail\\original_anim"
+Converted string - line 10: "\" -> "\\"
+Converted string - line 12: "\" -> "\\"
+Converted string - line 23: "thumbnail\" -> "thumbnail\\"
+Converted string - line 31: "collection\game_" -> "collection\\game_"
+Converted string - line 39: "collection\game_" -> "collection\\game_"
+Converted string - line 78: "collection\game_" -> "collection\\game_"
+
+Converting GML script: ${project_dir}\objects\oLauncher\Alarm_8.gml
+Converted description /// @description Wallpaper
+
+Converting GML script: ${project_dir}\objects\oLauncher\Alarm_7.gml
+Converted description /// @description Adicionar Jogo
+Converted string - line 28: "collection\game_" -> "collection\\game_"
+Converted string - line 110: "collection\game_" -> "collection\\game_"
+Converted string - line 123: "collection\_total.ini" -> "collection\\_total.ini"
+
+Converting GML script: ${project_dir}\objects\oLauncher\Alarm_6.gml
+Converted description /// @description Alterar nome do jogo
+Converted string - line 10: "collection\game_" -> "collection\\game_"
+
+Converting GML script: ${project_dir}\objects\oLauncher\Alarm_5.gml
+Converted description /// @description Nova update?
+Converted string - line 4: "network\NETWORK.cfg" -> "network\\NETWORK.cfg"
+
+Converting GML script: ${project_dir}\objects\oLauncher\Alarm_4.gml
+Converted description /// @description Definir fullscreen
+
+Converting GML script: ${project_dir}\objects\oLauncher\Alarm_3.gml
+Converted description /// @description Centralizar janela
+
+Converting GML script: ${project_dir}\objects\oLauncher\Alarm_2.gml
+Converted description /// @description Retomar launcher
+Converted string - line 31: "collection\game_" -> "collection\\game_"
+Converted string - line 51: "\gameboot.bat" -> "\\gameboot.bat"
+
+Converting GML script: ${project_dir}\objects\oLauncher\Alarm_1.gml
+Converted description /// @description Iniciar jogo
+Converted string - line 18: '"' -> "\""
+Converted string - line 18: 'gameboot.bat"' -> "gameboot.bat\""
+
+Converting GML script: ${project_dir}\objects\oLauncher\Alarm_0.gml
+Converted description /// @description Preparar para iniciar jogo
+Converted string - line 54: 'cd "' -> "cd \""
+Converted string - line 54: '"' -> "\""
+Converted string - line 55: 'start "Ninty_Software" ' -> "start \"Ninty_Software\" "
+Converted string - line 55: '' -> ""
+Converted string - line 55: '' -> ""
+Converted string - line 55: '"' -> "\""
+Converted string - line 55: '"' -> "\""
+Converted string - line 56: 'start "Ninty_Software" ' -> "start \"Ninty_Software\" "
+Converted string - line 56: '' -> ""
+Converted string - line 56: '' -> ""
+Converted string - line 56: '"' -> "\""
+Converted string - line 56: '" ' -> "\" "
+
+Converting GML script: ${project_dir}\objects\oLauncher\Step_0.gml
+Converted description /// @description Controladores
+Converted string - line 449: '#' -> "#"
+Converted string - line 745: '"' -> "\""
+Converted string - line 745: '"' -> "\""
+Converted string - line 1337: "collection\game_" -> "collection\\game_"
+Converted string - line 1337: "collection\game_TMP.ini" -> "collection\\game_TMP.ini"
+Converted string - line 1338: "collection\game_" -> "collection\\game_"
+Converted string - line 1338: "collection\game_TMP.png" -> "collection\\game_TMP.png"
+Converted string - line 1419: "collection\game_" -> "collection\\game_"
+Converted string - line 1438: "\" -> "\\"
+Converted string - line 1439: "\*" -> "\\*"
+Converted string - line 1447: '"' -> "\""
+Converted string - line 1447: '"' -> "\""
+
+Converting GML script: ${project_dir}\objects\oLauncher\Other_60.gml
+Converted description /// @description Mover imagem para destino após baixar (Adicionar jogo)
+/// @param Adicionar jogo
+Converted string - line 9: "collection\game_" -> "collection\\game_"
+
+Converting GML script: ${project_dir}\objects\oLauncher\Other_17.gml
+Converted description /// @description Remover jogo
+Converted string - line 12: "collection\game_" -> "collection\\game_"
+Converted string - line 13: "collection\game_" -> "collection\\game_"
+Converted string - line 33: "collection\_total.ini" -> "collection\\_total.ini"
+
+Converting GML script: ${project_dir}\objects\oLauncher\Other_16.gml
+Converted description /// @description Definições de Display
+
+Converting GML script: ${project_dir}\objects\oLauncher\Other_15.gml
+Converted description /// @description Interface gráfica
+Converted string - line 461: "collection\game_" -> "collection\\game_"
+
+Converting GML script: ${project_dir}\objects\oLauncher\Other_14.gml
+Converted description /// @description Salvar configurações do Launcher
+
+Converting GML script: ${project_dir}\objects\oLauncher\Other_13.gml
+Converted description /// @description Textos predefinidos (Idioma)
+/// @param Idioma
+
+Converting GML script: ${project_dir}\objects\oLauncher\Other_12.gml
+Converted description /// @description Descarregar assets (RAM)
+/// @param RAM
+
+Converting GML script: ${project_dir}\objects\oLauncher\Other_11.gml
+Converted description /// @description Carregar assets (Jogos, Thumbnails e Wallpaper)
+/// @param Jogos
+/// @param  Thumbnails e Wallpaper
+Converted string - line 52: "collection\_total.ini" -> "collection\\_total.ini"
+Converted string - line 64: "collection\game_" -> "collection\\game_"
+Converted string - line 78: "collection\game_" -> "collection\\game_"
+Converted string - line 79: "collection\game_" -> "collection\\game_"
+
+Converting GML script: ${project_dir}\objects\oLauncher\Other_10.gml
+Converted description /// @description Discord RPC padrão
+
+Converting GML script: ${project_dir}\objects\oLauncher\Other_3.gml
+Converted description /// @description Salvar
+Converted string - line 31: "\gameboot.bat" -> "\\gameboot.bat"
+
+Converting GML script: ${project_dir}\objects\oLauncher\Other_2.gml
+Converted description /// @description Carregar definições
+
+Converting GML script: ${project_dir}\objects\oLauncher\Draw_64.gml
+Converted description /// @description Renderização: 1
+
+Converting GML script: ${project_dir}\objects\oLauncher\Draw_0.gml
+Converted description /// @description Renderização: 0
+
+Converting GML script: ${project_dir}\objects\oNinny\Alarm_2.gml
+Converted description /// @description Animação blink - recomeçar
+
+Converting GML script: ${project_dir}\objects\oNinny\Alarm_1.gml
+Converted description /// @description Animação (Out)
+/// @param Out
+
+Converting GML script: ${project_dir}\objects\oNinny\Alarm_0.gml
+Converted description /// @description Animação (In)
+/// @param In
+
+Converting GML script: ${project_dir}\objects\oNinny\Other_12.gml
+Converted description /// @description Avançar (Animações)
+/// @param Animações
+
+Converting GML script: ${project_dir}\objects\oNinny\Other_7.gml
+Converted description /// @description Animação blink - delay
+
+Converting GML script: ${project_dir}\objects\oNinny\Draw_64.gml
+Converted description /// @description Renderização: 1
+
+Converting GML script: ${project_dir}\objects\oNinny\Draw_0.gml
+Converted description /// @description Renderização: 0
+
+Converting GML script: ${project_dir}\objects\oNinny\KeyPress_1.gml
+Converted description /// @description Avançar
+
+Converting GML script: ${project_dir}\objects\oAudioPlayer\Create_0.gml
+Converted description /// @description Aguardar para...
+
+Converting GML script: ${project_dir}\objects\oAudioPlayer\Alarm_1.gml
+Converted description /// @description Tocar música
+
+Converting GML script: ${project_dir}\objects\oAudioPlayer\Alarm_0.gml
+Converted description /// @description Carregar música
+
+Converting GML script: window_command_hook.gml
+Converted description /// @description  (index): Hooks the specified command 
+/// @param index
+
+Converting GML script: window_command_hook.gml
+Converted description /// @description  (index):
+/// @param index
+
+Converting GML script: window_command_hook.gml
+Converted description /// @description  (index, param = 0):
+/// @param index
+/// @param  param = 0
+
+Converting GML script: window_command_hook.gml
+Converted description /// @description  (command): Returns whether the given command is currently available.
+/// @param command
+
+Converting GML script: window_command_hook.gml
+Converted description /// @description  (command, status:bool): Enables/disables the command. Returns -1 if not possible.
+/// @param command
+/// @param  status:bool
+
+Converting GML script: window_command_hook.gml
+Converted description /// @description  (stayontop:bool): Allows to set a window to show on top of the rest like with GM8.
+/// @param stayontop:bool
+
+Game speed set to 60
+Added compatibility script 'background/draw_background_tiled_ext.gml'
+Added compatibility script 'instance/instance_create.gml'
+Added compatibility script 'object/object_get_depth.gml'
+Added compatibility script 'background/__init_background.gml'
+Added compatibility script '__init_global.gml'
+Added compatibility script '__global_object_depths.gml'

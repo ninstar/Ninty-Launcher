@@ -68,7 +68,6 @@ Written in GML, Ninty is a launcher based on the *Nintendo Switch* interface mai
 
 **Extensions**  
 * [Aouab](https://discord.gg/Kvt4av6) ``Discord RPC Wrapper``
-* [Samuel Venable](https://github.com/time-killer-games/DialogModule/) ``Dialog Module``
 * [YellowAfterlife](https://bitbucket.org/yal_cc/window_commands/) ``Windows Commands``  
 
 ## License

@@ -1,5 +1,6 @@
 [1.9.4] ------------------------
 
+- Fixed fullscreen mode
 - Updated URL references
 - Revamped icons and fonts
 - Fixed framerate bug (Windows 10)
