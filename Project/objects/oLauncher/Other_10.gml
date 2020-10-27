@@ -18,7 +18,8 @@ else{
 
 if(nativerpc == 1){
 	
-	setLargeImageText("rpc_"+string(iconrpc));
+	setLargeImageKey("rpc_"+string(iconrpc));
+	setLargeImageText("Ninty Launcher "+string(version_string));
 	setDetails(emoji_games+string(games_total)+" "+text_rpc[1]);
 	setState(emoji_lib+text_rpc[0]);
 	UpdatePresence();

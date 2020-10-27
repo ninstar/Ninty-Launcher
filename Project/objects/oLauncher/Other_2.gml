@@ -5,6 +5,7 @@ async_thumbnail = -1; //<[Número do icone na base de dados]
 
 //Versão
 version = 194;
+version_string = "1.9.4";
 version_new = 0; //< Essa é apenas para comparação
 version_url = "https://";
 

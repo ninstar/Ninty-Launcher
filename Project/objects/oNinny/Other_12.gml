@@ -185,7 +185,7 @@ if(alarm[0] == -1)
         with(oLauncher)
             settingsmenu_select = 5;
         with(oDownloader)
-            downloading = 1;
+            downloading = 0;
          
         //Highlight    
         def_highlight = 1;

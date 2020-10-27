@@ -33,7 +33,8 @@ if(boot_wait != ""){
         if(boot_attach == ""){
 			
 			//RPC
-			setLargeImageText("rpc_"+string(iconrpc));
+			setLargeImageKey("rpc_"+string(iconrpc));
+			setLargeImageText("Ninty Launcher "+string(version_string));
 			setDetails(emoji_playing+string(games_title[select_index]));
 			setState(emoji_games+string(games_total)+" "+text_rpc[1]);
 			UpdatePresence();
@@ -49,7 +50,8 @@ if(boot_wait != ""){
                 stp = string_length(stg);
         
 			//RPC
-			setLargeImageText("rpc_"+string(iconrpc));
+			setLargeImageKey("rpc_"+string(iconrpc));
+			setLargeImageText("Ninty Launcher "+string(version_string));
 			setDetails(emoji_playing+string_copy(stg,1,stp));
 			setState(emoji_forward+string(games_title[select_index]));
 			UpdatePresence();
