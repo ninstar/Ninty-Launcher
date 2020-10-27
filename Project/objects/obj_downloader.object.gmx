@@ -27,7 +27,7 @@
             <kind>1</kind>
             <string>///Baixar...
 
-//1. Baixar  "dynamic.ini"
+//1. Baixar  "NETWORK.cfg"
 if(ds_map_find_value(async_load,"id") == async_redirect){
 
     //Se download finalizar (0) ou falhar (-1)...
@@ -37,15 +37,26 @@ if(ds_map_find_value(async_load,"id") == async_redirect){
         downloading = 0;
         
         //Ler dados
-        ini_open(game_save_id+"network\dynamic.ini");
+        ini_open(game_save_id+"network\NETWORK.cfg");
+        global.redirect_about = ini_read_string("URL","page","hpps://");
         global.redirect_appdb = ini_read_string("REDIRECT","appdb","hpps://");
-        global.redirect_updatelog = ini_read_string("REDIRECT","updatelog","hpps://");
-        global.redirect_about = ini_read_string("REDIRECT","about","hpps://");
         ini_close();
         
-        //Buscar por "appdb.ini" e "updatelog.ini"
+        //Buscar por "appdb.ini"
         if(os_is_network_connected())
-            event_user(1);
+        &amp;&amp;(obj_launcher.updatedatabase == 1){
+        
+            downloading = 1;
+            async_appdb = http_get_file(global.redirect_appdb,game_save_id+"network\appdb.ini");
+        }
+        else{
+        
+            //Preparar pop-up no launcher
+            with(obj_launcher){
+                if(updateninty == 1)
+                    alarm[5] = 15;
+            }
+        }
     }
     //Ainda baixando...
     else
@@ -56,77 +67,20 @@ if(ds_map_find_value(async_load,"id") == async_redirect){
 if(ds_map_find_value(async_load,"id") == async_appdb){
 
     //Se download finalizar...
-    if(ds_map_find_value(async_load,"status") &lt; 1)
-        downloading = 0;
-    else
-        downloading = 1;
-};
-if(ds_map_find_value(async_load,"id") == async_updatelog){
-
-    //Se download finalizar...
     if(ds_map_find_value(async_load,"status") &lt; 1){
     
         //Finalizado
         downloading = 0;
         
         //Preparar pop-up no launcher
-        with(obj_launcher)
-            alarm[5] = 15;
+        with(obj_launcher){
+            if(updateninty == 1)
+                alarm[5] = 15;
+        }
     }
     else
         downloading = 1;
 };
-</string>
-          </argument>
-        </arguments>
-      </action>
-    </event>
-    <event eventtype="7" enumb="11">
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string>///"appdb.ini" e "updatelog.ini"
-if(obj_launcher.updatedatabase == 1) async_appdb = http_get_file(global.redirect_appdb,game_save_id+"network\appdb.ini");
-if(obj_launcher.updateninty == 1) async_updatelog = http_get_file(global.redirect_updatelog,game_save_id+"network\updatelog.ini");
-downloading = 1;
-</string>
-          </argument>
-        </arguments>
-      </action>
-    </event>
-    <event eventtype="7" enumb="10">
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string>///"dynamic.ini"
-async_redirect = http_get_file("https://pastebin.com/raw/K5DXv8HY",game_save_id+"network\dynamic.ini");
-downloading = 1;
 </string>
           </argument>
         </arguments>
@@ -143,7 +97,7 @@ downloading = 1;
         <exetype>2</exetype>
         <functionname></functionname>
         <codestring></codestring>
-        <whoName>self</whoName>
+        <whoName>other</whoName>
         <relative>0</relative>
         <isnot>0</isnot>
         <arguments>
@@ -153,32 +107,33 @@ downloading = 1;
 downloading = 0;
 async_redirect = noone;
 async_appdb = noone;
-async_updatelog = noone;
-if(file_exists(global.assets_dir+"redirect.cfg")){
 
-    //Redirecionamento customizado (Prioritario)
-    ini_open(global.assets_dir+"redirect.cfg");
-    global.redirect_appdb = ini_read_string("REDIRECT","appdb","hpps://");
-    global.redirect_updatelog = ini_read_string("REDIRECT","updatelog","hpps://");
-    global.redirect_about = ini_read_string("REDIRECT","about","hpps://");
-    ini_close();
-    
-    //Buscar por "appdb.ini" e "updatelog.ini"
-    if(os_is_network_connected())
-        event_user(1);
+// Base de dados
+global.DatabaseURL = "";
+var _URL_Path = global.assets_dir+"database.cfg";
+if(file_exists(_URL_Path)){
+
+    var _URL_File = file_text_open_read(_URL_Path);
+    global.DatabaseURL = file_text_read_string(_URL_File);
+    file_text_close(_URL_File);
 }
-else{
 
-    //Redirecionamente dinamico
-    ini_open(game_save_id+"network\dynamic.ini");
-    global.redirect_appdb = ini_read_string("REDIRECT","appdb","hpps://");
-    global.redirect_updatelog = ini_read_string("REDIRECT","updatelog","hpps://");
-    global.redirect_about = ini_read_string("REDIRECT","about","hpps://");
-    ini_close();
+//Redirecionamente dinamico
+ini_open(game_save_id+"network\NETWORK.cfg");
+global.redirect_about = ini_read_string("URL","page","hpps://");
+global.redirect_appdb = ini_read_string("REDIRECT","appdb","hpps://");
+ini_close();
 
-    //Buscar por "dynamic.ini" mais recente
-    if(os_is_network_connected())
-        event_user(0);
+//Override
+ini_open(global.assets_dir+"NETWORK.cfg");
+if(ini_key_exists("REDIRECT","appdb"))  global.redirect_appdb = ini_read_string("REDIRECT","appdb","hpps://");
+ini_close();
+
+//Buscar por "NETWORK.cfg" mais recente
+if(os_is_network_connected()){
+
+    async_redirect = http_get_file(global.DatabaseURL,game_save_id+"network\NETWORK.cfg");
+    downloading = 1;
 }
 </string>
           </argument>

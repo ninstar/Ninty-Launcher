@@ -205,7 +205,7 @@
     <option_argumenterrors>True</option_argumenterrors>
     <option_audioGroup1_targets>9223372036854775807</option_audioGroup1_targets>
     <option_audioGroupCount>2</option_audioGroupCount>
-    <option_author>Mario Silva</option_author>
+    <option_author>NinStar</option_author>
     <option_backimage>nil</option_backimage>
     <option_borderless>True</option_borderless>
     <option_changed>false</option_changed>
@@ -497,13 +497,13 @@
     <option_variableerrors>False</option_variableerrors>
     <option_version>100</option_version>
     <option_version_build>0</option_version_build>
-    <option_version_company>Mario Silva (NinStar)</option_version_company>
-    <option_version_copyright></option_version_copyright>
+    <option_version_company>NinStar</option_version_company>
+    <option_version_copyright>NinStar</option_version_copyright>
     <option_version_description>Ninty Launcher</option_version_description>
     <option_version_major>1</option_version_major>
     <option_version_minor>9</option_version_minor>
     <option_version_product>Ninty Launcher</option_version_product>
-    <option_version_release>3</option_version_release>
+    <option_version_release>4</option_version_release>
     <option_win8_advertising_appid></option_win8_advertising_appid>
     <option_win8_advertising_enable>0</option_win8_advertising_enable>
     <option_win8_advertising_key></option_win8_advertising_key>
@@ -577,8 +577,8 @@
     <option_windowcolor>clBlack</option_windowcolor>
     <option_windows_alternate_sync_method>False</option_windows_alternate_sync_method>
     <option_windows_build_version>0</option_windows_build_version>
-    <option_windows_company_info>Mario Silva (NinStar)</option_windows_company_info>
-    <option_windows_copyright_info></option_windows_copyright_info>
+    <option_windows_company_info>NinStar</option_windows_company_info>
+    <option_windows_copyright_info>NinStar</option_windows_copyright_info>
     <option_windows_create_textures_on_demand>False</option_windows_create_textures_on_demand>
     <option_windows_description_info>Ninty Launcher</option_windows_description_info>
     <option_windows_enable_steam>0</option_windows_enable_steam>
@@ -588,17 +588,17 @@
     <option_windows_major_version>1</option_windows_major_version>
     <option_windows_nsis_file>Configs\Default\windows\RunnerInstaller.nsi</option_windows_nsis_file>
     <option_windows_product_info>Ninty Launcher</option_windows_product_info>
-    <option_windows_release_version>3</option_windows_release_version>
+    <option_windows_release_version>4</option_windows_release_version>
     <option_windows_runner_finished>Configs\Default\windows\Runner_finish.bmp</option_windows_runner_finished>
     <option_windows_runner_header>Configs\Default\windows\Runner_header.bmp</option_windows_runner_header>
     <option_windows_save_location>0</option_windows_save_location>
-    <option_windows_sleep_margin>1</option_windows_sleep_margin>
+    <option_windows_sleep_margin>10</option_windows_sleep_margin>
     <option_windows_splash_background_colour>#000000</option_windows_splash_background_colour>
     <option_windows_splash_screen>Configs\Default\windows\splash.png</option_windows_splash_screen>
     <option_windows_steam_app_id>0</option_windows_steam_app_id>
     <option_windows_texture_page>2048</option_windows_texture_page>
     <option_windows_use_splash>0</option_windows_use_splash>
-    <option_windows_vertex_buffer_method2>2</option_windows_vertex_buffer_method2>
+    <option_windows_vertex_buffer_method2>0</option_windows_vertex_buffer_method2>
     <option_winphone_480_splash_image>Configs\Default\WinPhone\SplashScreenImage480.jpg</option_winphone_480_splash_image>
     <option_winphone_720_splash_image>Configs\Default\WinPhone\SplashScreenImage720.jpg</option_winphone_720_splash_image>
     <option_winphone_768_splash_image>Configs\Default\WinPhone\SplashScreenImage.jpg</option_winphone_768_splash_image>

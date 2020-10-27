@@ -3,7 +3,24 @@
   <Configs name="configs">
     <Config>Configs\Default</Config>
   </Configs>
-  <datafiles number="128" name="datafiles">
+  <datafiles number="129" name="datafiles">
+    <datafile>
+      <name>database.cfg</name>
+      <exists>-1</exists>
+      <size>65</size>
+      <exportAction>2</exportAction>
+      <exportDir></exportDir>
+      <overwrite>0</overwrite>
+      <freeData>-1</freeData>
+      <removeEnd>0</removeEnd>
+      <store>0</store>
+      <ConfigOptions>
+        <Config name="Default">
+          <CopyToMask>9223372036854775807</CopyToMask>
+        </Config>
+      </ConfigOptions>
+      <filename>database.cfg</filename>
+    </datafile>
     <datafile>
       <name>filemng.dll</name>
       <exists>-1</exists>
@@ -224,13 +241,11 @@
       <script>scripts\cleanmem.gml</script>
     </scripts>
     <script>scripts\find_game.gml</script>
-    <script>scripts\execute_game.gml</script>
     <script>scripts\ExecuteShell.gml</script>
     <script>scripts\get_anim_frames.gml</script>
     <script>scripts\get_anim_speed.gml</script>
     <script>scripts\audio_play_sfx.gml</script>
     <script>scripts\draw_text_shadow.gml</script>
-    <script>scripts\remove_tag.gml</script>
   </scripts>
   <fonts name="fonts">
     <font>fonts\fnt_default</font>

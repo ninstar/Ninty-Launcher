@@ -1,3 +1,9 @@
+[1.9.4] ------------------------
+
+- Updated URL references
+- Revamped icons and fonts
+- Fixed framerate bug (Windows 10)
+
 [1.9.3] ------------------------
 
 + Dynamic metadata for automatic thumbnails and update log.
