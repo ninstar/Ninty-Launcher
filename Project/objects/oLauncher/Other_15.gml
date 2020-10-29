@@ -510,7 +510,7 @@ if(forwarder_fade > 0){
     
     //Total
     if(forwarder_total > 0)
-        draw_text(350,630-128+(128*forwarder_fade)-3,string_hash_to_newline(string(forwarder_select)+" / "+string(forwarder_total-1)));
+        draw_text(350,630-128+(128*forwarder_fade)-3,string_hash_to_newline(string(forwarder_select)+" / "+string(forwarder_total)));
     else{
     
         //Destino não localizado
@@ -547,59 +547,54 @@ if(forwarder_fade > 0){
     
     //Lista de arquivos (16 são apresentados)
     var l;
-    var l_end = clamp(forwarder_listoffset,forwarder_listoffset+15,forwarder_total);
+    var l_end = clamp(forwarder_listoffset, forwarder_listoffset+15, forwarder_total+1);
     for(l=forwarder_listoffset; l<l_end; l+=1){
     
-        //Se não for um arquivo inválido
-        if!(is_undefined(ds_map_find_value(forwarder_list,string(l)+"_r"))){
-           
-            //Seletor
-            if(forwarder_select == l){
+        //Seletor
+        if(forwarder_select == l){
             
-                draw_sprite_ext(spr_submneu_selector,theme+1,350,125+((l*32)-(forwarder_listoffset*32))-128+(128*forwarder_fade),1,1,0,c_white,forwarder_fade);
-                draw_sprite_ext(spr_submneu_selector,0,350,125+((l*32)-(forwarder_listoffset*32))-128+(128*forwarder_fade),1,1,0,merge_colour(c_col_l,c_col_d,col_numb),forwarder_fade);
-                draw_set_color(merge_colour(c_col_l,c_col_d,col_numb));
+            draw_sprite_ext(spr_submneu_selector,theme+1,350,125+((l*32)-(forwarder_listoffset*32))-128+(128*forwarder_fade),1,1,0,c_white,forwarder_fade);
+            draw_sprite_ext(spr_submneu_selector,0,350,125+((l*32)-(forwarder_listoffset*32))-128+(128*forwarder_fade),1,1,0,merge_colour(c_col_l,c_col_d,col_numb),forwarder_fade);
+            draw_set_color(merge_colour(c_col_l,c_col_d,col_numb));
                 
-                //Extensão
-                if(l > 0){
+            //Extensão
+            if(l > 0){
                 
-                    //Pasta
-                    if(forwarder_subfolder == "")
-                    &&(file_attributes(games_forwarder[select_index]+ds_map_find_value(forwarder_list,string(l)+"_r"),fa_directory))
-                        draw_sprite_ext(spr_settings_icons,0,902,132+((l*32)-(forwarder_listoffset*32))-128+(128*forwarder_fade),1,1,0,merge_colour(c_col_l,c_col_d,col_numb),forwarder_fade);                        
-                    else{
+                //Pasta
+                if(forwarder_subfolder == "")
+                &&(file_attributes(games_forwarder[select_index]+ds_map_find_value(forwarder_list,string(l-1)+"_r"),fa_directory) == false)
+                    draw_sprite_ext(spr_settings_icons,0,902,132+((l*32)-(forwarder_listoffset*32))-128+(128*forwarder_fade),1,1,0,merge_colour(c_col_l,c_col_d,col_numb),forwarder_fade);
+                else{
                     
-                        //Extensão normal
-                        draw_set_halign(fa_right);
-                        draw_text(350+584,125+((l*32)-(forwarder_listoffset*32))-128+(128*forwarder_fade),string_hash_to_newline(string_upper(ds_map_find_value(forwarder_list,string(l)+"_e"))));
-                    }
-                    draw_set_halign(fa_left);
+                    //Extensão normal
+                    draw_set_halign(fa_right);
+                    draw_text(350+584,125+((l*32)-(forwarder_listoffset*32))-128+(128*forwarder_fade),string_hash_to_newline(string_upper(ds_map_find_value(forwarder_list,string(l-1)+"_e"))));
                 }
-            }
-            
-            //Cor do tema
-            if(theme == 0)
-                draw_set_color(c_black);
-            else
-                draw_set_color(c_white);
-                    
-            //Iniciar sem jogo
-            if(l == 0){
-            
-                draw_text(350,125+((l*32)-(forwarder_listoffset*32))-128+(128*forwarder_fade),string_hash_to_newline(text_forwarder[0])); 
-            }
-            else{
-                
-                //Arquivo
-                if(file_attributes(games_forwarder[select_index]+ds_map_find_value(forwarder_list,string(l)+"_r"), fa_directory))
-                    draw_text(350,125+((l*32)-(forwarder_listoffset*32))-128+(128*forwarder_fade),string_hash_to_newline(string_copy(ds_map_find_value(forwarder_list,string(l)+"_r"),1,32)));
-                else
-                    draw_text(350,125+((l*32)-(forwarder_listoffset*32))-128+(128*forwarder_fade),string_hash_to_newline(string_copy(string_replace(ds_map_find_value(forwarder_list,string(l)+"_r"),"."+ds_map_find_value(forwarder_list,string(l)+"_e"),""),1,32)));
-                draw_set_color(c_white);
+                draw_set_halign(fa_left);
             }
         }
+            
+        //Cor do tema
+        if(theme == 0)
+            draw_set_color(c_black);
+        else
+            draw_set_color(c_white);
+                    
+        //Iniciar sem jogo
+        if(l == 0){
+            
+            draw_text(350,125+((l*32)-(forwarder_listoffset*32))-128+(128*forwarder_fade),string_hash_to_newline(text_forwarder[0])); 
+        }
+        else{
+                
+            //Arquivo
+            if(file_attributes(games_forwarder[select_index]+ds_map_find_value(forwarder_list,string(l-1)+"_r"), fa_readonly) == false)
+                draw_text(350,125+((l*32)-(forwarder_listoffset*32))-128+(128*forwarder_fade),string_hash_to_newline(string_copy(ds_map_find_value(forwarder_list,string(l-1)+"_r"),1,32)));
+            else
+                draw_text(350,125+((l*32)-(forwarder_listoffset*32))-128+(128*forwarder_fade),string_hash_to_newline(string_copy(string_replace(ds_map_find_value(forwarder_list,string(l-1)+"_r"),"."+ds_map_find_value(forwarder_list,string(l-1)+"_e"),""),1,32)));
+            draw_set_color(c_white);
+        }
     }
-    
     
     //Resetar
     draw_set_alpha(1);

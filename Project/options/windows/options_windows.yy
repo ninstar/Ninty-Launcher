@@ -1,7 +1,7 @@
 {
   "option_windows_display_name": "Ninty Launcher",
   "option_windows_executable_name": "${project_name}.exe",
-  "option_windows_version": "1.9.4.0",
+  "option_windows_version": "1.9.5.0",
   "option_windows_company_info": "NinStar",
   "option_windows_product_info": "Ninty Launcher",
   "option_windows_copyright_info": "NinStar",

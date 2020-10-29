@@ -33,7 +33,7 @@ Written in GML, Ninty is a launcher based on the *Nintendo Switch* interface mai
 
 #### Ninty Launcher
 
-- [**⬇ DOWNLOAD**](https://github.com/ninstar/Ninty-Launcher/releases/tag/v1.9.4) -  Version: ``1.9.4``
+- [**⬇ DOWNLOAD**](https://github.com/ninstar/Ninty-Launcher/releases/tag/v1.9.5) -  Version: ``1.9.5``
 	- [x] Executable ``Windows, 32/64 bit``
 	- [x] 6 Sample themes / wallpapers
 	- [x] Animated thumbnail example

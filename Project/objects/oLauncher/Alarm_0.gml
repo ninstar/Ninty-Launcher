@@ -43,7 +43,7 @@ if(boot_wait != ""){
         
             //Remover tags
             var stg,stp;
-            stg =  string_copy(string_replace(ds_map_find_value(forwarder_list,string(forwarder_select)+"_r"),"."+ds_map_find_value(forwarder_list,string(forwarder_select)+"_e"),""),1,32);
+            stg =  string_copy(string_replace(ds_map_find_value(forwarder_list,string(forwarder_select-1)+"_r"),"."+ds_map_find_value(forwarder_list,string(forwarder_select-1)+"_e"),""),1,32);
             if(string_pos("(",stg) > 0)
                 stp = string_pos("(",stg)-1;
             else

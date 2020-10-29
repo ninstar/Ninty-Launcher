@@ -1,3 +1,8 @@
+[1.9.5] ------------------------
+
+- Fixed list displaying (forwarder embed)
+- Fixed extension filter (forwarder embed)
+
 [1.9.4] ------------------------
 
 - Updated URL references

@@ -25,56 +25,11 @@ else
 
 //------------- Forwarder -------------
 
-//SE for permitido buscar níveis...
+//SE for permitido buscar arquivos...
 if(forwarder_find == 1){
     
     //Enquanto existir algum arquivo durante busca...
-    while(forwarder_file != undefined){
-   
-        //Se não tiver nenhum arquivo...   
-        if(forwarder_file == undefined)
-        ||(forwarder_file == ""){
-            
-            //Terminar busca
-            file_find_close();
-          
-            //Parar permissão de busca
-            forwarder_find = 0;
-            forwarder_total--;
-            
-            //Posicionar seletor
-            if(forwarder_total > 0)
-            &&(forwarder_subfolder == ""){
-            
-                if(games_subselect[select_index] > forwarder_total){
-            
-                    if(forwarder_total > 14)
-                        forwarder_listoffset = forwarder_total-15;
-                    else
-                        forwarder_listoffset = 0;
-                        
-                    forwarder_select = forwarder_total-1;
-                }
-                else{
-            
-                    if(games_subselect[select_index] > 14)
-                        forwarder_listoffset = games_subselect[select_index]-14;
-                    else
-                        forwarder_listoffset = 0;
-                        
-                    forwarder_select = games_subselect[select_index];
-                }
-            }          
-            else
-                forwarder_select = 0;
-            
-            //Parar loop
-            break;
-            exit;
-        }
-               
-        //Buscar pelo próximo
-        forwarder_file = file_find_next();
+    while(forwarder_file != ""){
         
         //Incluir NOME REAL (Com extensão) do arquivo a lista
         ds_map_add(forwarder_list,string(forwarder_total)+"_r",filename_name(forwarder_file));
@@ -84,7 +39,40 @@ if(forwarder_find == 1){
 
         //Incrementar total de aquivos
         forwarder_total++;
+		
+        //Buscar pelo próximo
+        forwarder_file = file_find_next();
     }
+	
+	//Parar buscar
+	forwarder_find = 0;
+	file_find_close();
+	
+    //Posicionar seletor
+    if(forwarder_total > 0)
+    &&(forwarder_subfolder == ""){
+            
+        if(games_subselect[select_index] > forwarder_total){
+            
+            if(forwarder_total > 14)
+                forwarder_listoffset = forwarder_total-14;
+            else
+                forwarder_listoffset = 0;
+                        
+            forwarder_select = forwarder_total;
+        }
+        else{
+            
+            if(games_subselect[select_index] > 14)
+                forwarder_listoffset = games_subselect[select_index]-14;
+            else
+                forwarder_listoffset = 0;
+                        
+            forwarder_select = games_subselect[select_index];
+        }
+    }          
+    else
+        forwarder_select = 0;
 }
 
 //------------- Cor Seletor -------------
@@ -755,12 +743,12 @@ if(forwarder == 1)
         
         //Selecionar
         var f;
-        for(f=0; f<15; f+=1){
+        for(f=0; f<14; f+=1){
         
             if(mouse_y > 125+(32*f)){
             
                 if(forwarder_select > forwarder_listoffset-1)
-                if(forwarder_select < forwarder_listoffset+15)
+                if(forwarder_select < forwarder_listoffset+14)
                     forwarder_select = f+forwarder_listoffset;
             }
         }
@@ -785,7 +773,7 @@ if(forwarder == 1)
             nav_time = 2;
             
             //Próximo
-            if(forwarder_select < forwarder_total-1){
+            if(forwarder_select < forwarder_total){
             
                 forwarder_select++;
                 if(forwarder_select > forwarder_listoffset+14)
@@ -822,8 +810,8 @@ if(forwarder == 1)
             else{
             
                 if(forwarder_total > 14)
-                    forwarder_listoffset = forwarder_total-15;
-                forwarder_select = forwarder_total-1;
+                    forwarder_listoffset = forwarder_total-14;
+                forwarder_select = forwarder_total;
                 audio_play_sfx(snd_select_border);
             }
         }
@@ -835,7 +823,7 @@ if(forwarder == 1)
     if(keyboard_check_pressed(vk_down)){
         
         //Próximo
-        if(forwarder_select < forwarder_total-1){
+        if(forwarder_select < forwarder_total){
         
             forwarder_select++;
             if(forwarder_select > forwarder_listoffset+14)
@@ -864,8 +852,8 @@ if(forwarder == 1)
         else{
         
             if(forwarder_total > 14)
-                forwarder_listoffset = forwarder_total-15;
-            forwarder_select = forwarder_total-1;
+                forwarder_listoffset = forwarder_total-14;
+            forwarder_select = forwarder_total;
             audio_play_sfx(snd_select_border);
         }
     }
@@ -1402,43 +1390,43 @@ if(games_total > 0)
                     &&(forwarder_find == 0){
                     
                         //Abrir subpasta
-                        if(file_attributes(games_forwarder[select_index]+ds_map_find_value(forwarder_list,string(forwarder_select)+"_r"), fa_directory))
-                        &&(forwarder_subfolder == ""){
+                        if(file_attributes(games_forwarder[select_index]+ds_map_find_value(forwarder_list,string(forwarder_select-1)+"_r"), fa_directory) == false)
+						&&(forwarder_subfolder == ""){
                             
-                            var _f_path = string(ds_map_find_value(forwarder_list,string(forwarder_select)+"_r"));
-                            var _f_name = string(ds_map_find_value(forwarder_list,string(forwarder_select)+"_r"));
+	                            var _f_path = string(ds_map_find_value(forwarder_list,string(forwarder_select-1)+"_r"));
+	                            var _f_name = string(ds_map_find_value(forwarder_list,string(forwarder_select-1)+"_r"));
                             
-                            //Salvar posição
-                            games_subselect[select_index] = forwarder_select;
-                            ini_open(game_save_id+"collection\\game_"+string(select_index)+".ini");
-                            ini_write_string("NINTY_ENTRY","subselect",string(forwarder_select));
-                            ini_close();
+	                            //Salvar posição
+	                            games_subselect[select_index] = forwarder_select-1;
+	                            ini_open(game_save_id+"collection\\game_"+string(select_index)+".ini");
+	                            ini_write_string("NINTY_ENTRY","subselect",string(forwarder_select-1));
+	                            ini_close();
                             
-                            //Limpar lista anterior
-                            ds_map_clear(forwarder_list);
+	                            //Limpar lista anterior
+	                            ds_map_clear(forwarder_list);
                             
-                            //SFX
-                            audio_play_sfx(snd_window_open);
+	                            //SFX
+	                            audio_play_sfx(snd_window_open);
                             
-                            //Reiniciar posição e total
-                            forwarder_select = 0;
-                            forwarder_total = 0;
-                            forwarder_listoffset = 0;
+	                            //Reiniciar posição e total
+	                            forwarder_select = 0;
+	                            forwarder_total = 0;
+	                            forwarder_listoffset = 0;
                             
-                            //Lembrar que subpasta foi aberta
-                            forwarder_subfolder = string_copy(_f_name,0,32)+"*";
+	                            //Lembrar que subpasta foi aberta
+	                            forwarder_subfolder = string_copy(_f_name,0,32)+"*";
                             
-                            //Procurar primeiro arquivo dentro da subpasta de destino...
-                            forwarder_subfolder_path = filename_name(_f_path)+"\\";
-                            forwarder_file = file_find_first(games_forwarder[select_index]+_f_path+"\\*",fa_directory);
+	                            //Procurar primeiro arquivo dentro da subpasta de destino...
+	                            forwarder_subfolder_path = filename_name(_f_path)+"\\";
+	                            forwarder_file = file_find_first(games_forwarder[select_index]+_f_path+"\\*",0);
                                 
-                            //Permitir procurar próximos
-                            forwarder_find = 1;
+	                            //Permitir procurar próximos
+	                            forwarder_find = 1;
                             
-                            exit;
+							exit;
                         }
                         else
-                            boot_attach = "\""+games_forwarder[select_index]+forwarder_subfolder_path+string(ds_map_find_value(forwarder_list,string(forwarder_select)+"_r"))+"\"";
+                            boot_attach = "\""+games_forwarder[select_index]+forwarder_subfolder_path+string(ds_map_find_value(forwarder_list,string(forwarder_select-1)+"_r"))+"\"";
                     }
                     else
                         boot_attach = "";
@@ -1467,6 +1455,3 @@ if(os_is_paused())
     //SFX
     audio_play_sfx(snd_launcher_close);
 }
-
-/* */
-/*  */
