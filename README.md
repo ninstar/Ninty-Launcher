@@ -40,7 +40,7 @@ Written in GML, Ninty is a launcher based on the *Nintendo Switch* interface mai
 
 This project is licensed under the ***MIT License***.
 
-[link-itchio]:https://ninstario.itch.io/ninty
+[link-itchio]:https://ninstars.itch.io/ninty
 [link-discord]:https://invite.gg/ninstar
 [link-kofi]:https://ko-fi.com/ninstar
 [link-patreon]:https://www.patreon.com/ninstar
