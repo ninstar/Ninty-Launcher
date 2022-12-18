@@ -15,8 +15,7 @@ A launcher based on the Nintendo Switch designed to organize your emulators, fan
 
 <img src="https://i.imgur.com/XmZu2Ez.png" alt="File Launcher" width="50%"><img src="https://i.imgur.com/VsTwmBe.png" alt="Activity Status" width="50%">
 
-
-[<p align="center"><img src="https://static.itch.io/images/badge-color.svg?sanitize=true" alt="AVAILABLE ON itch.io" width="40%"></p>][download]
+<p align="center"><a href="https://ninstars.itch.io/ninty"><img src="https://static.itch.io/images/badge-color.svg?sanitize=true" alt="AVAILABLE ON itch.io" width="40%"></a></p>
 
 - **Discover new themes and icons in our [Discord][discord] ★**
 - Learn how to make your own themes: [Guide][guide]
@@ -46,7 +45,6 @@ git clone https://github.com/ninstar/Ninty-Launcher.git
 - **Sample Themes** - NinStar
 
 [home]: ninstars.blogspot.com/p/ninty.html
-[download]: https://ninstars.itch.io/ninty
 [guide]: https://github.com/ninstar/Ninty-Launcher/wiki
 [database]: https://github.com/ninstar/Ninty-Launcher-DB
 [gamemaker]: https://gamemaker.io/
