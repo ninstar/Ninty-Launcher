@@ -1,10 +1,10 @@
-[<img src="https://i.imgur.com/c7NMuRG.png" alt="Ninty Launcher" width="100%">][home]
+[<img src="./.github/banner.svg" alt="Ninty Launcher" width="100%">][home]
 
 # Overview
 
 A launcher based on the Nintendo Switch designed to organize your emulators, fangames and modding tools. It can also be used with a wide variety of softwares.
 
-<img src="https://i.imgur.com/8bjthMi.gif" alt="Sample Themes" width="100%">
+<img src="./.github/themes.gif" alt="Themes" width="100%">
 
 ## Features
 
@@ -13,7 +13,7 @@ A launcher based on the Nintendo Switch designed to organize your emulators, fan
 - Dedicated menu for launching applications and games with specific files.
 - Personalized Discord activity status for games that does not have one.
 
-<img src="https://i.imgur.com/XmZu2Ez.png" alt="File Launcher" width="50%"><img src="https://i.imgur.com/VsTwmBe.png" alt="Activity Status" width="50%">
+<img src="./.github/file_launcher.png" alt="File Launcher" width="50%"><img src="./.github/activity_status.png" alt="Activity Status" width="50%">
 
 <p align="center"><a href="https://ninstars.itch.io/ninty"><img src="https://static.itch.io/images/badge-color.svg?sanitize=true" alt="AVAILABLE ON itch.io" width="40%"></a></p>
 
@@ -44,7 +44,7 @@ git clone https://github.com/ninstar/Ninty-Launcher.git
 	- **Russian** - MaxNox
 - **Sample Themes** - NinStar
 
-[home]: ninstars.blogspot.com/p/ninty.html
+[home]: https://ninstars.blogspot.com/p/ninty.html
 [guide]: https://github.com/ninstar/Ninty-Launcher/wiki
 [database]: https://github.com/ninstar/Ninty-Launcher-DB
 [gamemaker]: https://gamemaker.io/
