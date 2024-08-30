@@ -48,4 +48,4 @@ git clone https://github.com/ninstar/Ninty-Launcher.git
 [guide]: https://github.com/ninstar/Ninty-Launcher/wiki
 [database]: https://github.com/ninstar/Ninty-Launcher-DB
 [gamemaker]: https://gamemaker.io/
-[discord]: https://discord.gg/DAGBtS7
+[discord]: https://discord.gg/wZGW8DZ
